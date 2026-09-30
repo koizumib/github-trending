@@ -1,0 +1,30 @@
+{
+  "repo": "debpalash/VoiceStudio",
+  "summarized_at": "2026-09-30",
+  "short": "声のクローン、テキスト読み上げ（TTS）、文字起こし、動画の吹き替えを手元の PC で動かすデスクトップアプリ。ElevenLabs のような音声 SaaS の代わりを、ローカルのモデルでやる位置づけ。OpenAI 互換の API と MCP も出すので、スクリプトや AI エージェントからも呼べる。",
+  "what": "音声合成・声のクローン・文字起こし・吹き替えをローカルで行う Electron 製のデスクトップアプリ（裏側は Python の API サーバー）。",
+  "can_do": [
+    "短い録音から声をクローンし、その声でテキストを読み上げる",
+    "文章で説明して新しい声を作る（voice design）",
+    "動画の音声を文字起こしし、別の言語の音声に吹き替える",
+    "マイク入力の口述筆記（画面に浮かぶ小さなウィジェット）と、音声ファイルの文字起こし",
+    "長い文章からオーディオブックを作る、まとめて処理する（batch）",
+    "ローカルの HTTP API（OpenAI 互換の /v1 あり）と MCP サーバーで、外のツールから使う"
+  ],
+  "how_to_use": "macOS / Linux は `curl -fsSL https://voicestudio.sh/install | sh` で入る。Windows は Releases のインストーラーを使う。Docker で動かす手順もある。起動したら Voice cloning を開き、声を選ぶか参考の録音を足して、テキストを入れて生成する。モデルは初回に求められたときにダウンロードする。",
+  "use_cases": [
+    "社内向けの手順動画やデモ動画に、ナレーションや英語の吹き替えを付けるのに使えそう",
+    "会議の録音を外部のサービスに出さずに文字起こしするのに使えそう",
+    "運用の通知（障害の読み上げなど）を、MCP や API 経由で自分のスクリプトから音声にするのに使えそう"
+  ],
+  "for_whom": "音声の SaaS にデータを出したくない人、GPU のある手元の PC で音声 AI を試したい人",
+  "similar": [
+    "ElevenLabs：同じ種類の機能を持つクラウドの有料サービス。こちらはローカルで動く",
+    "Whisper / WhisperX：文字起こしの部分。こちらは中で WhisperX を使い、読み上げや吹き替えまでまとめたアプリ"
+  ],
+  "tech": "Python（torch、transformers、WhisperX、pyannote など）の API サーバーと、Electron の画面。Bun と Node.js でビルドする。GPU は NVIDIA（CUDA）と Apple Silicon（MPS / MLX）を使い、なければ CPU で動くが数倍遅い。Windows で GPU が効くのは NVIDIA だけ。",
+  "caveats": "ライセンスは AGPL-3.0（別に商用ライセンスあり）。使うモデルごとにライセンスが違うので、商用で使う前に確認が要る。インストーラーは署名・公証されておらず、OS の警告が出る。デスクトップの画面を Tauri から Electron に作り直したばかり（v0.5 系）。作られて約半年。「646 言語」は README の主張で、確かめていない。声のクローンは本人の許可を取って使うよう README にも書かれている。",
+  "sources": ["meta", "readme", "tree", "manifest:pyproject.toml", "manifest:package.json", "release", "docs/performance.md"],
+  "confidence": "high",
+  "confidence_note": ""
+}

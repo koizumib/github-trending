@@ -1,0 +1,30 @@
+{
+  "repo": "NVIDIA/OpenShell",
+  "summarized_at": "2026-09-30",
+  "short": "AI エージェントを sandbox に閉じ込めて動かす実行基盤。触ってよいファイル・システムコール・通信先をポリシーで決め、カーネルの機能で強制する。API キーなどの認証情報はエージェントに見せず、許可した宛先への通信にだけ付け足す。",
+  "what": "AI エージェントを隔離した sandbox で動かし、ファイル・プロセス・ネットワークへのアクセスをポリシーで制御する実行基盤（Rust 製の CLI と gateway）。",
+  "can_do": [
+    "エージェントごとに sandbox を作る（Docker、Podman、VM、Kubernetes を下回りに選べる）",
+    "ファイルアクセスとシステムコールを Landlock と seccomp で制限する",
+    "外への通信を gateway で1本ずつポリシーと照らし、許可した宛先だけ通す",
+    "認証情報は sandbox の外に置き、許可した宛先へのリクエストにだけ gateway が付け足す（Vault などと連携）",
+    "ポリシーを変える前に、新しく許すことになるアクセスを Z3（SMT solver）で洗い出し、人の承認待ちにする",
+    "Python、TypeScript、Go、Rust の SDK から gateway を操作する"
+  ],
+  "how_to_use": "`curl -LsSf https://raw.githubusercontent.com/NVIDIA/OpenShell/main/install.sh | sh` で CLI と手元の gateway が入る。`openshell sandbox create --name demo` で sandbox ができる。初期のイメージは最小の Ubuntu でエージェントは入っていないので、公式ドキュメントの「Run Your First Agent」に沿って OpenCode などを入れて動かす。",
+  "use_cases": [
+    "Claude Code や Codex のようなコーディングエージェントに、本番の認証情報を渡さずに作業させるのに使えそう",
+    "エージェントが勝手に外部へデータを送らないよう、通信先を allowlist で絞るのに使えそう",
+    "Kubernetes 上に gateway を Helm で置き、チームで使うエージェントの実行環境をまとめて管理するのに使えそう"
+  ],
+  "for_whom": "AI エージェントを業務で動かしたいが、権限と認証情報の扱いが心配な人。sandbox やネットワークポリシーを設計・運用する側の人",
+  "similar": [
+    "gVisor / Firecracker：隔離の仕組みそのもの。こちらはその上で、エージェント向けのポリシーと認証情報の受け渡しまで扱う",
+    "E2B：AI エージェント用のクラウド sandbox サービス。こちらは自分の環境に置いて動かす"
+  ],
+  "tech": "Rust（CLI、gateway、supervisor）。Landlock、seccomp、Z3、kube-rs、OpenTelemetry。Linux、Apple Silicon の macOS、WSL 2 の Windows（試験的）で動き、Docker・Podman・ホストの仮想化のどれかが要る。Kubernetes に置くときは NetworkPolicy を強制できる CNI が要る。",
+  "caveats": "0.1 系になったばかりで、README にもアップグレードの注意がある。作られて約7か月。匿名のテレメトリを送るのが既定（`OPENSHELL_TELEMETRY_ENABLED=false` で止められる）。「formal verification」はポリシーの変更の差分を Z3 で調べることを指していて、sandbox 全体の安全性を証明するものではないと思われる。",
+  "sources": ["meta", "readme", "tree", "manifest:Cargo.toml", "release", "crates/openshell-sandbox/Cargo.toml"],
+  "confidence": "high",
+  "confidence_note": ""
+}

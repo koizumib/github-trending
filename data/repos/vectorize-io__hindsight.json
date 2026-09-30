@@ -1,0 +1,33 @@
+{
+  "repo": "vectorize-io/hindsight",
+  "summarized_at": "2026-09-30",
+  "short": "AI エージェントに長期の記憶を持たせるための記憶サーバー。会話や出来事を LLM で事実・人物・時間に分解して PostgreSQL に貯め、あとで意味検索・キーワード・関係・時間の4通りで引き出す。自前で動かせるほか、同じものをクラウドの有料サービスでも出している。",
+  "what": "AI エージェント向けの長期記憶を、LLM で整理して貯め、検索して返すサーバー（REST API と MCP、各言語の SDK 付き）。",
+  "can_do": [
+    "retain：文章を渡すと、LLM が事実・登場する物や人・日時・関係を抜き出して保存する",
+    "recall：ベクトル検索、BM25、関係のグラフ、時間の範囲の4通りで探し、並べ替えて返す",
+    "reflect：貯めた記憶をもとに、LLM がまとめて考えた答えを返す",
+    "記憶を bank という単位（ユーザーごと、エージェントごとなど）で分ける",
+    "裏で似た事実をまとめて「observation」にし、決まった質問の答え（mental model）を書き直し続ける",
+    "OpenAI / Anthropic の SDK を包むだけで、呼び出しの前後に自動で記憶を読み書きする（LiteLLM 経由）",
+    "Claude Code、Codex、Cursor などのコーディングエージェントに、git の履歴などからリポジトリごとの記憶を足す",
+    "保存の前に秘密情報や個人情報を検出して伏せる（opt-in）"
+  ],
+  "how_to_use": "Docker で `ghcr.io/vectorize-io/hindsight:latest` を動かす（LLM の API キーを環境変数で渡す。API は 8888、画面は 9999 番）。`pip install hindsight-client` して `client.retain(bank_id=..., content=...)` と `client.recall(bank_id=..., query=...)` を呼ぶ。Python からサーバーなしで試すなら `pip install hindsight-all`。Helm chart もある。",
+  "use_cases": [
+    "社内の問い合わせ Bot に、ユーザーごとの過去のやり取りを覚えさせるのに使えそう",
+    "コーディングエージェントに、リポジトリの約束事や過去の作業の経緯を覚えさせるのに使えそう",
+    "障害対応の記録を貯めておき、「前に似たことはあったか」を時間の範囲つきで引くのに使えそう"
+  ],
+  "for_whom": "LLM を使ったアプリやエージェントを作っていて、会話の履歴を越えた長期の記憶が要る人",
+  "similar": [
+    "Mem0：同じくエージェント向けの記憶の層。こちらは時間や関係での検索と、reflect のような推論を前に出している",
+    "Zep（Graphiti）：時間つきの knowledge graph で記憶を持つ点が近い",
+    "素の RAG（ベクトル DB）：文書を検索するだけ。こちらは LLM で事実を抜き出して整理してから貯める"
+  ],
+  "tech": "Python の API サーバー。PostgreSQL + pgvector（組み込みの pg0 も可）、または Oracle Database 23ai。記憶の整理に外部の LLM を使い、OpenAI、Anthropic、Gemini、Bedrock、Ollama などから選べる。Prometheus の metrics がある。Linux、macOS、Windows で動く。",
+  "caveats": "retain のたびに LLM を呼ぶので、使った分だけ LLM の費用がかかる（ローカルの LLM にすれば API の費用はかからない）。LLM ラッパーの既定の接続先は、開発元の有料クラウド（Hindsight Cloud）なので、自前のサーバーを使うなら URL を指定する。README の「最も正確」はベンチマーク（LongMemEval）上の主張。バージョンはまだ 0.x。",
+  "sources": ["meta", "readme", "tree", "manifest:pyproject.toml", "manifest:package.json", "release"],
+  "confidence": "high",
+  "confidence_note": ""
+}
