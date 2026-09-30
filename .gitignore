@@ -1,4 +1,5 @@
 .venv/
+.work/
 site/
 .env
 __pycache__/

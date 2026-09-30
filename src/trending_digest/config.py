@@ -15,7 +15,6 @@ ROOT = Path(__file__).resolve().parents[2]
 @dataclass(frozen=True)
 class Config:
     new_window_days: int = 10
-    model: str = "claude-sonnet-5-5"
     max_summaries_per_day: int = 15
     site_base_url: str = ""
     timezone: str = "Asia/Tokyo"
