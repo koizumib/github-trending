@@ -1,5 +1,6 @@
-# 毎朝 9:00（日本時間）に、今日の分が届いているかを確かめる。
-# 届いていなければ（routine が動かなかった、Trending を読み取れなかった）Discord に知らせる。
+# 毎朝 9:00（日本時間）の見張り。
+# - 今日の分を取得できていなければ、Discord に知らせる
+# - 今日の分をまだ Discord に送っていなければ（routine が失敗した日、要約が0件の日）、要約のあるなしにかかわらず送る
 name: 見張り
 
 on:
@@ -8,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   watchdog:
@@ -25,7 +26,20 @@ jobs:
       - name: 依存を入れる
         run: pip install -e .
 
-      - name: 今日の分があるか確かめる
+      - name: 今日の分を確かめる
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python -m trending_digest watchdog
+
+      - name: 送った日を data/notified.json に記録する
+        run: |
+          if [ -z "$(git status --porcelain -- data/notified.json)" ]; then
+            echo "記録することはない"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/notified.json
+          git commit -m "Discord に送った日を記録 [skip ci]"
+          git pull --rebase
+          git push

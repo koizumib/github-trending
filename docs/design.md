@@ -32,40 +32,50 @@
 
 ## 2. 役割の分け方
 
-判断が要る仕事は Claude Code に、毎回同じ結果になるべき仕事はスクリプトと Actions に任せる。
+判断が要る仕事は Claude Code に、毎回同じ結果になるべき仕事はスクリプトと Actions に任せる（`docs/decisions/0007-prepare-on-actions.md`）。
 
 | 担当 | やること | 判断の有無 |
 |---|---|---|
-| Python スクリプト（`prepare`） | Trending の取得、new／continuing の分類、調べる材料の下集め | なし（決定的） |
+| GitHub Actions（`prepare.yml`） | Trending の取得、new／continuing の分類、材料の下集め（GitHub API） | なし（決定的） |
 | **Claude Code の routine** | 材料を読み、足りなければリポジトリを自分で調べ、要約の JSON を書く | **あり** |
 | Python スクリプト（`validate`） | 要約の JSON の形を検査する | なし |
-| GitHub Actions | サイトの生成、Pages への公開、Discord への通知 | なし |
+| GitHub Actions（`daily.yml`、`watchdog.yml`） | サイトの生成、Pages への公開、Discord への通知、見張り | なし |
+
+routine（クラウドの実行環境）からは、GitHub API でほかのリポジトリを読めない（割り当てたリポジトリ以外への API 呼び出しは中継に止められる）。そのため材料集めは Actions で行う。
 
 ## 3. 全体の流れ
 
 ```
- ① Claude Code routine（毎朝 7:00 ごろ・日本時間。クラウドで動く）
-    │  リポジトリを clone した状態で始まる
+ ① GitHub Actions（prepare.yml、毎朝 6:00 ごろ・日本時間）
     ├─ python -m trending_digest prepare
-    │     Trending を取得 → data/daily/YYYY-MM-DD.json、history.json を更新
-    │     new のものについて GitHub API で材料を下集め → .work/{owner}__{name}/
-    │     調べるべき一覧 → .work/queue.json
-    ├─ Claude が queue の1件ずつについて
+    │     Trending（デイリー・ウィークリー・マンスリー）を取得
+    │     → data/daily/、data/weekly/、data/monthly/、history.json を更新
+    │     要約する対象について GitHub API で材料を下集め → .work/{owner}__{name}/、.work/queue.json
+    ├─ data/ を main に push（[skip ci]：この push では公開も通知もしない）
+    ├─ .work/ の中身を work ブランチに上書きで push
+    └─ 失敗したら Discord に知らせる
+                │
+ ② Claude Code の routine（毎朝 7:00 ごろ。クラウドで動く）
+    ├─ work ブランチの材料を .work/ に展開（今日の分が来るまで最大30分待つ）
+    ├─ queue の1件ずつについて
     │     .work/ の材料を読む → 足りなければ自分で調べる（§5）
     │     → data/repos/{owner}__{name}.json を書く
     ├─ python -m trending_digest validate   （形が崩れていたら直す）
-    └─ git commit & push
+    └─ git commit & push（main）
                 │
                 ▼ push をきっかけに動く
- ② GitHub Actions（daily.yml）
+ ③ GitHub Actions（daily.yml）
     ├─ python -m trending_digest build   data/ → site/
     ├─ actions/deploy-pages で GitHub Pages に公開
     └─ python -m trending_digest notify  Discord に送る（その日の分を1回だけ）
+
+ ④ GitHub Actions（watchdog.yml、毎朝 9:00）
+    ├─ 今日の data/daily/ がなければ「取得に失敗した」と Discord に送る
+    └─ 今日の分をまだ送っていなければ、要約のあるなしにかかわらず送る
 ```
 
-- `.work/` は routine の中だけで使う作業場所で、コミットしない
+- `.work/` は作業場所で、`main` にはコミットしない。`work` ブランチは毎回1コミットだけの状態で上書きする
 - データ（`data/`）はコミットする。HTML（`site/`）はコミットせず、毎回 `data/` から作り直す
-- 見張り：Actions の別の workflow（`watchdog.yml`）が毎朝 9:00 に動き、その日の `data/daily/` がなければ「今日の routine が動いていない」と Discord に送る
 
 ## 4. データの形
 

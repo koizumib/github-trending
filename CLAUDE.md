@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 trending-digest（仮称）は、**GitHub Trending に新しく上がったリポジトリを毎朝日本語で要約し、静的サイトと Discord 通知で届けるツール**です。
 
-- 毎朝、Claude Code の routine（クラウドでの定期実行）が動きます。`prepare` スクリプトで Trending を取得・分類し、新しく上がったリポジトリを Claude Code が調べて要約の JSON を書き、push します。
+- 毎朝 6:00 ごろ、GitHub Actions が `prepare` で Trending を取得・分類し、材料を集めます（data/ は main に、材料は work ブランチに）。7:00 ごろ、Claude Code の routine（クラウドでの定期実行）が材料を読んで要約の JSON を書き、push します。
 - push をきっかけに GitHub Actions が動き、`data/` から HTML を生成して GitHub Pages に公開し、Discord に通知します。
 - Claude API は使いません（契約していません）。要約を書くのは routine の中の Claude Code だけです。
 

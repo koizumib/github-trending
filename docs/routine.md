@@ -5,21 +5,31 @@
 ## 守ること
 
 - **コードは直さない。** `src/`、`tests/`、`schemas/`、`docs/`、`config.yaml`、`.github/` は触りません。手順どおりにできないことがあっても、コードを直して切り抜けようとせず、下の「うまくいかないとき」に従います。
-- **書いてよいのは次の2つだけ**：`data/repos/{owner}__{name}.json`（要約）と、今日の `data/daily/YYYY-MM-DD.json` の `errors`。`history.json`、`daily` の `items`、`weekly/`、`monthly/` は `prepare` が書くので、手で変えません。
+- **書いてよいのは次の2つだけ**：`data/repos/{owner}__{name}.json`（要約）と、今日の `data/daily/YYYY-MM-DD.json` の `errors`。`history.json`、`daily` の `items`、`weekly/`、`monthly/` は Actions の `prepare` が書くので、手で変えません。
 - **`.work/` と `site/` はコミットしない。**
 - **行儀よく取得する。** homepage は1件につきトップページを1回だけ取りに行きます。同じサイトに続けて取りに行くときは1秒以上間を空けます。
 
 ## 1. 準備
 
+Trending の取得と材料集め（`prepare`）は、毎朝 6:00 ごろに GitHub Actions が済ませています。結果は次の2か所にあります。
+
+- `main` の `data/`：今日の `data/daily/YYYY-MM-DD.json`、`weekly/`、`monthly/`、`history.json`
+- `work` ブランチ：要約する対象の材料と、その一覧 `queue.json`
+
+あなたは `prepare` を動かしません（クラウドの環境からは GitHub API でほかのリポジトリを読めないため）。次のコマンドで準備します。
+
 ```bash
 test -x .venv/bin/python || (python3.12 -m venv .venv && .venv/bin/pip install -q -e .)
-.venv/bin/python -m trending_digest prepare
+git pull -q origin main
+TODAY=$(TZ=Asia/Tokyo date +%F); echo "今日は $TODAY"
+git fetch -q origin work && rm -rf .work && mkdir .work && git archive origin/work | tar -x -C .work
+python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 ```
 
 - このツールは Python 3.12 以上が要ります。クラウドの環境では `python3` が 3.11 のことがあるので、必ず `python3.12` で `.venv` を作ります。`python3.12` がなければ `python3.13` を使います。
-
-- `prepare` は、今日の Trending（デイリー・ウィークリー・マンスリー）を取得して `data/daily/`、`data/weekly/`、`data/monthly/`、`data/history.json` を更新し、要約する対象の材料を `.work/` に集めて、一覧を `.work/queue.json` に書きます。
-- **`prepare` が失敗したら**（終了コードが0でない）、デイリーの Trending を読み取れなかったということです（ウィークリー・マンスリーが読めないだけなら、警告を出して続きます）。要約はせず、何もコミットせずに、エラーの内容を報告して終わります。朝の見張り（watchdog）が Discord に知らせます。
+- `.work/` は `.gitignore` 済みです。`git archive` で展開するだけなので、`main` の作業ツリーにもインデックスにも入りません。
+- **最後の行の日付が `$TODAY` と違うとき、または `work` ブランチがないとき**は、Actions の取得がまだ終わっていません。5分待ってから `git fetch` からやり直します。これを6回（30分）繰り返しても今日の日付にならなければ、要約はせず、何もコミットせずに報告して終わります。朝9時の見張り（watchdog）が Discord に知らせます。
+- `queue.json` の `items` が空なら、今日は要約するものがありません。何もコミットせずに、そう報告して終わります（通知は9時の見張りが送ります）。
 
 ## 2. 1件ずつ要約する
 
@@ -55,7 +65,7 @@ test -x .venv/bin/python || (python3.12 -m venv .venv && .venv/bin/pip install -
 材料を読んでも「**これは何をするものか**」を一文で言えないときや、使い方が分からないときは、次の順で調べます。
 
 1. `examples/`、`docs/`、CLI の入口（`main.go`、`cmd/`、`cli.py`、`__main__.py`、`bin/`、`src/main.rs` など）を読みます。1ファイルだけなら `https://raw.githubusercontent.com/{owner}/{name}/{default_branch}/{path}` で読みます。
-2. たくさん読む必要があれば、浅く clone します。`meta.json` の `size` が 100000（KB、約 100MB）を超えるものは clone しません。
+2. たくさん読む必要があれば、浅く clone します。ただし、クラウドの環境では、ほかのリポジトリの clone は止められることがあります。失敗したら clone はあきらめ、1 の方法で必要なファイルだけを読みます。`meta.json` の `size` が 100000（KB、約 100MB）を超えるものは clone しません。
    ```bash
    git clone --depth 1 --quiet https://github.com/{owner}/{name}.git .work/clone/{owner}__{name}
    ```

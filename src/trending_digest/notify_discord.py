@@ -95,6 +95,15 @@ def build_messages(day: str, store: Store, site_base_url: str) -> list[dict]:
     return messages
 
 
+def unsummarized_count(day: str, store: Store) -> int:
+    """その日のカード（new / returning）のうち、要約がまだないものの数。"""
+    daily = store.load_daily(day) or {"items": []}
+    return sum(
+        1 for i in daily["items"]
+        if i["status"] in ("new", "returning") and store.load_summary(i["repo"]) is None
+    )
+
+
 def alert_message(text: str) -> dict:
     return {"content": f"⚠️ trending-digest：{text}"}
 
