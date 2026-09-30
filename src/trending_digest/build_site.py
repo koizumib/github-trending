@@ -47,6 +47,11 @@ def ja_weekday(day: str) -> str:
     return f"{WEEKDAYS[dt.date.fromisoformat(day).weekday()]}曜日"
 
 
+def headline(text: str) -> str:
+    """見出しにするため、末尾の句点を取る（新聞の見出しには「。」を付けない）。"""
+    return text.strip().rstrip("。．.")
+
+
 def repo_wbr(repo: str) -> Markup:
     """owner/name の「/」の後ろで折り返せるようにする（名前の途中で折れないように）。"""
     owner, _, name = repo.partition("/")
@@ -98,6 +103,7 @@ def _env() -> Environment:
     env.filters["ja_ymd"] = ja_ymd
     env.filters["ja_weekday"] = ja_weekday
     env.filters["wbr"] = repo_wbr
+    env.filters["headline"] = headline
     env.filters["lang_color"] = lang_color
     env.filters["rank_tier"] = rank_tier
     return env
