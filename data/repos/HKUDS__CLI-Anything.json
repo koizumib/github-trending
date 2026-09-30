@@ -2,7 +2,7 @@
   "repo": "HKUDS/CLI-Anything",
   "summarized_at": "2026-09-30",
   "short": "既存のソフトウェアを、AI エージェントが CLI で操作できるようにするための仕組みと、その CLI の置き場（CLI-Hub）。ソフトごとの CLI をエージェントに作らせる手順がある。",
-  "what": "GUI ソフトなどを AI エージェント向けの CLI に包む harness の生成手順と、できあがった CLI を配る registry。",
+  "what": "GUI ソフトを AI エージェント用の CLI に変える仕組み",
   "can_do": [
     "`cli-anything-hub` で registry を見て、作られた CLI を `cli-hub install <name>` で入れる",
     "エージェント用の plugin / skill から、7段階の手順で新しい CLI を生成する",

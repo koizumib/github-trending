@@ -38,7 +38,7 @@
     "what": {
       "type": "string",
       "minLength": 5,
-      "maxLength": 200
+      "maxLength": 50
     },
     "can_do": {
       "type": "array",

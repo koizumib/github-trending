@@ -2,7 +2,7 @@
   "repo": "davila7/claude-code-templates",
   "summarized_at": "2026-09-30",
   "short": "Claude Code の設定テンプレート（agents、commands、hooks、MCP など）を選んで入れる CLI。使用状況の監視機能もある。",
-  "what": "Claude Code の設定を配る・入れるためのテンプレート集と、npm で配布される CLI。",
+  "what": "Claude Code の設定テンプレート集と導入用 CLI",
   "can_do": [
     "agents、commands、hooks などのテンプレートを CLI で選んで入れる",
     "Claude Code の動作の監視",

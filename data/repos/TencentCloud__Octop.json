@@ -2,7 +2,7 @@
   "repo": "TencentCloud/Octop",
   "summarized_at": "2026-09-30",
   "short": "自前で動かす、複数ユーザー・複数エージェント対応の AI アシスタント。Web、CLI のほか、Feishu、Telegram、Discord など多数のチャットから使える。",
-  "what": "1プロセスで起動するセルフホストの AI アシスタント基盤（Python 製）。",
+  "what": "セルフホストで動かす AI アシスタント基盤",
   "can_do": [
     "Web dashboard と CLI から使う",
     "Feishu、DingTalk、QQ、WeChat、Telegram、Discord などに接続",

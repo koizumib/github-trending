@@ -2,7 +2,7 @@
   "repo": "NVIDIA/OpenShell",
   "summarized_at": "2026-09-30",
   "short": "AI エージェントを sandbox に閉じ込めて動かす実行基盤。触ってよいファイル・システムコール・通信先をポリシーで決め、カーネルの機能で強制する。API キーなどの認証情報はエージェントに見せず、許可した宛先への通信にだけ付け足す。",
-  "what": "AI エージェントを隔離した sandbox で動かし、ファイル・プロセス・ネットワークへのアクセスをポリシーで制御する実行基盤（Rust 製の CLI と gateway）。",
+  "what": "AI エージェントを sandbox で安全に動かす実行基盤",
   "can_do": [
     "エージェントごとに sandbox を作る（Docker、Podman、VM、Kubernetes を下回りに選べる）",
     "ファイルアクセスとシステムコールを Landlock と seccomp で制限する",

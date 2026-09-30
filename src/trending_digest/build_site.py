@@ -52,6 +52,11 @@ def headline(text: str) -> str:
     return text.strip().rstrip("。．.")
 
 
+def starts_cjk(text: str) -> bool:
+    """最初の1文字が日本語（ひらがな・カタカナ・漢字）か。英字で始まる文は大きな1文字目にしない（単語が割れるため）。"""
+    return bool(text) and ("぀" <= text[0] <= "ヿ" or "一" <= text[0] <= "鿿")
+
+
 def repo_wbr(repo: str) -> Markup:
     """owner/name の「/」の後ろで折り返せるようにする（名前の途中で折れないように）。"""
     owner, _, name = repo.partition("/")
@@ -104,6 +109,7 @@ def _env() -> Environment:
     env.filters["ja_weekday"] = ja_weekday
     env.filters["wbr"] = repo_wbr
     env.filters["headline"] = headline
+    env.tests["cjk_start"] = starts_cjk
     env.filters["lang_color"] = lang_color
     env.filters["rank_tier"] = rank_tier
     return env
@@ -137,24 +143,44 @@ def build_page(store: Store, day: str, period: str) -> dict | None:
         raw = store.load_period(period, day)
         if raw is None:
             return None
-    cards, others = [], []
-    for item in raw["items"]:
-        entry = dict(item, summary=store.load_summary(item["repo"]))
-        if period == "daily" and item.get("status") == "continuing":
-            others.append(entry)
-        else:
-            cards.append(entry)
+    # 全件を順位どおりに記事として並べる（0019）。印（mark・move）は annotate_marks が付ける
+    cards = [dict(item, summary=store.load_summary(item["repo"])) for item in raw["items"]]
     return {
         "date": day,
         "period": period,
         "cards": cards,
-        "continuing": others,
         "errors": raw.get("errors", []) if period == "daily" else [],
-        "count_new": sum(1 for c in cards if c.get("status") == "new"),
-        "count_continuing": len(others),
         "dated_href": dated_href(day, period),
-        "fields": count_fields(cards + others),
+        "fields": count_fields(cards),
     }
+
+
+def annotate_marks(pages: dict, days: list[str]) -> None:
+    """順位の下の印を付ける（0019）。同じ期間の、その日より前でいちばん新しい記録と比べる。
+
+    - mark：「continuing」前回もランク入り／「new」初めて／「returning」以前はあったが前回は圏外
+    - move：前回もランク入りしていれば、順位の差（正なら上がった）
+    ページごとに count_new・count_continuing・count_returning も付ける。
+    """
+    for period in PERIODS:
+        prev_rank: dict[str, int] | None = None
+        ever: set[str] = set()
+        for day in sorted(days):
+            page = pages.get((day, period))
+            if page is None:
+                continue
+            for c in page["cards"]:
+                repo = c["repo"]
+                if prev_rank is not None and repo in prev_rank:
+                    c["mark"], c["move"] = "continuing", prev_rank[repo] - c["rank"]
+                elif repo in ever:
+                    c["mark"], c["move"] = "returning", None
+                else:
+                    c["mark"], c["move"] = "new", None
+            for key in ("new", "continuing", "returning"):
+                page[f"count_{key}"] = sum(1 for c in page["cards"] if c["mark"] == key)
+            prev_rank = {c["repo"]: c["rank"] for c in page["cards"]}
+            ever |= set(prev_rank)
 
 
 def count_fields(items: list[dict], limit: int = 6) -> list[tuple[str, int]]:
@@ -198,6 +224,7 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     day_tpl, repo_tpl, archive_tpl = (env.get_template(f"{n}.html") for n in ("day", "repo", "archive"))
 
     pages = {(d, p): build_page(store, d, p) for d in days for p in PERIODS}
+    annotate_marks(pages, days)
 
     for i, day in enumerate(days):
         for period in PERIODS:
@@ -227,7 +254,7 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     for day in reversed(days):
         for period in ("monthly", "weekly", "daily"):  # 同じ日ならデイリーの値を優先
             page = pages[(day, period)]
-            for item in (page["cards"] + page["continuing"]) if page else []:
+            for item in page["cards"] if page else []:
                 latest_item[item["repo"]] = item
     for path in sorted((store.dir / "repos").glob("*.json")):
         summary = store.load_summary(path.stem.replace("__", "/", 1))

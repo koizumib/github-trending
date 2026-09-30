@@ -2,7 +2,7 @@
   "repo": "pbakaus/impeccable",
   "summarized_at": "2026-09-30",
   "short": "AI コーディングエージェントにフロントエンドのデザイン指針を与える skill。24個のコマンドと、AI 生成っぽいデザインの癖を検出する61のルールを持つ。",
-  "what": "エージェントが作る UI をよくするための design skill と、ルールベースの検出 CLI・ブラウザ拡張。",
+  "what": "エージェントが作る UI の質を上げる design skill",
   "can_do": [
     "`/impeccable init` で PRODUCT.md に製品の前提を書き出す",
     "craft、audit、critique、polish など24コマンド",

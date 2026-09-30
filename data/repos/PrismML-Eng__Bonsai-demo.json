@@ -2,7 +2,7 @@
   "repo": "PrismML-Eng/Bonsai-demo",
   "summarized_at": "2026-09-30",
   "short": "ternary weight の 27B モデル「Bonsai 2」を、Mac や GPU、CPU のローカルで動かすデモ。setup.sh で取得し、chat・画像・tool 呼び出しが使える。",
-  "what": "Bonsai 2 27B をローカルで動かすための起動スクリプトとデモ UI（llama.cpp の fork と MLX）。",
+  "what": "Bonsai 2 27B をローカルで動かすデモ一式",
   "can_do": [
     "`./setup.sh` でモデルと実行用バイナリを取得する",
     "Metal、CUDA、Vulkan、ROCm、CPU で動く",

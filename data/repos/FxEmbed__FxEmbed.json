@@ -2,7 +2,7 @@
   "repo": "FxEmbed/FxEmbed",
   "summarized_at": "2026-09-30",
   "short": "X / Twitter と Bluesky のリンクを Discord や Telegram で埋め込み表示できるようにするサービス。URL の前に fx を付けるだけで使う。",
-  "what": "SNS の投稿リンクを、画像・動画・投票つきで chat に展開させる Cloudflare Worker。FxTwitter、FixupX、FxBluesky の本体。",
+  "what": "SNS の投稿リンクを Discord などで見やすく展開するサービス",
   "can_do": [
     "twitter.com のリンクに `fx` を付ける（fxtwitter.com）",
     "x.com は `fixup` を付ける",

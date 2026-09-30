@@ -2,7 +2,7 @@
   "repo": "elastic/elasticsearch",
   "summarized_at": "2026-09-30",
   "short": "分散型の検索・分析エンジン。全文検索、vector 検索、ログやメトリクスの保存と検索に使われる。Java 製。",
-  "what": "REST API で使う分散検索エンジン兼 vector database。",
+  "what": "分散型の検索エンジン兼 vector database",
   "can_do": [
     "全文検索",
     "vector 検索（RAG 向け）",

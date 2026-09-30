@@ -2,7 +2,7 @@
   "repo": "dream-num/univer",
   "summarized_at": "2026-09-30",
   "short": "表計算（Excel のようなもの）、文書、スライドの編集画面を、自分の Web サービスに埋め込むための TypeScript の SDK。ブラウザでも Node.js でも同じ API で動き、数式エンジンも持つ。最近は、AI エージェントに Office の文書を作らせる土台として売り出している。",
-  "what": "表計算・文書・スライドの編集機能を、自分のアプリに組み込むためのオープンソースの Office SDK（TypeScript、ブラウザと Node.js）。",
+  "what": "表計算・文書の編集画面を組み込める Office SDK",
   "can_do": [
     "Web アプリの中に、表計算や文書の編集画面を埋め込む",
     "独自の数式エンジンで、表計算の数式を計算する",

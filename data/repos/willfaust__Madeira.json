@@ -2,7 +2,7 @@
   "repo": "willfaust/Madeira",
   "summarized_at": "2026-09-30",
   "short": "脱獄していない iPhone で、Windows（x86-64）の PC ゲームを動かそうという研究プロジェクト。Wine、x86-64 を ARM64 に変換する FEX-Emu、Direct3D 11 を Metal に変換する DXMT を組み合わせ、1つの iOS アプリの中で動かす。いくつかのゲームは遊べる段階。",
-  "what": "Wine・FEX-Emu・DXMT を組み合わせて、Windows の PC ゲームを脱獄なしの iPhone で動かす iOS アプリ（研究段階）。",
+  "what": "Windows のゲームを iPhone で動かす研究プロジェクト",
   "can_do": [
     "x86-64 の Windows のゲームを、iPhone の上で CPU 命令を変換しながら動かす",
     "Direct3D 11 の描画を、iOS の Metal に変換する",

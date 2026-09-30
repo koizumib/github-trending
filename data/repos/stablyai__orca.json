@@ -2,7 +2,7 @@
   "repo": "stablyai/orca",
   "summarized_at": "2026-09-30",
   "short": "複数のコーディングエージェントを、git worktree ごとに並べて同時に動かす desktop アプリ。モバイルから状況を見て指示も出せる。",
-  "what": "Codex、Claude Code、OpenCode、Pi などを並列で動かして管理する desktop の開発環境（ADE）。",
+  "what": "複数のコーディングエージェントを並列で動かすデスクトップ環境",
   "can_do": [
     "1つのプロンプトを複数のエージェントに振り、それぞれ別の worktree で作業させて結果を比べる",
     "Ghostty 風の terminal（分割、再起動しても残る scrollback）",

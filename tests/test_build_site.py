@@ -124,3 +124,47 @@ def test_rank_tiers_and_language_color(tmp_path):
     index = (out / "index.html").read_text()
     assert 'class="card tier-xl"' in index  # 1位の記事
     assert 'class="rank" aria-label="1位">1<small>位</small>' in index
+
+
+def test_marks_and_moves_across_days(tmp_path):
+    from trending_digest.build_site import annotate_marks, build_page
+
+    store = Store(tmp_path / "data")
+    def day(d, repos):
+        store.save_daily(dt.date.fromisoformat(d), [
+            {"rank": i, "repo": r, "status": "new", "language": None, "stars": 1, "stars_today": 1, "description": ""}
+            for i, r in enumerate(repos, start=1)])
+    day("2026-09-28", ["a/a", "b/b", "c/c"])
+    day("2026-09-29", ["b/b", "a/a", "d/d"])          # c/c は圏外に
+    day("2026-09-30", ["a/a", "c/c", "b/b", "e/e"])   # c/c が戻る
+    days = store.list_days()
+    pages = {(d, p): build_page(store, d, p) for d in days for p in ("daily", "weekly", "monthly")}
+    annotate_marks(pages, days)
+
+    first = {c["repo"]: (c["mark"], c["move"]) for c in pages[("2026-09-28", "daily")]["cards"]}
+    assert set(first.values()) == {("new", None)}  # 記録の初日は全部「新」
+
+    mid = {c["repo"]: (c["mark"], c["move"]) for c in pages[("2026-09-29", "daily")]["cards"]}
+    assert mid == {"b/b": ("continuing", 1), "a/a": ("continuing", -1), "d/d": ("new", None)}
+
+    last = pages[("2026-09-30", "daily")]
+    marks = {c["repo"]: (c["mark"], c["move"]) for c in last["cards"]}
+    assert marks == {
+        "a/a": ("continuing", 1),    # 2位 → 1位
+        "c/c": ("returning", None),  # 9/28 にあり、9/29 は圏外
+        "b/b": ("continuing", -2),   # 1位 → 3位
+        "e/e": ("new", None),
+    }
+    assert (last["count_new"], last["count_continuing"], last["count_returning"]) == (1, 2, 1)
+
+    out = build(Config(), store, tmp_path / "site")
+    html = (out / "index.html").read_text()
+    assert "▲1" in html and "▼2" in html and 'class="mark mark-returning"' in html
+    assert "4件（新 1・続 2・再 1）" in html
+
+
+def test_dropcap_only_for_japanese_start():
+    from trending_digest.build_site import starts_cjk
+
+    assert starts_cjk("声のクローン") and starts_cjk("イリノイ大学") and starts_cjk("複数の AI")
+    assert not starts_cjk("AI エージェント") and not starts_cjk("MySQL、") and not starts_cjk("")

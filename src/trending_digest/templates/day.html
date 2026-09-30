@@ -14,7 +14,7 @@
     {% endfor %}
   </nav>
   <p class="edition">
-    <span>{% if page.period == "daily" %}新着 {{ page.count_new }}件・継続 {{ page.count_continuing }}件{% else %}{{ {"weekly": "この1週間", "monthly": "この1か月"}[page.period] }}で伸びた {{ page.cards | length }}件{% endif %}</span>
+    <span>{{ page.cards | length }}件（新 {{ page.count_new }}・続 {{ page.count_continuing }}・再 {{ page.count_returning }}）</span>
     {% if is_top %}<a href="{{ root }}{{ page.dated_href }}">この日のページ</a>{% endif %}
   </p>
 </header>
@@ -27,6 +27,14 @@
   </ul>
 </aside>
 {% endif %}
+{% if page.cards %}
+<p class="legend" aria-label="印の意味">
+  <span><i class="mark mark-new">新</i>初めてランク入り</span>
+  <span><i class="mark mark-continuing">続</i>前回から継続</span>
+  <span><i class="mark mark-returning">再</i>圏外から再びランク入り</span>
+  <span><i class="move up">▲</i><i class="move down">▼</i>前回からの順位の変化</span>
+</p>
+{% endif %}
 
 <div class="cards">
 {% for c in page.cards %}
@@ -35,20 +43,6 @@
 <p>{% if page.period == "daily" %}この日の新着はありません。{% else %}この日のデータはありません。{% endif %}</p>
 {% endfor %}
 </div>
-
-{% if page.continuing %}
-<section class="continuing panel">
-  <h2>継続して上がっているもの</h2>
-  <ul>
-  {% for c in page.continuing %}
-    <li>
-      {% if c.summary %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>{% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
-      {% if c.summary %}<span class="what">{{ c.summary.what | code }}</span>{% endif %}
-    </li>
-  {% endfor %}
-  </ul>
-</section>
-{% endif %}
 
 {% if page.errors %}
 <section class="errors panel">

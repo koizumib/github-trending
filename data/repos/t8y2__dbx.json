@@ -2,7 +2,7 @@
   "repo": "t8y2/dbx",
   "summarized_at": "2026-09-30",
   "short": "MySQL、PostgreSQL、Redis、MongoDB など多くの DB を1つの画面で扱う GUI クライアント。Rust と Tauri 製で Java が要らず軽い。Kafka や etcd も見られ、AI による SQL の作成と、AI エージェント向けの MCP サーバーも付く。",
-  "what": "多数のデータベースとメッセージキューに対応した、デスクトップ・Docker（Web）・CLI で使えるデータベースクライアント（Rust + Tauri + Vue）。",
+  "what": "多数の DB を1つの画面で扱う軽量な DB クライアント",
   "can_do": [
     "RDB、NoSQL、検索エンジン、ベクトル DB など多数に接続し、SQL の補完・実行・整形をする",
     "結果の表をその場で編集し、保存の前に実行される SQL を確かめる",

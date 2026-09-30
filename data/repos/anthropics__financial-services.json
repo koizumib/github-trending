@@ -2,7 +2,7 @@
   "repo": "anthropics/financial-services",
   "summarized_at": "2026-09-30",
   "short": "投資銀行、株式リサーチ、PE、ウェルスマネジメント向けの Claude 用エージェントと skill の集まり。Cowork plugin としても、Managed Agents API 経由でも使える。",
-  "what": "金融業務（ピッチ資料、決算レビュー、GL 照合、KYC など）向けの参考エージェント・skill・データコネクタ集。",
+  "what": "金融業務向けの Claude エージェント・skill 集",
   "can_do": [
     "10種類の名前付きエージェント（Pitch Agent、Earnings Reviewer、GL Reconciler、KYC Screener など）",
     "同じ内容を Claude Cowork の plugin としても、Managed Agents API のテンプレートとしても使える",

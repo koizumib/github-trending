@@ -2,7 +2,7 @@
   "repo": "averygan/reclip",
   "summarized_at": "2026-09-30",
   "short": "URL を貼ると動画や音声をダウンロードできる、セルフホストの小さな Web アプリ。中身は yt-dlp と ffmpeg に Flask の薄い画面をかぶせたもので、MP4 か MP3 を選び、複数の URL をまとめて落とせる。",
-  "what": "yt-dlp を Web の画面から使えるようにした、セルフホストの動画・音声ダウンローダー（Python + Flask、約150行）。",
+  "what": "yt-dlp を Web の画面で使える動画ダウンローダー",
   "can_do": [
     "YouTube、TikTok、X など yt-dlp が対応するサイトから、動画（MP4）か音声（MP3）を落とす",
     "画質を選ぶ",

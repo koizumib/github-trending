@@ -2,7 +2,7 @@
   "repo": "bilawalsidhu/gods-eye-view",
   "summarized_at": "2026-09-30",
   "short": "ブラウザで動く、スパイ衛星シミュレータ風の3D 地球儀。実際の航空機、船、衛星、地震、公開カメラのデータを重ねて表示する。",
-  "what": "Cesium ベースの3D globe に、公開されている実データを重ねる OSINT 向け可視化 Web アプリ。",
+  "what": "実データを3D の地球儀に重ねる OSINT 可視化アプリ",
   "can_do": [
     "航空機、軍用機、船、衛星、地震、公開カメラ、ラジオ、打ち上げを表示",
     "API キーなしで起動できる（写真品質の3D には Cesium ion か Google Maps のキーが要る）",

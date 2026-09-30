@@ -11,7 +11,7 @@
 {% for d in days %}
   <li>
     <a class="date" href="{{ root }}d/{{ d.date }}/">{{ d.date | ja_date }}</a>
-    <span class="counts">新着 {{ d.count_new }}件・継続 {{ d.count_continuing }}件</span>
+    <span class="counts">{{ d.cards | length }}件（新 {{ d.count_new }}・続 {{ d.count_continuing }}・再 {{ d.count_returning }}）</span>
     <span class="links">
       <a href="{{ root }}d/{{ d.date }}/">{{ period_name.daily }}</a>
       {% if d.has_weekly %}<a href="{{ root }}d/{{ d.date }}/weekly/">{{ period_name.weekly }}</a>{% endif %}

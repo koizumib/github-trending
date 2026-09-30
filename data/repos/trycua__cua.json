@@ -2,7 +2,7 @@
   "repo": "trycua/cua",
   "summarized_at": "2026-09-30",
   "short": "AI エージェントに desktop を操作させるための基盤。macOS・Windows・Linux のアプリを操作する driver、macOS の VM、クラウド desktop、評価用 benchmark を含む。",
-  "what": "computer-use エージェント向けの driver、sandbox、VM、小型モデル、benchmark をまとめたオープンソースの基盤。",
+  "what": "computer-use エージェントを作って動かすための基盤",
   "can_do": [
     "Cua Driver：ネイティブアプリとブラウザを CLI、MCP、SDK から操作する",
     "Lume：macOS の VM を手元で動かす",

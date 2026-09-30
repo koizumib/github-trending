@@ -2,7 +2,7 @@
   "repo": "pytorch/pytorch",
   "summarized_at": "2026-09-30",
   "short": "GPU で高速に動く Tensor 計算と、動的に計算グラフを作る自動微分を持つ Python の機械学習ライブラリ。",
-  "what": "NumPy のような Tensor 計算と、深層学習用の自動微分（autograd）を提供する Python パッケージ。",
+  "what": "Python の深層学習フレームワーク",
   "can_do": [
     "GPU（CUDA、ROCm、Intel GPU）で動く Tensor 計算",
     "tape-based autograd による動的な neural network",

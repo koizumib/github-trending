@@ -2,7 +2,7 @@
   "repo": "vercel/next.js",
   "summarized_at": "2026-09-30",
   "short": "React のフレームワーク。server rendering と static 生成、ルーティング、ビルドまでまとめて面倒を見る。Rust 製の bundler（Turbopack）を含む。",
-  "what": "React で Web アプリを作るための fullstack フレームワーク。",
+  "what": "React で Web アプリを作るフレームワーク",
   "can_do": [
     "server-side rendering と static site generation に対応",
     "ファイルベースのルーティング",

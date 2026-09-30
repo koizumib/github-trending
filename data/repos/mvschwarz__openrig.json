@@ -2,7 +2,7 @@
   "repo": "mvschwarz/openrig",
   "summarized_at": "2026-09-30",
   "short": "Claude Code と Codex を何台も並べて「チーム」として動かすための CLI と TUI。役割と関係を YAML に書いて `rig up` 一発で tmux のセッションを立ち上げ、エージェント同士でメッセージやタスクをやり取りさせる。再起動後の復元もできる。",
-  "what": "複数のコーディングエージェント（Claude Code、Codex）を tmux 上でチームとして起動・管理する CLI・TUI・デーモン。",
+  "what": "複数のコーディングエージェントを tmux でチームにする CLI",
   "can_do": [
     "エージェントの役割と関係を YAML（RigSpec）で定義し、`rig up` でまとめて起動する",
     "エージェント同士でメッセージを送る（`rig send`、`rig broadcast`、チャットルーム）",

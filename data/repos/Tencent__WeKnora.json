@@ -2,7 +2,7 @@
   "repo": "Tencent/WeKnora",
   "summarized_at": "2026-09-30",
   "short": "文書を取り込んで、検索つきの Q&A（RAG）、推論するエージェント、自動で整う Wiki にする knowledge 基盤。Go 製で Docker Compose で動く。",
-  "what": "LLM を使って文書を検索・質問できる状態にする、セルフホストの knowledge 管理プラットフォーム。",
+  "what": "文書に LLM で質問できるセルフホストの知識基盤",
   "can_do": [
     "文書から RAG の Q&A を作る（vector 検索と rerank）",
     "推論を重ねて答える agent モード",
