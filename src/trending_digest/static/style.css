@@ -1,19 +1,22 @@
 /* 新聞のような組み（docs/decisions/0010-newspaper-design.md）
    書体・記事の頭・タグ・ダークの色は docs/decisions/0011-readable-font-and-rank.md。
+   ライトの紙の色と質感は docs/decisions/0012-newsprint-paper.md。
    色はライトが既定。ダークは OS の設定か、右上のボタンで。 */
 :root {
   color-scheme: light;
-  --paper: #faf8f3;
-  --ink: #1b1b1b;
-  --muted: #666159;
-  --rule: #d9d3c6;
-  --rule-strong: #1b1b1b;
+  --paper: #e6e9ec;
+  --ink: #1a1c1f;
+  --muted: #5b6068;
+  --rule: #c3c8ce;
+  --rule-strong: #1a1c1f;
   --accent: #b3261e;
-  --link: #1b1b1b;
-  --chip: #ece6d9;
-  --chip-strong: #d8cfbc;
-  --warn-bg: #f6e3b8;
+  --link: #1a1c1f;
+  --chip: #d6dbe0;
+  --chip-strong: #c2c8cf;
+  --warn-bg: #f3dfb0;
   --warn-fg: #6b4400;
+  /* 新聞紙のざらつき：色なしのごく薄いノイズ */
+  --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
   --font: "BIZ UDPGothic", Meiryo, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
     "Noto Sans JP", "Yu Gothic UI", sans-serif;
 }
@@ -30,6 +33,7 @@
   --chip-strong: #3a3a3a;
   --warn-bg: #3d3319;
   --warn-fg: #f2c86b;
+  --texture: none;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -45,6 +49,7 @@
     --chip-strong: #3a3a3a;
     --warn-bg: #3d3319;
     --warn-fg: #f2c86b;
+    --texture: none;
   }
 }
 
@@ -53,7 +58,8 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: var(--texture);
   color: var(--ink);
   font-family: var(--font);
   font-size: 16.5px;
