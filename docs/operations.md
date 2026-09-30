@@ -85,6 +85,23 @@ EOF
 
 縦横の比が変わったら、`templates/base.html` の `<img>` の `width`・`height` も合わせる。
 
+## 紙の質感の画像を差し替える
+
+原本は `assets/texture/paper_texture.webp`。サイトには、凹凸の明暗だけを取り出して軽くしたものを置く（0018）。
+
+```bash
+/tmp/imgvenv/bin/python - <<'EOF'
+from PIL import Image, ImageFilter, ImageChops, ImageEnhance
+im = Image.open("assets/texture/paper_texture.webp").convert("L")
+hp = ImageChops.subtract(im, im.filter(ImageFilter.GaussianBlur(24)), offset=128)  # 大きなむらを引く
+hp = ImageEnhance.Contrast(hp).enhance(1.8)                                           # 凹凸を少し強く
+hp = hp.resize((1000, round(hp.height * 1000 / hp.width)), Image.LANCZOS)
+hp.save("src/trending_digest/static/paper_texture.webp", "WEBP", quality=40, method=6)
+EOF
+```
+
+濃さは `style.css` の `--texture-opacity`（ライト）で変える。
+
 ## 外で設定したもの
 
 `docs/design.md` の §8 にまとめている（GitHub の Secrets と Pages、routine の設定と実行環境）。

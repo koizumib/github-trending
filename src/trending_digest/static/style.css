@@ -23,7 +23,7 @@
   --font: "BIZ UDPGothic", Meiryo, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
     "Noto Sans JP", "Yu Gothic UI", sans-serif;
   /* 新聞紙のざらつき：色なしのごく薄いノイズ */
-  --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
+  --texture-opacity: 0.6;  /* 紙の質感（paper_texture.webp）の濃さ。0 で消える */
 }
 /* ダーク：少し青みのある暗いグレー（茶色を含まない）。差し色はオレンジを含まない赤 */
 :root[data-theme="dark"] {
@@ -40,7 +40,7 @@
   --chip-strong: #323944;
   --warn-bg: #3a3522;
   --warn-fg: #f0cf7a;
-  --texture: none;
+  --texture-opacity: 0;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -57,17 +57,15 @@
     --chip-strong: #323944;
     --warn-bg: #3a3522;
     --warn-fg: #f0cf7a;
-    --texture: none;
+    --texture-opacity: 0;
   }
 }
 
 /* ---- 土台 ---- */
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background-color: var(--paper); }
 body {
   margin: 0;
-  background-color: var(--paper);
-  background-image: var(--texture);
   color: var(--ink);
   font-family: var(--font);
   font-size: 16.5px;
@@ -87,6 +85,14 @@ code {
   padding: 1px 5px;
   word-break: break-all;
   letter-spacing: 0;
+}
+/* 紙の質感：写真から凹凸の明暗だけを取り出した画像（中心は明るさ 128）を、紙の色に soft-light で薄く重ねる。
+   画面に固定し、原寸で敷き詰める（大きな明暗のむらは取り除いてあるので、継ぎ目は目立たない）（0018） */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url("paper_texture.webp") repeat 0 0 / 1000px auto;
+  mix-blend-mode: soft-light;
+  opacity: var(--texture-opacity);
 }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;

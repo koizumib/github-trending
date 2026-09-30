@@ -60,3 +60,33 @@ def test_alert_command(env):
     _, sent = env
     assert cli.main(["alert", "prepare が失敗"]) == 0
     assert sent == [{"content": "⚠️ trending-digest：prepare が失敗"}]
+
+
+def test_too_early_boundary():
+    from zoneinfo import ZoneInfo
+
+    jst = ZoneInfo("Asia/Tokyo")
+    utc = dt.timezone.utc
+    assert cli.too_early(jst, dt.datetime(2026, 9, 30, 15, 30, tzinfo=utc))       # JST 0:30
+    assert cli.too_early(jst, dt.datetime(2026, 9, 30, 20, 59, 59, tzinfo=utc))   # JST 5:59:59
+    assert not cli.too_early(jst, dt.datetime(2026, 9, 30, 21, 0, tzinfo=utc))    # JST 6:00
+    assert not cli.too_early(jst, dt.datetime(2026, 9, 30, 22, 8, tzinfo=utc))    # JST 7:08（routine）
+
+
+def test_notify_waits_until_morning(env, monkeypatch):
+    store, sent = env
+    store.save_daily(dt.date(2026, 10, 1), [item(1, "a/b")])
+    monkeypatch.setattr(cli, "too_early", lambda tz, now=None: True)
+    assert cli.main(["notify", "--date", "2026-10-01"]) == 0
+    assert sent == [] and not nd.already_notified(store, "2026-10-01")
+    # 手で送り直すときの --force は例外
+    assert cli.main(["notify", "--date", "2026-10-01", "--force"]) == 0
+    assert sent and nd.already_notified(store, "2026-10-01")
+
+
+def test_notify_sends_in_the_morning(env, monkeypatch):
+    store, sent = env
+    store.save_daily(dt.date(2026, 10, 1), [item(1, "a/b")])
+    monkeypatch.setattr(cli, "too_early", lambda tz, now=None: False)
+    assert cli.main(["notify", "--date", "2026-10-01"]) == 0
+    assert sent and nd.already_notified(store, "2026-10-01")

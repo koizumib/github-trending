@@ -17,6 +17,14 @@ log = logging.getLogger("trending_digest")
 
 ITEM_FIELDS = TrendingItem.__dataclass_fields__
 
+# これより前（日本時間）は Discord に通知しない（docs/decisions/0017-no-notify-before-6am.md）
+NOTIFY_EARLIEST_HOUR = 6
+
+
+def too_early(tz, now: dt.datetime | None = None) -> bool:
+    now = now or dt.datetime.now(dt.timezone.utc)
+    return now.astimezone(tz).hour < NOTIFY_EARLIEST_HOUR
+
 
 def _items_from(rows: list[dict]) -> list[TrendingItem]:
     out = []
@@ -106,6 +114,10 @@ def cmd_notify(args) -> int:
         return 0
     if already_notified(store, day) and not args.force:
         log.info("%s は送信済み", day)
+        return 0
+    if too_early(config.tz) and not args.force and not args.dry_run:
+        # 日付が変わった直後の push で、要約がそろう前に送らないように（0017）
+        log.info("日本時間の %d 時より前なので、まだ送らない（朝の routine の push か 9時の見張りで送る）", NOTIFY_EARLIEST_HOUR)
         return 0
 
     messages = build_messages(day, store, config.site_base_url)
