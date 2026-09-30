@@ -8,7 +8,7 @@
 |---|---|---|
 | 6:00 ごろ | Actions「取得と材料集め」：Trending の取得、data/ の記録、材料を work ブランチへ | GitHub の Actions タブ |
 | 7:08 ごろ | routine「trending-digest 毎朝の要約」：要約を書いて main に push | https://claude.ai/code/routines/trig_01VBSyXRh8g9UMrCLPSrneVQ |
-| push の数分後 | Actions「サイトを作って公開する」：サイトの更新、Discord への通知 | Actions タブ、Discord |
+| push の数分後 | Actions「サイトを作って公開する」：サイトの更新（Cloudflare Pages）、Discord への通知 | Actions タブ、Discord、https://trending-digest.pages.dev/ |
 | 9:00 | Actions「見張り」：取得の失敗を知らせる、未送信なら送る | Actions タブ、Discord |
 
 - Actions の定期実行（cron）は、GitHub が混んでいると10〜30分ほど遅れることがある
@@ -24,6 +24,7 @@
 | ⚠️ 9時までに要約が N 件そろわなかったので、そのまま送ります | routine が終わらなかった、失敗した、または動かなかった | routine の管理画面 → 今日の実行 → セッションの記録 |
 | ⚠️ 要約に失敗したものが多い | routine が `errors` に多く記録した | `data/daily/YYYY-MM-DD.json` の `errors` |
 | 何も来ない | 通知の Actions が失敗した、または Webhook の URL が無効 | Actions タブの「サイトを作って公開する」と「見張り」 |
+| サイトが更新されない | 「サイトを作って公開する」の「Cloudflare Pages に公開する」の段階が失敗した（API トークンの期限切れ・権限不足など） | その段階のログ。Cloudflare のダッシュボードの Pages → trending-digest の Deployments |
 
 Actions が失敗すると、GitHub からメールも届く。
 

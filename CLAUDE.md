@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 trending-digest（仮称）は、**GitHub Trending に新しく上がったリポジトリを毎朝日本語で要約し、静的サイトと Discord 通知で届けるツール**です。
 
 - 毎朝 6:00 ごろ、GitHub Actions が `prepare` で Trending を取得・分類し、材料を集めます（data/ は main に、材料は work ブランチに）。7:00 ごろ、Claude Code の routine（クラウドでの定期実行）が材料を読んで要約の JSON を書き、push します。
-- push をきっかけに GitHub Actions が動き、`data/` から HTML を生成して GitHub Pages に公開し、Discord に通知します。
+- push をきっかけに GitHub Actions が動き、`data/` から HTML を生成して Cloudflare Pages に公開し、Discord に通知します。
 - Claude API は使いません（契約していません）。要約を書くのは routine の中の Claude Code だけです。
 
 作業の前に `docs/design.md`（設計書）を読んでください。毎朝の動きと、困ったときの見方は `docs/operations.md` にあります。設計判断を変えるときは、`docs/decisions/` にファイルを1つ追加し、`docs/decisions/README.md` の一覧にも足してから実装します。設計を変えたら、`docs/design.md` も今の実装に合わせて直します（設計書には「今どうなっているか」を書き、経緯は decisions に残します）。
@@ -30,7 +30,7 @@ trending-digest（仮称）は、**GitHub Trending に新しく上がったリ�
 3. **1件の失敗で全体を止めない。** 1件ずつ処理して、失敗したら記録して次へ進みます。ただし、Trending のページ自体を読み取れないときは、はっきり失敗させて Discord に知らせます（黙って0件にしない）。
 4. **要約を盛らない。** README の宣伝文句をそのまま訳しません。分からないことは書かず、推測は推測と書きます。材料が足りなければ `confidence: low` にします。
 5. **同じものを二度要約しない。** `data/repos/` に要約があれば使い回します。
-6. **秘密情報を出さない。** `DISCORD_WEBHOOK_URL` は環境変数（Actions の Secrets）からだけ読みます。コード、ログ、コミット、生成した HTML に出しません。
+6. **秘密情報を出さない。** `DISCORD_WEBHOOK_URL`、`CLOUDFLARE_API_TOKEN` は環境変数（Actions の Secrets）からだけ読みます。コード、ログ、コミット、生成した HTML に出しません。
 7. **生成物はコミットしない。** コミットするのは `data/` までです。`site/` と `.work/` はコミットしません。
 8. **日付は日本時間で扱う。** Actions も routine も UTC で動くことがあるので、「今日」は必ず `Asia/Tokyo` で決めます。
 

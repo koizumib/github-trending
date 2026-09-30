@@ -2,7 +2,7 @@
 
 GitHub Trending に上がったリポジトリを、毎朝日本語で要約して届けるツールです。「結局これは何ができるのか」「どう使えそうか」を、README だけでなくファイル構成や依存、リリースまで読んで、2〜3文の短い要約と詳しいページにまとめます。
 
-- サイト：https://koizumib.github.io/trending-digest/ （デイリー・ウィークリー・マンスリー）
+- サイト：https://trending-digest.pages.dev/ （デイリー・ウィークリー・マンスリー）
 - 通知：毎朝 Discord に、新着の短い要約と詳しいページへのリンクが届く
 
 要約は Claude Code が書いたもので、誤りを含むことがあります。
@@ -12,7 +12,7 @@ GitHub Trending に上がったリポジトリを、毎朝日本語で要約し�
 ```
 6:00  GitHub Actions   Trending を取得して分類し、要約の材料を集める
 7:00  Claude Code      材料を読み、足りなければ自分で調べて、日本語の要約を書く（routine）
-      GitHub Actions   サイトを作り直して GitHub Pages に公開し、Discord に通知する
+      GitHub Actions   サイトを作り直して Cloudflare Pages に公開し、Discord に通知する
 9:00  GitHub Actions   見張り：届いていなければ知らせる
 ```
 

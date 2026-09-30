@@ -15,7 +15,7 @@
   - 短い要約（`short`）：2〜3文。通知と一覧に使う
   - 詳しい要約：何ができるか、使い方、活用できそうな場面、向いている人、似ているもの、技術、注意点。詳しいページに使う
   - 分野のタグ：決まった語彙から1〜4個
-- 静的サイトを作って GitHub Pages に公開する
+- 静的サイトを作って Cloudflare Pages に公開する
 - Discord に通知する
 
 ### 作らないもの（今は）
@@ -41,7 +41,7 @@
 | GitHub Actions（`prepare.yml`） | Trending の取得、分類、材料の下集め（GitHub API） | なし（決定的） |
 | **Claude Code の routine** | 材料を読み、足りなければ自分で調べ、要約の JSON を書く | **あり** |
 | Python（`validate`） | 要約の JSON の形を検査する | なし |
-| GitHub Actions（`daily.yml`） | サイトの生成、Pages への公開、Discord への通知 | なし |
+| GitHub Actions（`daily.yml`） | サイトの生成、Cloudflare Pages への公開、Discord への通知 | なし |
 | GitHub Actions（`watchdog.yml`） | 取得の失敗を知らせる。未送信なら送る | なし |
 
 routine（Claude Code のクラウドの実行環境）からは、GitHub API でほかのリポジトリを読めない。GitHub への通信が専用の中継を通り、routine に割り当てたリポジトリ以外への API 呼び出しは止められるため。そこで材料集めは Actions で行う（0007）。
@@ -66,7 +66,7 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
                 │
                 ▼ push をきっかけに動く
  ③ GitHub Actions「サイトを作って公開する」（daily.yml）
-    ├─ validate → build（data/ → site/）→ GitHub Pages に公開
+    ├─ validate → build（data/ → site/）→ Cloudflare Pages に公開（移行中は GitHub Pages にも）
     └─ notify：その日の分を Discord に1回だけ送り、data/notified.json に記録（[skip ci]）
 
  ④ GitHub Actions「見張り」（watchdog.yml、毎朝 9:00）
@@ -158,9 +158,9 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 - 盛らない。README の宣伝文句を訳さない。分からないことは書かない。推測は推測と書く
 - 似ているもの（`similar`）は、よく知られたものだけ
 
-## 6. サイト（GitHub Pages）
+## 6. サイト（Cloudflare Pages）
 
-公開先：https://koizumib.github.io/trending-digest/
+公開先：https://trending-digest.pages.dev/ （移行中は https://koizumib.github.io/trending-digest/ にも同じものを出している。0008）
 
 ```
 /                          最新の日のデイリー
@@ -198,12 +198,16 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 |---|---|---|
 | `new_window_days` | 10 | 何日以内に上がっていなければ new とみなすか |
 | `max_summaries_per_day` | 15 | 1日に要約する件数の上限 |
-| `site_base_url` | https://koizumib.github.io/trending-digest/ | 通知に入れるリンクの元 |
+| `site_base_url` | https://trending-digest.pages.dev/ | 通知に入れるリンクの元 |
 | `timezone` | Asia/Tokyo | 「今日」を決めるタイムゾーン |
 
 ### GitHub（リポジトリ koizumib/trending-digest、公開）
-- Secrets：`DISCORD_WEBHOOK_URL` だけ。GitHub API の鍵は Actions が自動で用意する `GITHUB_TOKEN` を使う
-- Pages：Source は「GitHub Actions」
+- Secrets：`DISCORD_WEBHOOK_URL`、`CLOUDFLARE_API_TOKEN`（Cloudflare Pages の編集権限だけ）、`CLOUDFLARE_ACCOUNT_ID`。GitHub API の鍵は Actions が自動で用意する `GITHUB_TOKEN` を使う
+- Pages：Source は「GitHub Actions」（Cloudflare Pages への移行が終わったら外す）
+
+### Cloudflare
+- Pages のプロジェクト `trending-digest`（Direct Upload。GitHub にはつながない）。`daily.yml` が `wrangler pages deploy` で送る
+- Access での制限はかけない
 - ブランチ：`main`（コードと data/）、`work`（材料。毎朝上書き）
 
 ### Claude Code の routine
@@ -257,7 +261,7 @@ trending-digest/
     fixtures/trending*.html   # 保存しておいた Trending のページ（デイリー・ウィークリー・マンスリー）
   .github/workflows/
     prepare.yml               # 6:00 取得と材料集め
-    daily.yml                 # data/ などへの push で build・deploy・notify
+    daily.yml                 # data/ などへの push で build・Cloudflare Pages へ公開・notify
     watchdog.yml              # 9:00 見張り
     ci.yml                    # テスト
 ```

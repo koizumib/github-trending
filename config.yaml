@@ -7,7 +7,7 @@ new_window_days: 10
 max_summaries_per_day: 15
 
 # 公開するサイトの URL（末尾の / まで）。Discord のリンクに使う
-site_base_url: https://koizumib.github.io/trending-digest/
+site_base_url: https://trending-digest.pages.dev/
 
 # 「今日」を決めるタイムゾーン
 timezone: Asia/Tokyo
