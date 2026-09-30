@@ -3,6 +3,7 @@
    書体・順位の段階・タグ・ダークの色：0011
    ライトの紙の色と質感：0012
    題字のロゴ・日付、装飾の洗練：0013
+   紙面の左右の線、ダークの色、差し色：0014
    色はライトが既定。ダークは OS の設定か、右上のボタンで。 */
 :root {
   color-scheme: light;
@@ -11,6 +12,7 @@
   --muted: #5b6068;
   --rule: #c3c8ce;
   --rule-strong: #1a1c1f;
+  --edge: #9ba2aa;
   --accent: #b3261e;
   --link: #1a1c1f;
   --chip: #d6dbe0;
@@ -22,35 +24,38 @@
   /* 新聞紙のざらつき：色なしのごく薄いノイズ */
   --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
 }
+/* ダーク：少し青みのある暗いグレー（茶色を含まない）。差し色はオレンジを含まない赤 */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #141414;
-  --ink: #e8e8e8;
-  --muted: #a0a0a0;
-  --rule: #303030;
-  --rule-strong: #d6d6d6;
-  --accent: #ff6b5e;
-  --link: #e8e8e8;
-  --chip: #262626;
-  --chip-strong: #3a3a3a;
-  --warn-bg: #3d3319;
-  --warn-fg: #f2c86b;
+  --paper: #15181c;
+  --ink: #e4e8ee;
+  --muted: #98a0ab;
+  --rule: #2b3139;
+  --rule-strong: #cfd5dd;
+  --edge: #3e4651;
+  --accent: #f0647a;
+  --link: #e4e8ee;
+  --chip: #232830;
+  --chip-strong: #323944;
+  --warn-bg: #3a3522;
+  --warn-fg: #f0cf7a;
   --texture: none;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #141414;
-    --ink: #e8e8e8;
-    --muted: #a0a0a0;
-    --rule: #303030;
-    --rule-strong: #d6d6d6;
-    --accent: #ff6b5e;
-    --link: #e8e8e8;
-    --chip: #262626;
-    --chip-strong: #3a3a3a;
-    --warn-bg: #3d3319;
-    --warn-fg: #f2c86b;
+    --paper: #15181c;
+    --ink: #e4e8ee;
+    --muted: #98a0ab;
+    --rule: #2b3139;
+    --rule-strong: #cfd5dd;
+    --edge: #3e4651;
+    --accent: #f0647a;
+    --link: #e4e8ee;
+    --chip: #232830;
+    --chip-strong: #323944;
+    --warn-bg: #3a3522;
+    --warn-fg: #f0cf7a;
     --texture: none;
   }
 }
@@ -87,14 +92,25 @@ code {
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
+/* 紙面：左右に細い線（紙の切れ目）。スマホは画面の端から 6px 内側 */
+.paper {
+  max-width: 62rem; min-height: 100vh;
+  margin: 0 6px;
+  border-left: 1px solid var(--edge);
+  border-right: 1px solid var(--edge);
+}
+@media (min-width: 1004px) {  /* 62rem（992px）＋左右の 6px */
+  .paper { margin: 0 auto; }
+}
+
 /* ---- 幅 ---- */
-main, footer.site { max-width: 62rem; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+main, footer.site { max-width: 62rem; margin: 0 auto; padding-left: 12px; padding-right: 12px; }
 body.narrow main, body.narrow footer.site { max-width: 42rem; }
 
 /* ---- 題字の欄：左にロゴ、右上に日付 ---- */
-header.site { padding: 14px 16px 0; }
+header.site { padding: 14px 12px 0; }
 .nameplate {
-  max-width: calc(62rem - 32px); margin: 0 auto;
+  max-width: calc(62rem - 24px); margin: 0 auto;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
   padding-bottom: 10px;
   border-bottom: 3px solid var(--rule-strong);
@@ -106,7 +122,7 @@ header.site { padding: 14px 16px 0; }
 }
 .brand { display: block; flex: 0 1 auto; min-width: 0; }
 .brand:hover { text-decoration: none; }
-.logo { display: block; width: min(250px, 58vw); height: auto; }
+.logo { display: block; width: min(250px, 52vw); height: auto; }
 .logo-dark { display: none; }
 :root[data-theme="dark"] .logo-light { display: none; }
 :root[data-theme="dark"] .logo-dark { display: block; }

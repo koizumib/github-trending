@@ -11,15 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap">
-<link rel="stylesheet" href="{{ root }}style.css">
+<link rel="stylesheet" href="{{ root }}style.css?v={{ asset_v['style.css'] }}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% set header_day = page.date if page is defined else latest_day %}
+<div class="paper">
 <header class="site">
   <div class="nameplate">
     <a class="brand" href="{{ root }}" aria-label="github新聞 トップへ">
-      <img class="logo logo-light" src="{{ root }}logo_light.png" alt="github新聞" width="1040" height="184">
-      <img class="logo logo-dark" src="{{ root }}logo_dark.png" alt="" width="1040" height="184">
+      <img class="logo logo-light" src="{{ root }}logo_light.png?v={{ asset_v['logo_light.png'] }}" alt="github新聞" width="1040" height="184">
+      <img class="logo logo-dark" src="{{ root }}logo_dark.png?v={{ asset_v['logo_dark.png'] }}" alt="" width="1040" height="184">
     </a>
     <div class="nameplate-side">
       {% if header_day %}
@@ -41,6 +42,7 @@
 <footer class="site">
   GitHub Trending（全言語の日次・週次・月次）を日本語で要約しています。要約は Claude Code が書いたもので、誤りを含むことがあります。
 </footer>
+</div>
 <script>
   document.querySelector(".theme-toggle").addEventListener("click", function () {
     var root = document.documentElement;

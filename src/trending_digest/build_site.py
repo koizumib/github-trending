@@ -150,6 +150,19 @@ def build_page(store: Store, day: str, period: str) -> dict | None:
     }
 
 
+def asset_versions() -> dict[str, str]:
+    """静的ファイルごとに、中身から作った短い印（ファイル名 → 8桁）。
+
+    URL に `?v=印` を付けると、中身が変わったときだけ URL が変わり、古いキャッシュが使われない。
+    """
+    import hashlib
+
+    return {
+        f.name: hashlib.sha256(f.read_bytes()).hexdigest()[:8]
+        for f in sorted(STATIC.iterdir()) if f.is_file()
+    }
+
+
 def build(config: Config, store: Store | None = None, out: Path | None = None) -> Path:
     store = store or Store()
     out = out or ROOT / "site"
@@ -164,6 +177,7 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     env = _env()
     days = store.list_days()
     env.globals["latest_day"] = days[0] if days else None  # ヘッダの日付（日ごとのページ以外）
+    env.globals["asset_v"] = asset_versions()  # CSS・ロゴの URL に付ける版の印
     history = store.load_history()
     day_tpl, repo_tpl, archive_tpl = (env.get_template(f"{n}.html") for n in ("day", "repo", "archive"))
 
