@@ -35,6 +35,9 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 
 `.work/queue.json` の `items` を上から順に1件ずつ処理します。`deferred` にあるものは今日はやりません（次の日に回ります）。
 
+- **1件ずつ、2-1 → 2-2 → 2-3 を終えてから次の件に進みます。** 全件の材料をまとめて読んで、まとめて書くことはしません（調べ方が浅くなるため）。
+- 急ぐ必要はありません。1件に数分かけてかまいません。
+
 各項目には次のものがあります。
 
 | キー | 中身 |
@@ -62,7 +65,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 
 ### 2-2. 足りなければ自分で調べる
 
-材料を読んでも「**これは何をするものか**」を一文で言えないときや、使い方が分からないときは、次の順で調べます。
+材料を読んでも「**これは何をするものか**」を一文で言えないとき、使い方が分からないとき、**`confidence` が `high` にならないと思ったとき**は、書く前に必ず次の順で調べます。材料の README が別のファイルを指しているだけのとき（例：「`packages/xxx/README.md` を見よ」）は、その先を読みます。
 
 1. `examples/`、`docs/`、CLI の入口（`main.go`、`cmd/`、`cli.py`、`__main__.py`、`bin/`、`src/main.rs` など）を読みます。1ファイルだけなら `https://raw.githubusercontent.com/{owner}/{name}/{default_branch}/{path}` で読みます。
 2. たくさん読む必要があれば、浅く clone します。ただし、クラウドの環境では、ほかのリポジトリの clone は止められることがあります。失敗したら clone はあきらめ、1 の方法で必要なファイルだけを読みます。`meta.json` の `size` が 100000（KB、約 100MB）を超えるものは clone しません。
@@ -71,7 +74,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
    ```
 3. `meta.json` に `homepage` があり、README だけでは分からないときは、そのトップページを1回だけ読みます。
 
-1件にかける時間の目安は数分です。調べても分からなければ、分かった範囲で書いて `confidence: low` にし、次へ進みます。
+1件にかける時間の目安は数分です。調べても分からなければ、分かった範囲で書いて `confidence` を `medium` か `low` にし、次へ進みます。その場合、`confidence_note` には「何を調べたが、何が分からなかったか」を書きます（調べずに `medium` にしない）。
 
 ### 2-3. 要約の JSON を書く
 
@@ -139,8 +142,12 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 ```bash
 git add data/
 git commit -m "YYYY-MM-DD の要約（N件）"
-git push origin main
+git pull --rebase -q origin main
+git push origin HEAD:main
 ```
+
+- クラウドの環境では、clone した直後は特定のブランチにいない状態（detached HEAD）のことがあります。そのため、push は `git push origin HEAD:main` とします。
+- 要約するものがなかった日や、1件も書けなかった日は、コミットも push もしません（通知は9時の見張りが送ります）。
 
 - コミットのメッセージは日本語です。要約できなかったものがあれば、本文に `owner/name: 理由` を1行ずつ書きます。
 - push すると、GitHub Actions がサイトを作り直し、Discord に通知します。あなたの仕事はここまでです。
