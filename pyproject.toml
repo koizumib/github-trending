@@ -1,0 +1,28 @@
+[project]
+name = "trending_digest"
+version = "0.1.0"
+description = "GitHub Trending に新しく上がったリポジトリを毎朝日本語で要約する"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "beautifulsoup4",
+    "jinja2",
+    "pyyaml",
+    "anthropic",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+trending_digest = ["templates/*", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
