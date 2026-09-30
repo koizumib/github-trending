@@ -21,6 +21,23 @@ def inline_code(text: str) -> Markup:
     return Markup(re.sub(r"`([^`]+)`", r"<code>\1</code>", str(escape(text))))
 
 
+WEEKDAYS = "月火水木金土日"
+
+
+def ja_date(day: str) -> str:
+    """2026-09-30 → 2026年9月30日（水）"""
+    import datetime as dt
+
+    d = dt.date.fromisoformat(day)
+    return f"{d.year}年{d.month}月{d.day}日（{WEEKDAYS[d.weekday()]}）"
+
+
+def repo_wbr(repo: str) -> Markup:
+    """owner/name の「/」の後ろで折り返せるようにする（名前の途中で折れないように）。"""
+    owner, _, name = repo.partition("/")
+    return Markup(f"{escape(owner)}/<wbr>{escape(name)}")
+
+
 def _env() -> Environment:
     env = Environment(
         loader=PackageLoader("trending_digest", "templates"),
@@ -31,6 +48,8 @@ def _env() -> Environment:
     )
     env.globals["status_label"] = STATUS_LABEL
     env.filters["code"] = inline_code
+    env.filters["ja_date"] = ja_date
+    env.filters["wbr"] = repo_wbr
     return env
 
 

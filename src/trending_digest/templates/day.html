@@ -4,15 +4,14 @@
 {% set stars_label = {"daily": "今日", "weekly": "今週", "monthly": "今月"}[page.period] %}
 {% block title %}{{ page.date }} の Trending（{{ period_name[page.period] }}）| trending-digest{% endblock %}
 {% block main %}
-<div class="page-head">
-  <div>
-    <h1>{{ page.date }}<span class="sub">の Trending</span></h1>
-    <p class="counts">
-      {% if page.period == "daily" %}新着 {{ page.count_new }}件／継続 {{ page.count_continuing }}件
-      {% else %}{{ {"weekly": "この1週間", "monthly": "この1か月"}[page.period] }}で伸びた {{ page.cards | length }}件{% endif %}
-      {% if is_top %}<a href="{{ root }}{{ page.dated_href }}">この日のページ</a>{% endif %}
-    </p>
-  </div>
+<header class="masthead">
+  <h1>{{ page.date | ja_date }}</h1>
+  <p class="edition">
+    GitHub Trending {{ period_name[page.period] }}版　
+    {% if page.period == "daily" %}新着 {{ page.count_new }}件・継続 {{ page.count_continuing }}件
+    {% else %}{{ {"weekly": "この1週間", "monthly": "この1か月"}[page.period] }}で伸びた {{ page.cards | length }}件{% endif %}
+    {% if is_top %}<a href="{{ root }}{{ page.dated_href }}">この日のページ</a>{% endif %}
+  </p>
   <nav class="tabs" aria-label="期間">
     {% for p in ("daily", "weekly", "monthly") %}
       {% if page.tabs[p] is none %}<span class="tab disabled">{{ period_name[p] }}</span>
@@ -20,7 +19,7 @@
       {% else %}<a class="tab" href="{{ root }}{{ page.tabs[p] }}">{{ period_name[p] }}</a>{% endif %}
     {% endfor %}
   </nav>
-</div>
+</header>
 
 <div class="cards">
 {% for c in page.cards %}

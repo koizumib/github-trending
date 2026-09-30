@@ -10,8 +10,8 @@
     {% if gained %}<span>★ {{ stars_label }} +{{ "{:,}".format(gained) }}</span>{% endif %}
   </div>
   <h2>
-    {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>
-    {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
+    {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo | wbr }}</a>
+    {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo | wbr }}</a>{% endif %}
   </h2>
   {% if s %}
   <p class="short">{{ s.short | code }}</p>
