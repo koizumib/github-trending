@@ -147,7 +147,16 @@ def build_page(store: Store, day: str, period: str) -> dict | None:
         "count_new": sum(1 for c in cards if c.get("status") == "new"),
         "count_continuing": len(others),
         "dated_href": dated_href(day, period),
+        "fields": count_fields(cards + others),
     }
+
+
+def count_fields(items: list[dict], limit: int = 6) -> list[tuple[str, int]]:
+    """要約のタグを数えて、多い順に返す（「本日の分野」の囲み）。同じ数なら名前順。"""
+    from collections import Counter
+
+    counts = Counter(t for i in items if i.get("summary") for t in i["summary"].get("tags") or [])
+    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:limit]
 
 
 def asset_versions() -> dict[str, str]:
@@ -177,6 +186,7 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     env = _env()
     days = store.list_days()
     env.globals["latest_day"] = days[0] if days else None  # ヘッダの日付（日ごとのページ以外）
+    env.globals["issue_no"] = {d: n for n, d in enumerate(sorted(days), start=1)}  # 号数：最初の日が第1号
     env.globals["asset_v"] = asset_versions()  # CSS・ロゴの URL に付ける版の印
     history = store.load_history()
     day_tpl, repo_tpl, archive_tpl = (env.get_template(f"{n}.html") for n in ("day", "repo", "archive"))

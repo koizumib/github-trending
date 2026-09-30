@@ -19,6 +19,15 @@
   </p>
 </header>
 
+{% if page.fields %}
+<aside class="field-box" aria-label="分野の内訳">
+  <h2>{{ {"daily": ("本日の分野" if is_top else "この日の分野"), "weekly": "今週の分野", "monthly": "今月の分野"}[page.period] }}</h2>
+  <ul>
+    {% for tag, n in page.fields %}<li><span>{{ tag }}</span><b>{{ n }}</b></li>{% endfor %}
+  </ul>
+</aside>
+{% endif %}
+
 <div class="cards">
 {% for c in page.cards %}
 {{ card(c, root, stars_label) }}

@@ -3,7 +3,8 @@
    書体・順位の段階・タグ・ダークの色：0011
    ライトの紙の色と質感：0012
    題字のロゴ・日付、装飾の洗練：0013
-   紙面の左右の線、ダークの色、差し色：0014
+   ダークの色、差し色、CSS の版の印：0014
+   紙面の左右の波線、号数、本日の分野、トップ記事の1文字目：0015
    色はライトが既定。ダークは OS の設定か、右上のボタンで。 */
 :root {
   color-scheme: light;
@@ -12,7 +13,7 @@
   --muted: #5b6068;
   --rule: #c3c8ce;
   --rule-strong: #1a1c1f;
-  --edge: #9ba2aa;
+  --edge: #b3b9c0;
   --accent: #b3261e;
   --link: #1a1c1f;
   --chip: #d6dbe0;
@@ -92,13 +93,22 @@ code {
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* 紙面：左右に細い線（紙の切れ目）。スマホは画面の端から 6px 内側 */
+/* 紙面：左右にごく細かい波線（紙の切れ目）。スマホは画面の端から 6px 内側
+   波の形は SVG を mask に使い、色は --edge で付ける（テーマで色が変わるように） */
 .paper {
+  position: relative;
   max-width: 62rem; min-height: 100vh;
   margin: 0 6px;
-  border-left: 1px solid var(--edge);
-  border-right: 1px solid var(--edge);
+  --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='6'%3E%3Cpath d='M2 0 Q3.6 1.5 2 3 T2 6' fill='none' stroke='black' stroke-width='0.9'/%3E%3C/svg%3E");
 }
+.paper::before, .paper::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 4px;
+  background-color: var(--edge);
+  -webkit-mask: var(--wave) repeat-y; mask: var(--wave) repeat-y;
+  pointer-events: none;
+}
+.paper::before { left: -2px; }
+.paper::after { right: -2px; }
 @media (min-width: 1004px) {  /* 62rem（992px）＋左右の 6px */
   .paper { margin: 0 auto; }
 }
@@ -217,8 +227,24 @@ header.site { padding: 14px 12px 0; }
 .pending { color: var(--muted); font-size: 13px; margin: 0 0 4px; }
 .orig { color: var(--muted); font-size: 13.5px; line-height: 1.65; margin: 0; }
 
-/* トップ記事（最初の1件）は本文も大きく、下を表罫で区切る */
+/* トップ記事（最初の1件）は本文も大きく、最初の1文字を大きく（ドロップキャップ） */
 .cards > .card:first-child .short { font-size: 17.5px; line-height: 1.9; }
+.cards > .card:first-child .short::first-letter {
+  float: left; font-size: 3.1em; line-height: 1; font-weight: 700;
+  margin: 0.08em 0.12em 0 0;
+}
+
+/* ---- 本日の分野（天気欄のような囲み） ---- */
+.field-box {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;
+  margin: 14px 0 2px; padding: 8px 12px;
+  border: 1px solid var(--rule-strong);
+  outline: 1px solid var(--rule); outline-offset: 2px;  /* 二重の枠 */
+}
+.field-box h2 { margin: 0; font-size: 13px; letter-spacing: 0.14em; white-space: nowrap; }
+.field-box ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 0; padding: 0; font-size: 13px; }
+.field-box li { margin: 0; white-space: nowrap; }
+.field-box li b { margin-left: 4px; color: var(--accent); font-variant-numeric: tabular-nums; }
 
 /* ---- 継続・失敗の一覧 ---- */
 .panel { margin-top: 36px; }
@@ -280,16 +306,21 @@ header.site { padding: 14px 12px 0; }
 .about dd { margin: 0; }
 .detail .orig { font-size: 14px; }
 
-/* ---- フッター ---- */
+/* ---- フッター：横線は本文と同じ幅の内側に（左右の波線に届かないように） ---- */
 footer.site {
-  margin-top: 56px; padding-top: 14px; padding-bottom: 32px;
-  border-top: 1px solid var(--rule-strong);
+  position: relative;
+  margin-top: 56px; padding-top: 16px; padding-bottom: 32px;
   color: var(--muted); font-size: 12px; line-height: 1.7; text-align: center;
+}
+footer.site::before {
+  content: ""; position: absolute; top: 0; left: 12px; right: 12px;
+  border-top: 2px solid var(--rule-strong);
 }
 
 /* ---- PC：2段組み、段のあいだに縦の罫線 ---- */
 @media (min-width: 900px) {
   main, footer.site { padding-left: 28px; padding-right: 28px; }
+  footer.site::before { left: 28px; right: 28px; }
   header.site { padding: 22px 28px 0; }
   .nameplate { max-width: calc(62rem - 56px); }
   .logo { width: 400px; }

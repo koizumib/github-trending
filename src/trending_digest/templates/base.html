@@ -24,7 +24,7 @@
     </a>
     <div class="nameplate-side">
       {% if header_day %}
-      <p class="dateline"><time datetime="{{ header_day }}">{{ header_day | ja_ymd }}</time><span>{{ header_day | ja_weekday }}</span></p>
+      <p class="dateline"><time datetime="{{ header_day }}">{{ header_day | ja_ymd }}</time><span>{{ header_day | ja_weekday }}　第{{ issue_no[header_day] }}号</span></p>
       {% endif %}
       <nav class="site-nav">
         <a href="{{ root }}archive/">過去の日</a>

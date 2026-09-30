@@ -96,6 +96,25 @@ def test_weekly_and_monthly_pages_with_tabs(tmp_path):
     assert 'href="../d/2026-09-29/weekly/"' not in archive
 
 
+def test_issue_number_and_field_box(tmp_path):
+    from trending_digest.build_site import count_fields
+
+    items = [
+        {"summary": {"tags": ["LLM", "CLI"]}}, {"summary": {"tags": ["LLM"]}},
+        {"summary": None}, {"summary": {"tags": ["AI エージェント"]}},
+    ]
+    assert count_fields(items) == [("LLM", 2), ("AI エージェント", 1), ("CLI", 1)]
+
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    index = (out / "index.html").read_text()          # 最新の日（9/30）は2日目
+    assert "第2号" in index
+    assert "第1号" in (out / "d/2026-09-29/index.html").read_text()
+    assert "第2号" in (out / "r/o/r/index.html").read_text()  # 詳しいページは最新の日の号数
+    # 9/30 の記事：o/r（継続、要約あり：CLI・インフラ・運用）
+    assert "本日の分野" in index and "<span>CLI</span><b>1</b>" in index
+    assert "この日の分野" in (out / "d/2026-09-30/index.html").read_text()
+
+
 def test_rank_tiers_and_language_color(tmp_path):
     from trending_digest.build_site import lang_color, rank_tier
 
