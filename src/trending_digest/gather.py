@@ -36,7 +36,7 @@ MANIFESTS = [
 
 META_FIELDS = [
     "full_name", "description", "homepage", "topics", "language", "stargazers_count",
-    "forks_count", "created_at", "pushed_at", "default_branch", "archived", "fork",
+    "forks_count", "size", "created_at", "pushed_at", "default_branch", "archived", "fork",
 ]
 
 

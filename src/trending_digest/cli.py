@@ -40,6 +40,23 @@ def cmd_prepare(args) -> int:
     return 0
 
 
+def cmd_validate(args) -> int:
+    from .validate import validate_all
+
+    problems, notes = validate_all(Store())
+    for path, found in problems.items():
+        print(f"NG {path}")
+        for p in found:
+            print(f"   - {p}")
+    for n in notes:
+        print(f"注意 {n}")
+    if problems:
+        print(f"{len(problems)} 個のファイルに問題がある")
+        return 1
+    print("OK")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="trending_digest")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -61,4 +78,6 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "prepare":
         return cmd_prepare(args)
+    if args.command == "validate":
+        return cmd_validate(args)
     raise SystemExit(f"{args.command} はまだ作っていない")
