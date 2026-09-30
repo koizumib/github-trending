@@ -1,0 +1,32 @@
+{
+  "repo": "byoungd/up",
+  "summarized_at": "2026-10-01",
+  "short": "中国語で書かれた「人生進阶指南」という書籍のソース。英語学習から始まり、AI を使った学習、実プロジェクト、復調までを扱う。ソフトウェアではなく読み物。",
+  "what": "AI 時代の学習を扱う中国語の書籍（VitePress 製）",
+  "can_do": [
+    "英語学習、文法、ライティングなどの基礎から、AI を使った学習、実プロジェクトまでの章を読める",
+    "中国語版と英語版の EPUB と PDF をダウンロードできる",
+    "学習状態を記録するテンプレート（`docs/templates/`）が付く",
+    "本文は VitePress でサイト化されており、`npm run docs:dev` でローカル表示できる"
+  ],
+  "how_to_use": "読み方は README の読書パス（基礎 → AI で能力を拡張 → 実プロジェクト）から章を選ぶか、EPUB / PDF を落とす。ローカルでサイトを見るなら Node.js 24 系で `npm install` のあと `npm run docs:dev`。",
+  "use_cases": [
+    "中国語が読める人が、英語学習や AI との付き合い方の読み物として読めそう",
+    "VitePress で書籍を作り EPUB / PDF も出す構成（`scripts/build-epub.mjs` など）の実例として見られそう"
+  ],
+  "for_whom": "中国語で書かれた学習法の読み物に関心がある人。ドキュメントを本として配布する構成を見たい人",
+  "similar": [],
+  "tech": "Markdown 原稿、VitePress、Node.js（24 系）、markdownlint。EPUB / PDF の生成スクリプトつき。",
+  "caveats": "ソフトウェアではなく書籍で、内容は主に中国語。英語版は `docs/en/` にある。著者個人の経験や主張を含み、本文はライセンスが CC BY-NC 4.0（非営利）、コードは別ライセンス。著者は README で自身が企業の会長であると明かしており、商業的な関係にも触れている。2017年から続くプロジェクトで、今回の浮上は新規ではなく更新のためと思われる。内容の正確さは確認していない。",
+  "tags": [
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の冒頭と構成、package.json は読んだが、各章の本文は読んでいない。中国語の内容は概要しか確認していない。"
+}

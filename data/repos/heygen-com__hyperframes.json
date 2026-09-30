@@ -1,0 +1,38 @@
+{
+  "repo": "heygen-com/hyperframes",
+  "summarized_at": "2026-10-01",
+  "short": "HTML / CSS とアニメーションから MP4 動画を書き出すフレームワーク。headless Chrome でフレームごとに描画し、FFmpeg で動画にするので、同じ入力なら同じ動画になる。AI エージェントから使う skill も付く。",
+  "what": "HTML を書いて MP4 動画をレンダリングするフレームワーク",
+  "can_do": [
+    "HTML / CSS / メディア / seek できるアニメーション（GSAP など）を決定的に MP4 へ書き出す",
+    "`npx hyperframes init` でひな形、`preview` でライブリロードのプレビュー、`render` で MP4 出力",
+    "ローカルまたは Docker でレンダリング",
+    "Claude Code、Codex、Cursor、Gemini CLI などに入れる21個の skill とプラグイン（`/hyperframes` が入口）",
+    "ブランドの design.md を動画向けに変換する `frame.md`、部品カタログ"
+  ],
+  "how_to_use": "`npx hyperframes init my-video` のあと `npx hyperframes preview`、`npx hyperframes render`。Node.js 22 以上と FFmpeg が必要。エージェントから使うなら Claude Code で `claude plugin marketplace add heygen-com/hyperframes` と `claude plugin install hyperframes@hyperframes`。",
+  "use_cases": [
+    "スクリプトやエージェントから、プロダクト紹介や図解の動画を自動で作る用途に使えそう",
+    "同じ入力で同じ動画ができるので、CI で動画を生成する構成にも向きそう"
+  ],
+  "for_whom": "動画を React ではなくプレーンな HTML で書いて自動生成したい人。エージェントに動画を作らせたい人",
+  "similar": [
+    "Remotion：headless Chrome と FFmpeg で描画する点は同じ。Remotion は React コンポーネントで書き、こちらは素の HTML で書く"
+  ],
+  "tech": "TypeScript の monorepo（core、engine、producer など）。Puppeteer（headless Chrome）と FFmpeg。Node.js 22 以上。Apache-2.0。",
+  "caveats": "バージョンは 0.8 系で、まだ 1.0 前。更新がとても頻繁（ほぼ毎日リリース）。2026年3月作成。HeyGen 社の製品で、README に同社のホスト版ワークフローの核としての位置づけも書かれている。",
+  "tags": [
+    "音声・画像・動画",
+    "開発ツール",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

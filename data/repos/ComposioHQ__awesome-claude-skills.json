@@ -1,0 +1,32 @@
+{
+  "repo": "ComposioHQ/awesome-claude-skills",
+  "summarized_at": "2026-10-01",
+  "short": "Claude の skill とプラグインを集めた awesome リスト。自前の skill も同梱する。運営元 Composio の SaaS 連携サービスへの入口も兼ねる。",
+  "what": "Claude の skill を集めたリストと同梱の skill 集",
+  "can_do": [
+    "文書処理、開発ツール、データ分析、ビジネス・マーケティング、セキュリティなど分野別に skill を一覧",
+    "`artifacts-builder`、`changelog-generator`、`brand-guidelines` など、ディレクトリごとに `SKILL.md` を持つ skill を同梱",
+    "`composio-skills/` に各 SaaS 向けの `*-automation` skill を多数収録",
+    "`connect-apps` プラグインで、メール送信や Issue 作成、Slack 投稿などを Composio 経由で Claude から行う"
+  ],
+  "how_to_use": "リストとして読むか、欲しい skill のディレクトリを自分の環境にコピーして使う。`connect-apps` は `claude --plugin-dir ./connect-apps-plugin` で読み込み、`/connect-apps:setup` で Composio の API キーを入れる。",
+  "use_cases": [
+    "Claude Code に入れる skill の候補探しに使えそう",
+    "SKILL.md の書き方の実例集として読めそう"
+  ],
+  "for_whom": "Claude Code や他のエージェントで skill を探したり、書き方を参考にしたい人",
+  "similar": [],
+  "tech": "Markdown（SKILL.md）が中心で、補助スクリプトは Python。Apache-2.0。",
+  "caveats": "ソフトウェア本体ではなく、リスト兼 skill 集。README は Composio の MCP Gateway やアカウント登録（API キー）への誘導を強く含み、`connect-apps` は外部サービス経由で動く。「1000+」は README の数で、各 skill の品質や安全性は材料からは確認できない。使う前に中身を読むべき。",
+  "tags": [
+    "AI エージェント",
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の冒頭と構成は読んだが、個々の skill の中身は読んでいない。"
+}

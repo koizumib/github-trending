@@ -1,0 +1,38 @@
+{
+  "repo": "colbymchenry/codegraph",
+  "summarized_at": "2026-10-01",
+  "short": "コードベースの関数・呼び出し関係・依存を事前にグラフ化し、AI エージェントに MCP 経由で渡すツール。grep と Read を繰り返さず、1回の問い合わせで関連コードを返す。処理は全部ローカル。",
+  "what": "コードの呼び出しグラフを作り AI エージェントに渡す MCP ツール",
+  "can_do": [
+    "全シンボル、呼び出し関係、依存を事前にインデックス化し、コード変更に合わせて自動同期",
+    "MCP ツール `codegraph_explore` 1つで、関連ソース、呼び出し経路、変更の影響範囲（blast radius）を返す",
+    "Claude Code、Cursor、Codex、OpenCode、Gemini、Kiro、GitHub Copilot などに接続",
+    "Expo Router、Next.js、React Router など、フレームワークのルーティングもグラフに取り込む",
+    "CLI（`codegraph node` / `callers` / `callees` / `impact` など）とライブラリとしても使える"
+  ],
+  "how_to_use": "`curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh`（Windows は PowerShell 版）、または `npm i -g @colbymchenry/codegraph`。新しい端末でインストーラーを実行して使うエージェントに接続し、プロジェクトをインデックス化する。更新は `codegraph upgrade`。",
+  "use_cases": [
+    "大きなコードベースで「この処理はどこから呼ばれるか」「変更の影響範囲はどこか」をエージェントに調べさせるのに使えそう",
+    "コードリーディングの調査で、tool call の回数と token を減らしたいときに試せそう"
+  ],
+  "for_whom": "大きめのリポジトリで AI コーディングエージェントを使い、調査の遅さや token 消費が気になる人",
+  "similar": [
+    "mksglu/context-mode：こちらはコード構造の索引、あちらはツール出力の sandbox 化で、context 節約の方向が異なる"
+  ],
+  "tech": "TypeScript の CLI / MCP サーバー。README によると中核（kernel）は Rust で、実行環境（Node.js）は同梱され、別途の導入は不要。macOS / Linux / Windows。MIT ライセンス。",
+  "caveats": "「44% 安い、62% 少ない token」などの数値は作者による 7 repo・各 4 回の測定。README 自身が、会話が終わる時点でも context に残る量は約 80% 増える、と書いている。匿名の利用統計を送る仕組みがあり、`codegraph telemetry off` で止められる。README に、作者が今後出すホスト版製品の待機リストへの誘導がある。install.sh を curl で流し込む方式なので、中身を確認してから使うべき。2026年1月作成でまだ新しい。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

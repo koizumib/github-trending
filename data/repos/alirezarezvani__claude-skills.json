@@ -1,0 +1,36 @@
+{
+  "repo": "alirezarezvani/claude-skills",
+  "summarized_at": "2026-10-01",
+  "short": "Claude Code をはじめ13のコーディングエージェントで使える、380以上の skill とプラグインの大規模集。エンジニアリング、DevOps、マーケ、セキュリティ、コンプライアンス、経営向けの役割など分野が広い。",
+  "what": "多分野の Claude Code skill とプラグインの大規模集",
+  "can_do": [
+    "SKILL.md、補助用の Python スクリプト（標準ライブラリのみ）、参考資料をセットにした skill を分野別に収録",
+    "agent、persona（CTO など立場を決める設定）、`/cs:*` などの slash command も収録",
+    "Claude Code、Codex、Gemini CLI、Cursor、Aider、Windsurf、OpenCode など13のツール向けの配置や変換スクリプト（`scripts/convert.sh`）",
+    "セキュリティ向けの PreToolUse hook、調査・論文・特許など研究系の skill セット"
+  ],
+  "how_to_use": "リポジトリを clone して、使うツール向けのセットアップを実行する（例：Gemini CLI は `./scripts/gemini-install.sh`）。Claude Code は `.claude-plugin/marketplace.json` を使ったプラグイン導入ができると思われる。手順は README と INSTALLATION.md にある。Windows は `git clone -c core.symlinks=true` が必要。",
+  "use_cases": [
+    "DevOps やセキュリティ系の skill を選んで、自分のエージェント環境に入れる素材に使えそう",
+    "SKILL.md とスクリプトを組み合わせた skill の書き方の実例として読めそう"
+  ],
+  "for_whom": "エージェント用の skill をまとめて探したい人",
+  "similar": [
+    "ComposioHQ/awesome-claude-skills：こちらも skill の大量集。あちらは外部の SaaS 連携が中心"
+  ],
+  "tech": "Markdown（SKILL.md）と Python スクリプト。Python は標準ライブラリだけで動くと README に書かれている。MIT ライセンス。",
+  "caveats": "規模が大きい（ファイル約7500）ので、必要な skill だけ選ばないと管理しきれない。skill や agent の数値（380、388 など）は README 内でも表記が揺れている。個々の skill の品質は確認していない。インストール前に中身を読むべき。一部の対応ツール（Hermes、Mistral Vibe）は手元で同期スクリプトを動かす必要がある。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の冒頭と構成、リリースは読んだが、個々の skill の中身は読んでいない。"
+}

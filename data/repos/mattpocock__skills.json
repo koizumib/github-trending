@@ -1,0 +1,38 @@
+{
+  "repo": "mattpocock/skills",
+  "summarized_at": "2026-10-01",
+  "short": "個人開発者が日常で使う、コーディングエージェント向け skill 集。実装前にエージェントに質問させる `/grill-me`、TDD、バグ調査、ticket 分割など。プロセスを丸ごと縛らず、小さく差し替えやすい作りにしている。",
+  "what": "コーディングエージェント向けの skill 集",
+  "can_do": [
+    "`/grill-me`、`/grill-with-docs`：計画や設計についてエージェントに詳しく質問させ、認識のずれを減らす",
+    "`/tdd`：red-green-refactor の流れで、テストを先に書かせる",
+    "`/diagnosing-bugs`：フィードバックループを作ってから原因を絞るバグ調査。秘密情報を伏せる手順も入る",
+    "`/to-spec`、`/to-tickets`、`/implement`、`/implement-spec`：会話を spec や ticket にして実装まで進める",
+    "`/triage`、`/code-review`、`/handoff`（別エージェントへの引き継ぎ文書）など",
+    "プロジェクト用語集 `GLOSSARY.md` を育てて、エージェントの冗長な説明を減らす"
+  ],
+  "how_to_use": "Claude Code なら `claude plugins install mattpocock-skills`（セッション内は `/plugin install mattpocock-skills`）。ほかのエージェントや、ファイルを自分で編集したい場合は `npx skills@latest add mattpocock/skills`。そのあと各 repo で一度 `/setup-matt-pocock-skills` を実行し、issue tracker（GitHub、Linear、ローカルファイル）、ラベル、docs の置き場所を設定する。",
+  "use_cases": [
+    "実装を任せる前に、要件のすり合わせを `/grill-me` で済ませる運用に使えそう",
+    "エージェント向けの SKILL.md や運用ルールの書き方の実例として読めそう"
+  ],
+  "for_whom": "Claude Code や Codex などで、きちんと設計・テストを回しながら開発したい人",
+  "similar": [
+    "ComposioHQ/awesome-claude-skills：skill の大量リスト。こちらは1人の作者が使い込んだ少数の skill"
+  ],
+  "tech": "Markdown の SKILL.md が中心（GitHub 上の主言語表示は Shell）。リリース管理に changesets を使用。MIT ライセンス。",
+  "caveats": "作者個人のワークフローに合わせた skill で、そのまま合うとは限らない。plugin 版と skills.sh 版を両方入れると skill が二重になる。README は作者のニュースレターや有料コースへの誘導を含む。issue tracker は GitHub、Linear、ローカルファイルが前提（主流以外は対象外と明記）。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

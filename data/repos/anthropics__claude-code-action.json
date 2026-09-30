@@ -1,0 +1,37 @@
+{
+  "repo": "anthropics/claude-code-action",
+  "summarized_at": "2026-10-01",
+  "short": "GitHub の PR と Issue で Claude Code を動かす公式 GitHub Action。@claude のメンションや Issue の assign、または明示したプロンプトをきっかけに、質問への回答、コードレビュー、実装を行う。",
+  "what": "PR や Issue で Claude Code を動かす GitHub Action",
+  "can_do": [
+    "@claude のメンションや Issue の割り当てに反応して、コードの質問に答える",
+    "PR の差分のレビューと改善提案",
+    "簡単な修正、リファクタリング、新機能の実装",
+    "`prompt` と `claude_args` の入力で、自動化用に明示したプロンプトも実行できる。実行モードは文脈から自動判定される",
+    "結果を構造化 JSON で返し、Action の output にできる",
+    "認証は Anthropic API（API キー / workload identity federation）、Amazon Bedrock、Google Vertex AI、Microsoft Foundry に対応"
+  ],
+  "how_to_use": "ターミナルで `claude` を開き `/install-github-app` を実行すると、GitHub App と必要な secret の設定が案内される（repo の admin 権限が必要。Anthropic API 直接利用の場合のみ）。手動設定や Bedrock / Vertex 向けは docs/setup.md と docs/cloud-providers.md。workflow では `anthropics/claude-code-action@v1` を使う。",
+  "use_cases": [
+    "PR ごとの自動レビューや、パスを限定したレビューを CI に足すのに使えそう",
+    "Issue の自動分類やラベル付け、コード変更に合わせたドキュメント同期などの定期処理に使えそう"
+  ],
+  "for_whom": "GitHub Actions で Claude によるレビューや自動化を組み込みたいチーム",
+  "similar": [],
+  "tech": "TypeScript 製の GitHub Action。実行は自分の GitHub runner 上で行われ、API 呼び出し先は選んだプロバイダー。MIT ライセンス。",
+  "caveats": "Claude の API 利用料（または Bedrock / Vertex 側の料金）がかかる。権限の設定を誤ると、外部の投稿者のコメントから書き込み操作が走る恐れがあるので、README の Security のドキュメントで確認すべき。v0.x からの移行にはマイグレーションガイドが要る。Anthropic 公式だが、2025年5月からあり、新規ではなく更新での再浮上と思われる。",
+  "tags": [
+    "AI エージェント",
+    "自動化・ワークフロー",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

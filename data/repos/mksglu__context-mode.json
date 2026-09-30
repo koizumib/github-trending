@@ -1,0 +1,36 @@
+{
+  "repo": "mksglu/context-mode",
+  "summarized_at": "2026-10-01",
+  "short": "AI コーディングエージェントの context window を節約する MCP サーバー兼プラグイン。ツール出力を sandbox に閉じ込め、セッションの履歴を SQLite に保存して compaction 後に検索で復元する。",
+  "what": "AI エージェントの context 消費を減らす MCP サーバー",
+  "can_do": [
+    "ツールの生出力を sandbox 内で処理し、結果の要約だけを context に返す",
+    "ファイル編集・git 操作・タスク・エラーを SQLite に記録し、FTS5 と BM25 で必要な分だけ検索して復元する",
+    "スクリプトを実行させて結果だけ受け取る `ctx_execute` ツール（大量ファイルを読み込まずに集計できる）",
+    "Claude Code、Gemini CLI、Copilot CLI、Cursor、OpenCode、Codex CLI など多数のクライアントに対応",
+    "`ctx stats` で節約量を表示"
+  ],
+  "how_to_use": "Claude Code なら `/plugin marketplace add mksglu/context-mode` のあと `/plugin install context-mode@context-mode`。MCP のみなら `claude mcp add context-mode -- npx -y context-mode`。他のクライアントは `npm install -g context-mode` のあと各クライアントの設定ファイルに登録する（Node.js 22.5 以上）。",
+  "use_cases": [
+    "ログや API 応答が大きい調査作業で、エージェントの context 切れを遅らせるのに使えそう",
+    "長い作業で compaction が入っても、作業の経過を引き継ぎたいときに使えそう"
+  ],
+  "for_whom": "AI コーディングエージェントを長時間使っていて、context 消費や compaction 後の忘れが気になる人",
+  "similar": [],
+  "tech": "TypeScript、Node.js 22.5 以上（または Bun）。SQLite（FTS5）、better-sqlite3。MCP + hooks。",
+  "caveats": "ライセンスは Elastic License 2.0 で、OSS ではなく利用に制限がある。「98% 削減」は README 自身の測定値で、第三者の検証は未確認。対応クライアントが多く、クライアントごとに導入手順と hook の対応範囲が違う。2026年2月作成でまだ新しく、更新がとても頻繁。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "LLM"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

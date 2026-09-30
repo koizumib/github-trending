@@ -1,0 +1,35 @@
+{
+  "repo": "DietrichGebert/ponytail",
+  "summarized_at": "2026-10-01",
+  "short": "AI コーディングエージェントに「不要なコードを書かない」方針を守らせる skill / プラグイン。既存の機能や標準の仕組みで済むなら、ライブラリを足さずにそれを使わせる。",
+  "what": "エージェントに最小限のコードを書かせる skill 集",
+  "can_do": [
+    "エージェントの指示に「まず書かずに済む方法を探す」ルールを入れる（例：日付入力に `<input type=\"date\">` を使い、ライブラリを足さない）",
+    "強度を `lite` / `full` / `ultra` で切り替えられる",
+    "`/ponytail-review`、`/ponytail-audit`、`/ponytail-debt`、`/ponytail-gain`、`/ponytail-help` の skill を提供",
+    "Claude Code、Codex、Copilot CLI、Gemini CLI、Cursor、OpenCode、Grok、Devin など約20のエージェントに対応",
+    "Cursor では hooks を `~/.cursor/hooks.json` に追加する導入スクリプトがある"
+  ],
+  "how_to_use": "Claude Code なら `/plugin marketplace add DietrichGebert/ponytail` と `/plugin install ponytail@ponytail` を別々のプロンプトで送る。他のエージェントは README に個別の手順がある（`copilot plugin install ponytail@ponytail`、`gemini extensions install ...` など）。ルールファイルだけコピーして使う方法もある。",
+  "use_cases": [
+    "エージェントが小さな依頼で過剰な実装やライブラリ追加をするのを抑えるのに使えそう",
+    "`/ponytail-audit` などで既存コードの不要な部分を洗い出すのに使えそう"
+  ],
+  "for_whom": "AI エージェントが作るコードが冗長になりがちで、差分を小さくしたい人",
+  "similar": [],
+  "tech": "JavaScript（Node.js）。実体は主に prompt / ルールファイルと hooks。MIT ライセンス。",
+  "caveats": "「コード量 54% 減」などの数値は作者による測定（Haiku 4.5、12タスク、n=4）で、条件が限られる。中身はプロンプトなので、効果はモデルや作業内容に左右されると思われる。2026年6月作成。README に作者の別サービスの待機リストへのバナーがある。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

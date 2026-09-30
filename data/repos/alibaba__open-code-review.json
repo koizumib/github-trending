@@ -1,0 +1,40 @@
+{
+  "repo": "alibaba/open-code-review",
+  "summarized_at": "2026-10-01",
+  "short": "Git の差分を LLM のエージェントに読ませ、行単位のレビューコメントを出す CLI。Alibaba 社内のコードレビュー支援ツールが元。OpenAI 互換と Anthropic 互換の API に対応する。",
+  "what": "LLM による行単位のコードレビュー CLI",
+  "can_do": [
+    "`ocr review` で差分（ブランチ間、特定コミット）をレビューし、行単位のコメントを出す",
+    "エージェントが変更ファイルの全文や他の変更ファイル、コードベース内の検索を使って文脈を補う",
+    "`ocr scan` で差分のないリポジトリやディレクトリ全体を監査",
+    "NPE、スレッド安全性、XSS、SQL injection などの組み込みルールと、独自ルール（`.opencodereview/rule.json`）",
+    "`--format json --output` で結果を JSON 出力、`--resume` で中断した作業の再開",
+    "Claude Code、Codex、Cursor、Kimi Code 向けのプラグインも付く"
+  ],
+  "how_to_use": "`npm install -g @alibaba-group/open-code-review` のあと、`ocr config provider` と `ocr config model` でモデルを設定し、リポジトリ内で `ocr review` を実行する。ブランチ指定は `ocr review --from main --to feature-branch`。",
+  "use_cases": [
+    "PR 前のセルフレビューや CI でのレビュー自動化に使えそう",
+    "引き継いだ未知のコードベースに `ocr scan` をかけて、危ない箇所を見つける用途に使えそう"
+  ],
+  "for_whom": "自分のモデル API を使って、コードレビューを自動化したい開発者やチーム",
+  "similar": [
+    "anthropics/claude-code-action：あちらは GitHub Action、こちらは単体の CLI でモデルも選べる"
+  ],
+  "tech": "Go 1.25 製の CLI（npm でも配布）。Cobra、Bubble Tea（TUI）、OpenAI / Anthropic SDK、MCP SDK、OpenTelemetry。macOS / Linux / Windows。Apache-2.0。",
+  "caveats": "使うには LLM の API キーか endpoint が要り、利用料がかかる。差分や読ませたコードが設定したモデル提供元に送られる。ベンチマークの「精度が高く token は約 1/9」は作者側の測定で、README 自身が recall（見つける割合）は汎用エージェントより低いと書いている。2026年5月作成で新しく、更新が速い。",
+  "tags": [
+    "開発ツール",
+    "CLI",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:go.mod",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

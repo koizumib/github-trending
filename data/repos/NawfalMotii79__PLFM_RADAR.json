@@ -1,0 +1,36 @@
+{
+  "repo": "NawfalMotii79/PLFM_RADAR",
+  "summarized_at": "2026-10-01",
+  "short": "10.5 GHz のフェーズドアレイレーダー「AERIS-10」のハードウェアと FPGA、ファームウェア、Python GUI まで公開しているプロジェクト。回路図や基板データも含む。",
+  "what": "オープンソースの 10.5 GHz フェーズドアレイレーダー（ハードウェア一式）",
+  "can_do": [
+    "回路図、基板レイアウト、製造データ、部品のデータシートを公開",
+    "3km 版（8x16 パッチアンテナ）と 20km 版（32x16 スロット導波管アレイ）の2構成",
+    "±45° の電子ビームステアリング（方位・仰角）",
+    "FPGA（XC7A50T）でパルス圧縮、Doppler FFT、MTI、CFAR を処理",
+    "STM32 マイコンが電源シーケンスと各 IC の設定を担当",
+    "地図連携つきの Python GUI、GPS / IMU による位置・姿勢補正"
+  ],
+  "how_to_use": "ソフトウェアとして入れるものではなく、ハードウェアを作る前提。README と番号付きのディレクトリ（回路図、シミュレーション、FPGA、ファームウェアなど）に沿って読む。GUI などのホスト側は Python 3.12 以上。リリースに FPGA 用の bitstream がある。",
+  "use_cases": [
+    "フェーズドアレイや FPGA 信号処理の実装を学ぶ教材として読めそう",
+    "SDR やレーダーの自作を試したい人の設計資料に使えそう"
+  ],
+  "for_whom": "無線・レーダー・FPGA に詳しい研究者やハードウェア自作の上級者",
+  "similar": [],
+  "tech": "Xilinx Artix-7 FPGA（Verilog と思われる）、STM32F746、Python GUI、MATLAB / openEMS によるシミュレーション。使用 IC に AD9523-1、ADF4382、ADAR1000 など。ハードウェアは CERN-OHL-P、ソフトウェアは MIT と README に書かれている。",
+  "caveats": "README に Status: Alpha、Features: Work in Progress と明記されている。ハードウェアの製作と、高周波・電波の知識が必要で、電波の送信には各国の免許や法規制が関わると思われる。最終 push は2026年6月で、最近は更新が止まっている。GitHub 上の主言語が PLSQL になっているのは誤判定と思われる。README に 3km / 20km の射程があるが、実機での検証結果は確認していない。",
+  "tags": [
+    "その他",
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の冒頭と構成、リリース、pyproject を読んだ。FPGA や回路の実装は読んでおらず、射程や性能は README の記述のまま。"
+}

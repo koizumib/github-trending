@@ -1,0 +1,36 @@
+{
+  "repo": "modelcontextprotocol/servers",
+  "summarized_at": "2026-10-01",
+  "short": "Model Context Protocol（MCP）の参考実装サーバー集。ファイル操作、Git、Fetch、Memory、時刻変換などを LLM に渡す例。本番用ではなく、自作サーバーの手本という位置づけ。",
+  "what": "MCP の公式リファレンス実装サーバー集",
+  "can_do": [
+    "Filesystem：アクセス制御つきのファイル操作",
+    "Git：リポジトリの読み取り、検索、操作",
+    "Fetch：Web ページを LLM 向けに取得・変換",
+    "Memory：knowledge graph による永続メモリ",
+    "Sequential Thinking（段階的に考えを進める）、Time（時刻とタイムゾーン変換）、Everything（機能確認用のテストサーバー）"
+  ],
+  "how_to_use": "TypeScript 製は `npx -y @modelcontextprotocol/server-memory` のように直接起動する。Python 製は `uvx mcp-server-git` または `pip install mcp-server-git`。単体では使い道がなく、Claude Desktop などの MCP クライアントの設定に登録して使う。",
+  "use_cases": [
+    "自分で MCP サーバーを書くときの実装例として読めそう",
+    "手元の AI クライアントに、ファイルや Git を扱うツールを足すのに使えそう"
+  ],
+  "for_whom": "MCP サーバーを自作したい人、MCP の基本的な機能を試したい人",
+  "similar": [],
+  "tech": "TypeScript（npm パッケージ）と Python（Fetch、Git、Time）。各言語の MCP SDK を使う。Node.js や uv が必要。",
+  "caveats": "README が、本番利用を想定しない参考実装であり、セキュリティ要件は利用者が評価するよう明記している。GitHub、Slack、PostgreSQL などの旧サーバーはアーカイブ済みで servers-archived に移っている。一般向けのサーバー一覧は MCP Registry を見る方式。ライセンスは GitHub 上では判定不能（NOASSERTION）。2024年11月からあるので、新規ではなく更新での再浮上と思われる。",
+  "tags": [
+    "AI エージェント",
+    "ライブラリ・SDK",
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

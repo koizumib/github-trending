@@ -1,0 +1,39 @@
+{
+  "repo": "openclaw/openclaw",
+  "summarized_at": "2026-10-01",
+  "short": "自分のマシンで動かす個人用 AI アシスタント。Discord、Slack、Telegram、WhatsApp、iMessage など20以上のチャットから話しかけられる。モデルは差し替え可能。",
+  "what": "チャットアプリから使えるセルフホストの AI アシスタント",
+  "can_do": [
+    "Gateway（ローカルの制御プロセス）がセッション、ツール、各チャットとの接続をまとめて管理",
+    "Discord、Slack、Teams、Telegram、WhatsApp、Signal、iMessage など20以上のチャネルに対応",
+    "Claude、Codex、ローカルモデルなどをプラグインとして切り替え",
+    "CLI、TUI、Web の Control UI から操作",
+    "macOS、iOS、Android、Windows、Linux 向けのコンパニオンアプリ（音声、Canvas、カメラ、画面など端末側の操作）",
+    "個人利用も、チーム共有の構成も同じ設定方式"
+  ],
+  "how_to_use": "`curl -fsSL https://openclaw.ai/install.sh | bash`（Windows は PowerShell 版）。Node 管理済みなら `npm install -g openclaw@latest`（Node 24.16 以上）。そのあと `openclaw onboard --install-daemon` で初期設定し、`openclaw gateway status`、`openclaw dashboard` で確認する。Docker と Nix の手順は docs にある。",
+  "use_cases": [
+    "普段使っている Slack や Discord から自分用の AI エージェントを呼び出す構成に使えそう",
+    "状態や認証情報を自前のマシンに置く AI アシスタントを、チームで共有する構成も試せそう"
+  ],
+  "for_whom": "データを自分の環境に置いたまま、チャットから AI アシスタントを使いたい人",
+  "similar": [],
+  "tech": "TypeScript、Node.js 24.16 以上（26 推奨）。macOS / Linux / Windows（WSL2 も可）。Docker、Nix 対応。",
+  "caveats": "規模がとても大きく（リポジトリ約 7GB）、更新も非常に速い。2025年11月作成。README は MIT と書くが、GitHub のライセンス判定は不明（NOASSERTION）。install.sh を curl で流し込んで実行する方式は、中身を確認してから使うべき。モデルへのプロンプトは、設定した提供元とチャットサービスには送られる。チャネルごとの設定や権限は、セキュリティ面の確認が要ると思われる。",
+  "tags": [
+    "AI エージェント",
+    "セルフホスト",
+    "自動化・ワークフロー"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

@@ -1,0 +1,37 @@
+{
+  "repo": "firebase/firebase-ios-sdk",
+  "summarized_at": "2026-10-01",
+  "short": "Apple プラットフォーム（iOS など）のアプリから Firebase の各サービスを使うための公式 SDK。認証、Firestore、Crashlytics、Cloud Messaging などを含む。",
+  "what": "Apple 向けアプリで Firebase を使うための公式 SDK",
+  "can_do": [
+    "Authentication、Cloud Firestore、Realtime Database、Storage、Cloud Functions の各クライアント",
+    "Cloud Messaging（push 通知）、Remote Config、In-App Messaging",
+    "Crashlytics、Performance Monitoring、App Distribution、App Check",
+    "Firebase AI Logic（Gemini 連携）。Apple Foundation Models framework のアダプターはプレビュー",
+    "Analytics はソース非公開で、ビルド済みバイナリが Swift Package Manager / CocoaPods 経由で入る"
+  ],
+  "how_to_use": "Xcode の Swift Package Manager でこの repo の URL を追加し、必要なプロダクト（例：`FirebaseAuth`）を選ぶ。詳細は公式の「Add Firebase to your project」。CocoaPods、Carthage（実験的）、GitHub からの直接導入もある。",
+  "use_cases": [
+    "iOS アプリの認証、push 通知、クラッシュ収集をバックエンドを自作せずに組み込むのに使えそう",
+    "インフラ側の視点では、Firebase 連携アプリの問題調査のときにクライアント側の挙動を確認する資料になりそう"
+  ],
+  "for_whom": "iOS / macOS アプリ開発者で、バックエンドに Firebase を使う人",
+  "similar": [],
+  "tech": "Objective-C、Swift、C++ が混在（GitHub 上の主言語は C++）。Swift Package Manager、CocoaPods、CMake。Apple プラットフォーム向け。Firebase のアカウントとプロジェクトが必要。",
+  "caveats": "新しいリリースは 2026年10月以降 CocoaPods に公開されなくなる（既存版は使い続けられる）ので、Swift Package Manager への移行が要る。Analytics はオープンソースではない。Firebase のクラウドサービスの利用が前提で、従量課金の対象になり得る。2017年からある成熟したプロジェクトで、今回トレンド入りしたのは新規ではなく更新のためと思われる。",
+  "tags": [
+    "モバイル",
+    "ライブラリ・SDK"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:Gemfile",
+    "manifest:CMakeLists.txt",
+    "manifest:Package.swift",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}
