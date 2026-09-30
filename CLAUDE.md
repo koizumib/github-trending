@@ -10,7 +10,7 @@ trending-digest（仮称）は、**GitHub Trending に新しく上がったリ�
 - push をきっかけに GitHub Actions が動き、`data/` から HTML を生成して GitHub Pages に公開し、Discord に通知します。
 - Claude API は使いません（契約していません）。要約を書くのは routine の中の Claude Code だけです。
 
-作業の前に `docs/design.md`（設計書）を読んでください。設計判断を変えるときは、`docs/decisions/` にファイルを1つ追加してから実装します。
+作業の前に `docs/design.md`（設計書）を読んでください。毎朝の動きと、困ったときの見方は `docs/operations.md` にあります。設計判断を変えるときは、`docs/decisions/` にファイルを1つ追加し、`docs/decisions/README.md` の一覧にも足してから実装します。設計を変えたら、`docs/design.md` も今の実装に合わせて直します（設計書には「今どうなっているか」を書き、経緯は decisions に残します）。
 
 ## 2つの立場
 
@@ -44,21 +44,27 @@ trending-digest（仮称）は、**GitHub Trending に新しく上がったリ�
 
 ```bash
 .venv/bin/python -m pytest                              # テスト
-.venv/bin/python -m trending_digest prepare             # 取得・分類・材料の下集め → .work/queue.json
-.venv/bin/python -m trending_digest validate            # data/repos/ の形を検査
+.venv/bin/python -m trending_digest validate            # data/repos/ と errors の形を検査
 .venv/bin/python -m trending_digest build               # data/ から site/ を作り直す
-.venv/bin/python -m trending_digest notify --dry-run    # 送る内容を表示するだけ
 .venv/bin/python -m http.server -d site 8000            # 手元でサイトを見る
+.venv/bin/python -m trending_digest notify --dry-run    # 送る内容を表示するだけ
+.venv/bin/python -m trending_digest watchdog --dry-run  # 9時の見張りが何をするかを表示するだけ
+.venv/bin/python -m trending_digest alert "文" --dry-run
 ```
+
+- `prepare`（取得・分類・材料集め）は、ふだんは Actions（`prepare.yml`）が動かします。手元で動かすと github.com と GitHub API に取りに行き、`data/` を書き換えます。試すときは `--html tests/fixtures/trending.html` を付け、あとで `git checkout data/` で戻します。
+- 画面の確認には、Playwright の headless Chromium（`~/.cache/ms-playwright/`）で 390px（スマホ）と 1280px（PC）の幅の画面を撮ります。足りないライブラリと日本語フォントは、`apt download` で scratchpad に展開して `LD_LIBRARY_PATH` と `FONTCONFIG_FILE` で渡します（管理者権限はありません）。
 
 ## テスト
 
-- Trending のページは `tests/fixtures/trending.html` に保存したものを使います。テストからネットワークに出ません。
+- Trending のページは `tests/fixtures/trending.html`、`trending_weekly.html`、`trending_monthly.html` に保存したものを使います。テストからネットワークに出ません（`tests/conftest.py` で実際の通信を止めています）。
 - GitHub API と Discord はモックします。
 - 分類（new / continuing / returning）と日付の境目（日本時間の0時前後、10日の境目）は必ずテストします。
 
 ## 進め方
 
-- `docs/design.md` の §11 のマイルストーン（M1 → M7）の順に進めます。1つ終わるごとにコミットして、本人に短く報告します。
+- `docs/design.md` の §11 のマイルストーンの順に進めます。M1〜M6 は済み、今は M7（運用して直す）です。1つ終わるごとにコミットして、本人に短く報告します。
 - コミットのメッセージは日本語で書きます。
+- **コミットのメッセージには `[skip ci]` と書かないでください。** 本文に説明として書いただけでも、GitHub はその push で Actions を一切動かしません。`[skip ci]` を付けるのは、Actions が自動で記録するコミット（`data/` の記録、送った日の記録）だけです。
+- `main` に push すると、`src/` などの変更ではサイトの公開も動きます。今日の分をまだ Discord に送っていなければ、そのとき送られます。
 - 作者は GitHub Actions に慣れていません。workflow の YAML を書いたり変えたりしたら、何をしているかを平易な日本語で説明してください。
