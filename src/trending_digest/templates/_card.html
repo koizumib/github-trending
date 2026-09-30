@@ -2,18 +2,7 @@
 {% set s = c.summary %}
 <article class="card tier-{{ c.rank | rank_tier }}">
   <header class="card-head">
-    <div class="rank-col">
-      <span class="rank" aria-label="{{ c.rank }}位">{{ c.rank }}<small>位</small></span>
-      <div class="marks">
-        {% set mark_label = {"new": ("新", "初めてランク入り"), "continuing": ("続", "前回から継続"), "returning": ("再", "圏外から再びランク入り")} %}
-        {% if c.mark %}<i class="mark mark-{{ c.mark }}" title="{{ mark_label[c.mark][1] }}">{{ mark_label[c.mark][0] }}</i>{% endif %}
-        {% if c.move is not none and c.move is defined %}
-          {% if c.move > 0 %}<i class="move up" title="前回から {{ c.move }} 位上がった">▲{{ c.move }}</i>
-          {% elif c.move < 0 %}<i class="move down" title="前回から {{ -c.move }} 位下がった">▼{{ -c.move }}</i>
-          {% else %}<i class="move same" title="前回と同じ順位">→</i>{% endif %}
-        {% endif %}
-      </div>
-    </div>
+    <span class="rank" aria-label="{{ c.rank }}位">{{ c.rank }}<small>位</small></span>
     <div class="head-body">
       {% if s %}
       <h2><a href="{{ root }}r/{{ c.repo }}/">{{ c.repo | wbr }}</a></h2>
@@ -27,6 +16,15 @@
         {% if gained %}<span class="stars">★ {{ stars_label }} <b>+{{ "{:,}".format(gained) }}</b></span>{% endif %}
         {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
       </div>
+    </div>
+    <div class="marks">
+      {% set mark_label = {"new": ("新", "初めてランク入り"), "continuing": ("続", "前回から継続"), "returning": ("再", "圏外から再びランク入り")} %}
+      {% if c.mark %}<i class="mark mark-{{ c.mark }}" title="{{ mark_label[c.mark][1] }}">{{ mark_label[c.mark][0] }}</i>{% endif %}
+      {% if c.move is defined and c.move is not none %}
+        {% if c.move > 0 %}<i class="move up" title="前回から {{ c.move }} 位上がった">▲{{ c.move }}</i>
+        {% elif c.move < 0 %}<i class="move down" title="前回から {{ -c.move }} 位下がった">▼{{ -c.move }}</i>
+        {% else %}<i class="move same" title="前回と同じ順位">→</i>{% endif %}
+      {% endif %}
     </div>
   </header>
   {% if s %}

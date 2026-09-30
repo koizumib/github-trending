@@ -27,14 +27,6 @@
   </ul>
 </aside>
 {% endif %}
-{% if page.cards %}
-<p class="legend" aria-label="印の意味">
-  <span><i class="mark mark-new">新</i>初めてランク入り</span>
-  <span><i class="mark mark-continuing">続</i>前回から継続</span>
-  <span><i class="mark mark-returning">再</i>圏外から再びランク入り</span>
-  <span><i class="move up">▲</i><i class="move down">▼</i>前回からの順位の変化</span>
-</p>
-{% endif %}
 
 <div class="cards">
 {% for c in page.cards %}
@@ -53,6 +45,16 @@
   {% endfor %}
   </ul>
 </section>
+{% endif %}
+
+{% if page.cards %}
+<p class="legend" aria-label="印の意味">
+  <span class="legend-title">記事の右上の印</span>
+  <span><i class="mark mark-new">新</i>初めてランク入り</span>
+  <span><i class="mark mark-continuing">続</i>前回から継続</span>
+  <span><i class="mark mark-returning">再</i>圏外から再びランク入り</span>
+  <span><i class="move up">▲</i><i class="move down">▼</i><i class="move same">→</i>前回からの順位の変化</span>
+</p>
 {% endif %}
 
 <nav class="pager">
