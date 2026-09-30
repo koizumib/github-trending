@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}過去の日 | trending-digest{% endblock %}
+{% block main %}
+<h1>過去の日</h1>
+{% if days %}
+<ul class="archive">
+{% for d in days %}
+  <li><a href="{{ root }}d/{{ d.date }}/">{{ d.date }}</a><span class="counts">新着 {{ d.count_new }}件／継続 {{ d.count_continuing }}件</span></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>まだデータがありません。</p>
+{% endif %}
+{% endblock %}

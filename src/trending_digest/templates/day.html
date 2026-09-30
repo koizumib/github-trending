@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ day.date }} の Trending | trending-digest{% endblock %}
+{% block main %}
+<h1>{{ day.date }}<span class="sub">の Trending</span></h1>
+<p class="counts">新着 {{ day.count_new }}件／継続 {{ day.count_continuing }}件{% if is_top %}　<a href="{{ root }}d/{{ day.date }}/">この日のページ</a>{% endif %}</p>
+
+{% for c in day.cards %}
+{% set s = c.summary %}
+<article class="card">
+  <div class="meta">
+    <span class="rank">#{{ c.rank }}</span>
+    {% if c.status != "new" %}<span class="tag">{{ status_label[c.status] }}</span>{% endif %}
+    {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
+    {% if c.language %}<span>{{ c.language }}</span>{% endif %}
+    {% if c.stars_today %}<span>★ +{{ "{:,}".format(c.stars_today) }}</span>{% endif %}
+  </div>
+  <h2>
+    {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>
+    {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
+  </h2>
+  {% if s %}
+  <p class="short">{{ s.short | code }}</p>
+  <p class="more"><a href="{{ root }}r/{{ c.repo }}/">詳しく</a></p>
+  {% else %}
+  <p class="pending">まだ要約していません。</p>
+  {% if c.description %}<p class="orig" lang="en">{{ c.description }}</p>{% endif %}
+  {% endif %}
+</article>
+{% else %}
+<p>この日の新着はありません。</p>
+{% endfor %}
+
+{% if day.continuing %}
+<section class="continuing">
+  <h2>継続して上がっているもの</h2>
+  <ul>
+  {% for c in day.continuing %}
+    <li>
+      {% if c.summary %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>{% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
+      {% if c.summary %}<span class="what">{{ c.summary.what | code }}</span>{% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if day.errors %}
+<section class="errors">
+  <h2>要約できなかったもの</h2>
+  <ul>
+  {% for e in day.errors %}
+    <li><a href="https://github.com/{{ e.repo }}">{{ e.repo }}</a>：{{ e.reason }}</li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<nav class="pager">
+  {% if nav.newer %}<a href="{{ root }}d/{{ nav.newer }}/">← {{ nav.newer }}</a>{% else %}<span></span>{% endif %}
+  {% if nav.older %}<a href="{{ root }}d/{{ nav.older }}/">{{ nav.older }} →</a>{% endif %}
+</nav>
+{% endblock %}

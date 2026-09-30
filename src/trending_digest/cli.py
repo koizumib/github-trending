@@ -57,6 +57,14 @@ def cmd_validate(args) -> int:
     return 0
 
 
+def cmd_build(args) -> int:
+    from .build_site import build
+
+    out = build(load_config())
+    print(f"{out} に書き出した")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="trending_digest")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -80,4 +88,6 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_prepare(args)
     if args.command == "validate":
         return cmd_validate(args)
+    if args.command == "build":
+        return cmd_build(args)
     raise SystemExit(f"{args.command} はまだ作っていない")

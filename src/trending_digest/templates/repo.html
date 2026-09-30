@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ s.repo }} | trending-digest{% endblock %}
+{% block main %}
+<article class="detail">
+  <h1 class="repo">{{ s.repo }}</h1>
+  <p class="actions"><a class="button" href="https://github.com/{{ s.repo }}">GitHub で開く</a></p>
+  <p class="meta">
+    {% if item and item.language %}<span>{{ item.language }}</span>{% endif %}
+    {% if item and item.stars %}<span>★ {{ "{:,}".format(item.stars) }}</span>{% endif %}
+    <span class="tag {% if s.confidence == 'low' %}warn{% endif %}">確かさ：{{ {"high": "高", "medium": "中", "low": "低"}[s.confidence] }}</span>
+    {% if s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
+  </p>
+  {% if s.confidence_note %}<p class="note">{{ s.confidence_note }}</p>{% endif %}
+
+  <p class="lead">{{ s.what | code }}</p>
+  <p>{{ s.short | code }}</p>
+
+  {% if s.can_do %}
+  <h2>できること</h2>
+  <ul>{% for x in s.can_do %}<li>{{ x | code }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  {% if s.how_to_use %}
+  <h2>使い方</h2>
+  <p>{{ s.how_to_use | code }}</p>
+  {% endif %}
+
+  {% if s.use_cases %}
+  <h2>活用できそうな場面</h2>
+  <ul>{% for x in s.use_cases %}<li>{{ x | code }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  {% if s.for_whom %}
+  <h2>向いている人</h2>
+  <p>{{ s.for_whom | code }}</p>
+  {% endif %}
+
+  {% if s.similar %}
+  <h2>似ているもの</h2>
+  <ul>{% for x in s.similar %}<li>{{ x | code }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  {% if s.tech %}
+  <h2>技術</h2>
+  <p>{{ s.tech | code }}</p>
+  {% endif %}
+
+  {% if s.caveats %}
+  <h2>注意点</h2>
+  <p>{{ s.caveats | code }}</p>
+  {% endif %}
+
+  <h2>この要約について</h2>
+  <dl class="about">
+    <dt>要約した日</dt><dd>{{ s.summarized_at }}</dd>
+    <dt>材料</dt><dd>{{ s.sources | join("、") }}</dd>
+    {% if seen %}<dt>Trending に上がった日</dt><dd>{% for d in seen %}<a href="{{ root }}d/{{ d }}/">{{ d }}</a>{% if not loop.last %}、{% endif %}{% endfor %}</dd>{% endif %}
+  </dl>
+  {% if item and item.description %}
+  <h2>作者による説明（原文）</h2>
+  <p class="orig" lang="en">{{ item.description }}</p>
+  {% endif %}
+</article>
+{% endblock %}

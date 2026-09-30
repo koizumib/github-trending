@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}trending-digest{% endblock %}</title>
+<link rel="stylesheet" href="{{ root }}style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="{{ root }}">trending-digest</a>
+  <a href="{{ root }}archive/">過去の日</a>
+</header>
+<main>
+{% block main %}{% endblock %}
+</main>
+<footer class="site">
+  GitHub Trending（デイリー・全言語）の新着を日本語で要約しています。要約は Claude Code が書いたもので、誤りを含むことがあります。
+</footer>
+</body>
+</html>
