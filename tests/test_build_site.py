@@ -8,7 +8,7 @@ SUMMARY = {
     "repo": "o/r", "summarized_at": "2026-09-30", "short": "負荷をかける CLI。<b>太字</b>にはしない。",
     "what": "HTTP の負荷試験 CLI。", "can_do": ["同時接続"], "how_to_use": "`go install example.com/r@latest` で入る。",
     "use_cases": [], "for_whom": "", "similar": [], "tech": "Go", "caveats": "",
-    "sources": ["readme"], "confidence": "low", "confidence_note": "README がほぼ空",
+    "tags": ["CLI", "インフラ・運用"], "sources": ["readme"], "confidence": "low", "confidence_note": "README がほぼ空",
 }
 
 
@@ -56,3 +56,10 @@ def test_build_is_deterministic(tmp_path):
 
 def test_inline_code_escapes_inside():
     assert str(inline_code("`a<b` & c")) == "<code>a&lt;b</code> &amp; c"
+
+
+def test_tags_shown_on_card_and_detail(tmp_path):
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    day = (out / "d/2026-09-29/index.html").read_text()
+    assert "<li>CLI</li><li>インフラ・運用</li>" in day
+    assert "<li>インフラ・運用</li>" in (out / "r/o/r/index.html").read_text()

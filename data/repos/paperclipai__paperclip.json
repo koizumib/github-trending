@@ -25,7 +25,19 @@
   ],
   "tech": "TypeScript（Node.js のサーバー、React の画面、CLI）。PostgreSQL（手元では embedded-postgres）。pnpm の monorepo。MCP サーバーのパッケージも含む。Linux と macOS ではバックグラウンドのサービスとして入れられる。",
   "caveats": "README は「AI の会社を経営する」「$1M MRR」といった宣伝の言い回しが多く、実際に何ができるかは機能一覧から読み取る必要がある。エージェントを24時間自律で動かす使い方を勧めているので、使うなら権限と予算の上限を先に決めておくのがよいと思われる。作られて約7か月で、更新がとても頻繁（バージョンは日付の形）。",
-  "sources": ["meta", "readme", "tree", "manifest:package.json", "manifest:Dockerfile", "release"],
+  "tags": [
+    "AI エージェント",
+    "自動化・ワークフロー",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "release"
+  ],
   "confidence": "high",
   "confidence_note": ""
 }

@@ -27,6 +27,11 @@
   ],
   "tech": "Rust（Tauri）と Vue、TypeScript。macOS、Windows、Linux のデスクトップアプリのほか、Docker で Web 版として動く。MCP サーバーも Rust 製。プラグインは Go / TypeScript の SDK で作れる。一部の DB は JDBC のプラグイン経由で、その場合は Java が要ると思われる。",
   "caveats": "作られて約5か月と新しい。「100+ databases」は、中国のデータベース（達夢、KingbaseES、GaussDB など）やプラグイン経由のものを含めた数。README の上のほうはスポンサーの広告が長い。AI の機能は、外部の LLM の API キーかローカルの LLM が要る。MCP で書き込みを許すと AI が DB を変更できるので、権限の設定に注意。",
+  "tags": [
+    "データベース",
+    "開発ツール",
+    "デスクトップアプリ"
+  ],
   "sources": [
     "meta",
     "readme",

@@ -10,7 +10,7 @@ GOOD = {
     "can_do": ["同時接続数を指定してリクエストを送る"], "how_to_use": "go install で入れる。",
     "use_cases": ["リリース前の簡単な負荷試験"], "for_whom": "Web サーバーを運用する人",
     "similar": ["ab（Apache Bench）：ほぼ同じ用途"], "tech": "Go",
-    "caveats": "", "sources": ["readme"], "confidence": "high", "confidence_note": "",
+    "caveats": "", "tags": ["CLI"], "sources": ["readme"], "confidence": "high", "confidence_note": "",
 }
 
 
@@ -64,3 +64,24 @@ def test_queue_leftovers_are_noted(tmp_path):
     problems, notes = validate_all(store, work)
     assert problems == {}
     assert notes == ["l/eft: 要約も errors の記録もない"]
+
+
+def test_routine_md_lists_same_tags_as_schema():
+    import re
+
+    from trending_digest.config import ROOT
+    from trending_digest.validate import SCHEMA_PATH
+
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    vocab = schema["properties"]["tags"]["items"]["enum"]
+    doc = (ROOT / "docs" / "routine.md").read_text(encoding="utf-8")
+    section = doc.split("### tags の一覧", 1)[1].split("###", 1)[0]
+    listed = re.findall(r"`([^`]+)`", section.split("\n\n")[2])
+    assert listed == vocab
+
+
+def test_unknown_tag_is_rejected(tmp_path):
+    store = Store(tmp_path / "data")
+    write(store, "o__r.json", dict(GOOD, tags=["ブロックチェーン"]))
+    problems, _ = validate_all(store, tmp_path / ".work")
+    assert "tags" in "\n".join(problems["data/repos/o__r.json"])

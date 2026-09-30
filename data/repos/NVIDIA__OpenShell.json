@@ -24,7 +24,19 @@
   ],
   "tech": "Rust（CLI、gateway、supervisor）。Landlock、seccomp、Z3、kube-rs、OpenTelemetry。Linux、Apple Silicon の macOS、WSL 2 の Windows（試験的）で動き、Docker・Podman・ホストの仮想化のどれかが要る。Kubernetes に置くときは NetworkPolicy を強制できる CNI が要る。",
   "caveats": "0.1 系になったばかりで、README にもアップグレードの注意がある。作られて約7か月。匿名のテレメトリを送るのが既定（`OPENSHELL_TELEMETRY_ENABLED=false` で止められる）。「formal verification」はポリシーの変更の差分を Z3 で調べることを指していて、sandbox 全体の安全性を証明するものではないと思われる。",
-  "sources": ["meta", "readme", "tree", "manifest:Cargo.toml", "release", "crates/openshell-sandbox/Cargo.toml"],
+  "tags": [
+    "AI エージェント",
+    "セキュリティ",
+    "インフラ・運用"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:Cargo.toml",
+    "release",
+    "crates/openshell-sandbox/Cargo.toml"
+  ],
   "confidence": "high",
   "confidence_note": ""
 }

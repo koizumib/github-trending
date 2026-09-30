@@ -24,7 +24,20 @@
   ],
   "tech": "Python（torch、transformers、WhisperX、pyannote など）の API サーバーと、Electron の画面。Bun と Node.js でビルドする。GPU は NVIDIA（CUDA）と Apple Silicon（MPS / MLX）を使い、なければ CPU で動くが数倍遅い。Windows で GPU が効くのは NVIDIA だけ。",
   "caveats": "ライセンスは AGPL-3.0（別に商用ライセンスあり）。使うモデルごとにライセンスが違うので、商用で使う前に確認が要る。インストーラーは署名・公証されておらず、OS の警告が出る。デスクトップの画面を Tauri から Electron に作り直したばかり（v0.5 系）。作られて約半年。「646 言語」は README の主張で、確かめていない。声のクローンは本人の許可を取って使うよう README にも書かれている。",
-  "sources": ["meta", "readme", "tree", "manifest:pyproject.toml", "manifest:package.json", "release", "docs/performance.md"],
+  "tags": [
+    "音声・画像・動画",
+    "デスクトップアプリ",
+    "機械学習"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:package.json",
+    "release",
+    "docs/performance.md"
+  ],
   "confidence": "high",
   "confidence_note": ""
 }

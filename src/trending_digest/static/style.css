@@ -19,6 +19,9 @@
   --blob-1: #a5b4fc;
   --blob-2: #99f6e4;
   --blob-3: #f9a8d4;
+  --tag-fg: #4338ca;
+  --tag-bg: rgba(109, 93, 252, 0.10);
+  --tag-border: rgba(109, 93, 252, 0.22);
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -28,8 +31,8 @@
   --link: #9db4ff;
   --accent: #8b7dff;
   --accent-2: #2dd4bf;
-  --glass: rgba(24, 29, 44, 0.55);
-  --glass-strong: rgba(28, 34, 52, 0.72);
+  --glass: rgba(12, 15, 24, 0.84);
+  --glass-strong: rgba(14, 18, 28, 0.88);
   --glass-border: rgba(255, 255, 255, 0.10);
   --glass-edge: rgba(255, 255, 255, 0.04);
   --shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.7);
@@ -40,6 +43,9 @@
   --blob-1: #4338ca;
   --blob-2: #0f766e;
   --blob-3: #9d174d;
+  --tag-fg: #c4bcff;
+  --tag-bg: rgba(139, 125, 255, 0.14);
+  --tag-border: rgba(139, 125, 255, 0.30);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -50,8 +56,8 @@
     --link: #9db4ff;
     --accent: #8b7dff;
     --accent-2: #2dd4bf;
-    --glass: rgba(24, 29, 44, 0.55);
-    --glass-strong: rgba(28, 34, 52, 0.72);
+    --glass: rgba(12, 15, 24, 0.84);
+    --glass-strong: rgba(14, 18, 28, 0.88);
     --glass-border: rgba(255, 255, 255, 0.10);
     --glass-edge: rgba(255, 255, 255, 0.04);
     --shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.7);
@@ -62,6 +68,9 @@
     --blob-1: #4338ca;
     --blob-2: #0f766e;
     --blob-3: #9d174d;
+    --tag-fg: #c4bcff;
+    --tag-bg: rgba(139, 125, 255, 0.14);
+    --tag-border: rgba(139, 125, 255, 0.30);
   }
 }
 
@@ -187,8 +196,25 @@ code {
 .card h2 { margin: 4px 0 8px; font-size: 19px; line-height: 1.4; }
 .card h2 a { color: var(--fg); }
 .card .short { margin-bottom: 8px; flex: 1; }
-.card .more { font-size: 14px; text-align: right; margin: 0; }
-.card .more a::after { content: " →"; }
+.card-foot {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 10px;
+  margin-top: 4px; padding-top: 10px;
+  border-top: 1px solid var(--glass-edge);
+}
+.card .more { font-size: 14px; white-space: nowrap; line-height: 1.9; }
+.card .more::after { content: " →"; }
+.tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li {
+  margin: 0;
+  font-size: 12px; line-height: 1.9;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  border: 1px solid var(--tag-border);
+}
+.tags li:first-child { font-weight: 600; }
+.detail .tags { margin: 6px 0 4px; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 12px; color: var(--muted); font-size: 13px; align-items: center; }
 .meta .rank {
   font-weight: 700; color: #fff; font-size: 12px;

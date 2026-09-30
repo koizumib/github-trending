@@ -27,7 +27,20 @@
   ],
   "tech": "Python の API サーバー。PostgreSQL + pgvector（組み込みの pg0 も可）、または Oracle Database 23ai。記憶の整理に外部の LLM を使い、OpenAI、Anthropic、Gemini、Bedrock、Ollama などから選べる。Prometheus の metrics がある。Linux、macOS、Windows で動く。",
   "caveats": "retain のたびに LLM を呼ぶので、使った分だけ LLM の費用がかかる（ローカルの LLM にすれば API の費用はかからない）。LLM ラッパーの既定の接続先は、開発元の有料クラウド（Hindsight Cloud）なので、自前のサーバーを使うなら URL を指定する。README の「最も正確」はベンチマーク（LongMemEval）上の主張。バージョンはまだ 0.x。",
-  "sources": ["meta", "readme", "tree", "manifest:pyproject.toml", "manifest:package.json", "release"],
+  "tags": [
+    "AI エージェント",
+    "LLM",
+    "データベース",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:package.json",
+    "release"
+  ],
   "confidence": "high",
   "confidence_note": ""
 }

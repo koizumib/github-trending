@@ -21,7 +21,10 @@
   </h2>
   {% if s %}
   <p class="short">{{ s.short | code }}</p>
-  <p class="more"><a href="{{ root }}r/{{ c.repo }}/">詳しく</a></p>
+  <div class="card-foot">
+    <ul class="tags">{% for t in s.tags or [] %}<li>{{ t }}</li>{% endfor %}</ul>
+    <a class="more" href="{{ root }}r/{{ c.repo }}/">詳しく</a>
+  </div>
   {% else %}
   <p class="pending">まだ要約していません。</p>
   {% if c.description %}<p class="orig" lang="en">{{ c.description }}</p>{% endif %}
