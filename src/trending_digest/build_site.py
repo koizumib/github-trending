@@ -57,6 +57,12 @@ def starts_cjk(text: str) -> bool:
     return bool(text) and ("぀" <= text[0] <= "ヿ" or "一" <= text[0] <= "鿿")
 
 
+def repo_title(repo: str) -> Markup:
+    """題名：「アカウント名/」を小さく上に、リポジトリ名を大きく（0022）。"""
+    owner, _, name = repo.partition("/")
+    return Markup(f'<span class="owner">{escape(owner)}/</span><span class="name">{escape(name)}</span>')
+
+
 def repo_wbr(repo: str) -> Markup:
     """owner/name の「/」の後ろで折り返せるようにする（名前の途中で折れないように）。"""
     owner, _, name = repo.partition("/")
@@ -108,6 +114,7 @@ def _env() -> Environment:
     env.filters["ja_ymd"] = ja_ymd
     env.filters["ja_weekday"] = ja_weekday
     env.filters["wbr"] = repo_wbr
+    env.filters["repo_title"] = repo_title
     env.filters["headline"] = headline
     env.tests["cjk_start"] = starts_cjk
     env.filters["lang_color"] = lang_color

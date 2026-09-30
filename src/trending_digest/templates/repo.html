@@ -5,7 +5,7 @@
 <article class="detail">
   <header class="article-head">
     <p class="article-kicker"><span>リポジトリ解説</span><span>{{ s.summarized_at | ja_date }}</span></p>
-    <h1 class="repo">{{ s.repo | wbr }}</h1>
+    <h1 class="repo">{{ s.repo | repo_title }}</h1>
     <p class="dek">{{ s.what | headline | code }}</p>
     <p class="byline">
       <span>文・Claude Code</span>
