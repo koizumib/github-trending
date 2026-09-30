@@ -18,4 +18,4 @@ def no_network(monkeypatch):
     def blocked(*args, **kwargs):
         raise RuntimeError("テスト中にネットワークに出ようとした")
 
-    monkeypatch.setattr(httpx.Client, "send", blocked)
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", blocked)

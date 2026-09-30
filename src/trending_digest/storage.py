@@ -41,7 +41,13 @@ class Store:
         return self.dir / "daily" / f"{day}.json"
 
     def save_daily(self, day: dt.date, items: list[dict]) -> None:
-        _write(self.daily_path(day), {"date": day.isoformat(), "items": items})
+        """items を書く。同じ日に書き直しても、routine が書いた errors は残す。"""
+        old = self.load_daily(day) or {}
+        _write(self.daily_path(day), {
+            "date": day.isoformat(),
+            "items": items,
+            "errors": old.get("errors", []),
+        })
 
     def load_daily(self, day: dt.date | str) -> dict | None:
         return _read(self.daily_path(day), None)
