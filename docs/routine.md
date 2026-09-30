@@ -12,9 +12,11 @@
 ## 1. 準備
 
 ```bash
-test -x .venv/bin/python || (python3 -m venv .venv && .venv/bin/pip install -q -e .)
+test -x .venv/bin/python || (python3.12 -m venv .venv && .venv/bin/pip install -q -e .)
 .venv/bin/python -m trending_digest prepare
 ```
+
+- このツールは Python 3.12 以上が要ります。クラウドの環境では `python3` が 3.11 のことがあるので、必ず `python3.12` で `.venv` を作ります。`python3.12` がなければ `python3.13` を使います。
 
 - `prepare` は、今日の Trending（デイリー・ウィークリー・マンスリー）を取得して `data/daily/`、`data/weekly/`、`data/monthly/`、`data/history.json` を更新し、要約する対象の材料を `.work/` に集めて、一覧を `.work/queue.json` に書きます。
 - **`prepare` が失敗したら**（終了コードが0でない）、デイリーの Trending を読み取れなかったということです（ウィークリー・マンスリーが読めないだけなら、警告を出して続きます）。要約はせず、何もコミットせずに、エラーの内容を報告して終わります。朝の見張り（watchdog）が Discord に知らせます。
