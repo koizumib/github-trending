@@ -11,3 +11,4 @@
 | [0005](0005-weekly-monthly.md) | ウィークリーとマンスリーの Trending も取る | 2026-09-30 | 有効 |
 | [0006](0006-public-via-discord.md) | 他のエンジニアにも公開し、届け方は Discord を本命にする | 2026-09-30 | 方向は決定。まず本人だけで試す |
 | [0007](0007-prepare-on-actions.md) | 取得と材料集め（prepare）は GitHub Actions で動かす | 2026-09-30 | 有効 |
+| [0008](0008-cloudflare-pages.md) | サイトの公開先を Cloudflare Pages に移す（Actions で作って Direct Upload） | 2026-09-30 | 移行中 |

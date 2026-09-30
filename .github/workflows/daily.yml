@@ -43,6 +43,13 @@ jobs:
       - name: HTML を作る
         run: python -m trending_digest build
 
+      - name: Cloudflare Pages に公開する
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=trending-digest --branch=main
+
       - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v5
