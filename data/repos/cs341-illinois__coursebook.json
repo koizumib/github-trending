@@ -1,0 +1,36 @@
+{
+  "repo": "cs341-illinois/coursebook",
+  "summarized_at": "2026-09-30",
+  "short": "イリノイ大学の授業「CS 341: System Programming」の教科書（LaTeX のソース）。C 言語で、プロセス、スレッド、同期、デッドロック、メモリ確保（malloc）、ファイルシステム、ネットワーク、シグナルなど、Linux のシステムプログラミングの基礎を扱う。PDF で読める。",
+  "what": "大学の授業で使われている、C と Linux のシステムプログラミングの教科書（LaTeX のソースと PDF）。ソフトウェアではない。",
+  "can_do": [
+    "プロセス、スレッド、同期、デッドロック、スケジューリングを C のコードとともに学ぶ",
+    "malloc の仕組み、ファイルシステム、IPC、シグナル、ネットワークのプログラミングを学ぶ",
+    "POSIX の API と Linux の動きを、授業の順番に沿って読む"
+  ],
+  "how_to_use": "読み方：README にある `main.pdf`（pdf_deploy ブランチ）を開くか、https://cs341.cs.illinois.edu/coursebook で Web 版を読む。プログラミング言語の授業を1つ受けていて、アセンブリを少し知っている人が前提とされている。",
+  "use_cases": [
+    "strace や top で見ているものの裏側（fork、mmap、シグナル、ファイルディスクリプタ）を、体系立てて学び直すのに使えそう",
+    "障害調査でデッドロックやメモリの問題に当たったときの、基礎の確認用に使えそう"
+  ],
+  "for_whom": "Linux の低いレイヤーを基礎から学び直したいエンジニア、C を読めるようになりたいインフラ担当",
+  "similar": [
+    "Operating Systems: Three Easy Pieces（OSTEP）：無料で読める OS の教科書。こちらは OS の中身より、ユーザー空間から POSIX を使う側の話が中心",
+    "詳解 UNIX プログラミング（APUE）：同じ分野の定番の本"
+  ],
+  "tech": "LaTeX（PDF、Markdown、HTML に書き出す）。本文のコードは C。",
+  "caveats": "英語のみ。リポジトリ自体は 2018 年からあり、新しいものではない（授業の学期に合わせて更新されている）。ライセンスは GitHub では判定されていないが、`LICENSE/README.md` によると、コードは NCSA ライセンス、書き出した PDF などは CC BY 4.0。",
+  "tags": [
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt",
+    "release",
+    "LICENSE/README.md"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

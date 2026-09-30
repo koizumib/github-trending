@@ -1,0 +1,44 @@
+{
+  "repo": "oblien/openship",
+  "summarized_at": "2026-09-30",
+  "short": "自分のサーバーに Vercel や Heroku のような「リポジトリを指定すればビルドして公開まで」の仕組みを作るセルフホストのデプロイ基盤。言語やフレームワークを自動で判別してビルドし、reverse proxy の設定と Let's Encrypt の証明書まで面倒を見る。",
+  "what": "リポジトリからビルド・デプロイ・ルーティング・TLS までを自動で行う、セルフホストのデプロイ基盤（CLI、Web ダッシュボード、デスクトップアプリ）。",
+  "can_do": [
+    "package.json やフレームワークの設定から、ビルドと起動のコマンドやポートを自動で判別する",
+    "Docker イメージか、コンテナを使わない形でビルドして動かす",
+    "OpenResty で reverse proxy を設定し、Let's Encrypt の証明書を自動で取る",
+    "GitHub への push で自動デプロイ、preview 環境、rollback",
+    "PostgreSQL、MySQL、Redis などのデータベース、バックアップ、メールサーバー（DKIM/SPF/DMARC）も同じ画面で管理する",
+    "docker-compose.yml をそのままデプロイする",
+    "REST API と MCP で、スクリプトや AI エージェントから操作する"
+  ],
+  "how_to_use": "常に動かすサーバーに `curl -fsSL https://get.openship.io | sh` で CLI を入れ、`openship` を実行すると対話式で管理者とドメインを設定できる。Docker がある Linux なら `openship up` で PostgreSQL・Redis・ダッシュボード・OpenResty がまとめて立ち上がる。アプリ側は `openship init` → `openship deploy`。1人で使うならデスクトップアプリから SSH でサーバーにデプロイする形もある。",
+  "use_cases": [
+    "自前の VPS に、社内ツールや検証用の Web アプリを push だけでデプロイできる環境を作るのに使えそう",
+    "Nginx の設定と証明書の更新を手で回している小さなサーバーを置き換えるのに使えそう",
+    "ブランチごとの preview 環境を、クラウドの PaaS を使わずに用意するのに使えそう"
+  ],
+  "for_whom": "VPS や自宅サーバーでアプリを動かしていて、PaaS のような手軽さがほしい人",
+  "similar": [
+    "Coolify：同じくセルフホストの PaaS。用途はかなり近い",
+    "Dokku：git push でデプロイする小さな PaaS。こちらは画面やメール・バックアップまで含む",
+    "Vercel / Heroku：クラウドの PaaS。こちらは自分のサーバーで動かす"
+  ],
+  "tech": "TypeScript（Node.js 22 以上、Bun の monorepo）。PostgreSQL、Redis、OpenResty、Docker。デスクトップアプリは macOS、Windows、Linux。サーバーは Docker のある Linux が基本。",
+  "caveats": "作られて約7か月で、バージョンは 0.8。ドキュメントはまだ書きかけと README にある。メールサーバーや CDN まで含む大きなもので、全部を任せるとこれ自体の運用が重くなると思われる。有料のクラウド版（Openship Cloud）もある。",
+  "tags": [
+    "インフラ・運用",
+    "セルフホスト",
+    "Web"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

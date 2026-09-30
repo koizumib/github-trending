@@ -1,0 +1,40 @@
+{
+  "repo": "rakyll/hey",
+  "summarized_at": "2026-09-30",
+  "short": "Web サーバーに HTTP のリクエストをまとめて送り、応答時間の分布などを表示する小さな負荷試験の CLI。ApacheBench（ab）の代わりとして使われる Go 製のツールで、同時接続数や時間、QPS の上限を指定できる。HTTP/2 にも対応する。",
+  "what": "指定した URL に同時にリクエストを送って応答時間を測る、Go 製の HTTP 負荷試験 CLI（ab の代わり）。",
+  "can_do": [
+    "リクエスト数（`-n`）と同時接続数（`-c`）を指定して、負荷をかける",
+    "時間を決めて負荷をかけ続ける（`-z 30s` など）",
+    "1ワーカーあたりの QPS を制限する（`-q`）",
+    "メソッド、ヘッダー、ボディ、Basic 認証、プロキシを指定する",
+    "結果の要約か、CSV で1件ずつの記録を出す"
+  ],
+  "how_to_use": "macOS なら `brew install hey`。Linux などは README のリンクからバイナリを落とす。`hey -n 1000 -c 100 https://example.com` のように使う。",
+  "use_cases": [
+    "リリース前に、Web サーバーやロードバランサーの設定変更で応答時間が変わっていないか、手早く確かめるのに使えそう",
+    "keep-alive のあり・なし（`-disable-keepalive`）で、どれだけ性能が変わるかを見るのに使えそう"
+  ],
+  "for_whom": "Web サーバーや API を運用していて、手軽に負荷をかけて測りたい人",
+  "similar": [
+    "ab（ApacheBench）：昔からある同じ用途のツール。hey はその代わりとして作られた",
+    "wrk / k6：より本格的な負荷試験ツール。シナリオを書くなら k6"
+  ],
+  "tech": "Go。1つのバイナリで動く。",
+  "caveats": "2016年からある古くからの定番で、新しいものではない。最後のリリースは 2026年1月で、更新は少ない。シナリオを組んだ試験には向かない。",
+  "tags": [
+    "CLI",
+    "インフラ・運用",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:go.mod",
+    "manifest:Dockerfile",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

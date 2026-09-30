@@ -1,0 +1,38 @@
+{
+  "repo": "averygan/reclip",
+  "summarized_at": "2026-09-30",
+  "short": "URL を貼ると動画や音声をダウンロードできる、セルフホストの小さな Web アプリ。中身は yt-dlp と ffmpeg に Flask の薄い画面をかぶせたもので、MP4 か MP3 を選び、複数の URL をまとめて落とせる。",
+  "what": "yt-dlp を Web の画面から使えるようにした、セルフホストの動画・音声ダウンローダー（Python + Flask、約150行）。",
+  "can_do": [
+    "YouTube、TikTok、X など yt-dlp が対応するサイトから、動画（MP4）か音声（MP3）を落とす",
+    "画質を選ぶ",
+    "複数の URL をまとめて貼って、一括でダウンロードする（重複は自動で除く）"
+  ],
+  "how_to_use": "yt-dlp と ffmpeg を入れ、リポジトリを clone して `./reclip.sh` を実行し、`http://localhost:8899` を開く。Docker なら `docker build -t reclip .` → `docker run -p 8899:8899 reclip`。",
+  "use_cases": [
+    "yt-dlp のコマンドを覚えていない家族や同僚向けに、家の中のサーバーに置いておくのに使えそう",
+    "手元の PC で、音声だけを MP3 で落とすときの簡単な画面として使えそう"
+  ],
+  "for_whom": "yt-dlp を画面から手軽に使いたい人",
+  "similar": [
+    "yt-dlp：中身そのもの。こちらはその上の Web の画面だけ",
+    "MeTube：同じく yt-dlp の Web UI。こちらはより小さく単純"
+  ],
+  "tech": "Python（Flask）と、フレームワークなしの HTML/CSS/JS。yt-dlp と ffmpeg が必要。Docker でも動く。",
+  "caveats": "README にあるとおり個人利用が前提で、各サイトの利用規約と著作権に注意が要る。README にはログインなどの認証の説明がないので、インターネットには公開しないほうがよいと思われる。最後の更新は 2026年7月。",
+  "tags": [
+    "音声・画像・動画",
+    "セルフホスト",
+    "Web"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt",
+    "manifest:Dockerfile",
+    "manifest:docker-compose.yml"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

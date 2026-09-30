@@ -1,0 +1,40 @@
+{
+  "repo": "VectifyAI/PageIndex",
+  "summarized_at": "2026-09-30",
+  "short": "長い PDF（決算書、契約書、技術マニュアルなど）に質問するための、ベクトル DB を使わない RAG のライブラリ。文書から目次のような木構造の索引を作り、LLM がその木をたどって関係する節を読みにいく。どこを根拠にしたかを示せる。",
+  "what": "長い文書を木構造の索引にして、LLM に索引をたどらせて答えを探す、ベクトル DB を使わない RAG の Python ライブラリ。",
+  "can_do": [
+    "PDF から、章や節の木構造の索引を作る",
+    "質問に対して、LLM が索引をたどって関係する節だけを読み、答えを返す",
+    "答えの根拠になったページや節を示す",
+    "自分の LLM の API キーで手元だけで動かす（local mode）か、有料のクラウド版に切り替える",
+    "OpenAI Agents SDK や Claude Agent SDK などのエージェントに、道具として組み込む"
+  ],
+  "how_to_use": "`pip install -U pageindex` で入れ、LLM の API キー（例：OpenAI）を環境変数に入れる。`PageIndexClient` を作って `submit_document(\"report.pdf\")` で索引を作り、`chat(\"質問\", doc_id=...)` で聞く。",
+  "use_cases": [
+    "長い製品マニュアルや設計書に「この設定の上限は？」と聞いて、該当ページ付きで答えさせるのに使えそう",
+    "ベクトル DB を立てずに、社内の規程集などに質問できる仕組みを試すのに使えそう"
+  ],
+  "for_whom": "長い PDF を相手にした RAG を作っていて、ベクトル検索の精度に困っている人",
+  "similar": [
+    "ベクトル DB を使う一般的な RAG（LangChain、LlamaIndex など）：文書を細かく切って似た部分を探す。こちらは切らずに目次をたどる",
+    "PDF をそのまま LLM に渡す方法：文書全体を毎回読ませる。こちらは必要な節だけを読むので、長い文書ほど費用が抑えられると README は主張している"
+  ],
+  "tech": "Python。索引作りと検索に外部の LLM（OpenAI など）を使う。手元の版は文字の入った PDF 向けで、スキャンした PDF や画像の多い文書（OCR）はクラウド版の機能。",
+  "caveats": "索引を作るときも質問するときも LLM を呼ぶので、API の費用がかかる。スキャンした PDF の OCR など、一部の機能は有料のクラウド版にしかない。「ベクトル RAG より正確」はベンチマーク上の主張で、文書によって違うと思われる。",
+  "tags": [
+    "LLM",
+    "ライブラリ・SDK",
+    "データ処理"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:requirements.txt",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

@@ -1,0 +1,42 @@
+{
+  "repo": "mvschwarz/openrig",
+  "summarized_at": "2026-09-30",
+  "short": "Claude Code と Codex を何台も並べて「チーム」として動かすための CLI と TUI。役割と関係を YAML に書いて `rig up` 一発で tmux のセッションを立ち上げ、エージェント同士でメッセージやタスクをやり取りさせる。再起動後の復元もできる。",
+  "what": "複数のコーディングエージェント（Claude Code、Codex）を tmux 上でチームとして起動・管理する CLI・TUI・デーモン。",
+  "can_do": [
+    "エージェントの役割と関係を YAML（RigSpec）で定義し、`rig up` でまとめて起動する",
+    "エージェント同士でメッセージを送る（`rig send`、`rig broadcast`、チャットルーム）",
+    "タスクの queue で、誰が何を担当しているかを記録する",
+    "TUI で、動いているエージェントの一覧・関係図・状態を見る",
+    "チームの状態を snapshot して、再起動後に復元する",
+    "すでに tmux で動いている Claude Code や Codex のセッションを見つけて管理下に取り込む",
+    "MCP サーバーとして、エージェント自身にチームを操作させる"
+  ],
+  "how_to_use": "Node.js 22 か 24 と tmux を用意し、`npm install -g @openrig/cli` で入れる。`rig setup --dry-run` で変更点を確かめてから `rig setup`。リポジトリで `rig up first-project --cwd .` を実行すると、作る役と確かめる役の2つのエージェントが立ち上がる。`rig tui --shared` で様子を見て、`rig send` で仕事を頼む。",
+  "use_cases": [
+    "実装役とレビュー役のエージェントを組ませて、変更を作らせてから別のエージェントに確かめさせるのに使えそう",
+    "Claude Code のセッションをいくつも開いて管理しきれなくなっているときに、tmux の上で整理するのに使えそう",
+    "同梱の例（Vault を担当するエージェント）のように、特定のミドルウェアの運用をエージェントに任せる実験に使えそう"
+  ],
+  "for_whom": "Claude Code や Codex をすでに日常的に使っていて、複数を同時に動かしたい人。tmux に慣れている人",
+  "similar": [
+    "paperclipai/paperclip：同じく複数のエージェントを束ねるが、あちらは Web のチケット管理が中心。こちらは tmux と CLI が中心",
+    "Claude Managed Agents：Anthropic のクラウドでエージェントを動かすサービス。こちらは自分の PC で動かす"
+  ],
+  "tech": "TypeScript（Node.js 22 / 24）。Hono の HTTP デーモン、SQLite、tmux。macOS と Linux で動く。Windows はまだ対応しておらず、WSL2 は試されていない。",
+  "caveats": "`rig setup` は `~/.tmux.conf` や `~/.claude/skills`、Codex の設定ファイルなどに書き込むので、何が変わるかを README の「What OpenRig changes on your machine」で先に確かめるのがよい。エージェントに `rig` コマンドを確認なしで実行させる設定を勧めてくる。Claude や Codex の利用料は別にかかる。作られて約半年で、0.x 系。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

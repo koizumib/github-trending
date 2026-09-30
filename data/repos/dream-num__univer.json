@@ -1,0 +1,40 @@
+{
+  "repo": "dream-num/univer",
+  "summarized_at": "2026-09-30",
+  "short": "表計算（Excel のようなもの）、文書、スライドの編集画面を、自分の Web サービスに埋め込むための TypeScript の SDK。ブラウザでも Node.js でも同じ API で動き、数式エンジンも持つ。最近は、AI エージェントに Office の文書を作らせる土台として売り出している。",
+  "what": "表計算・文書・スライドの編集機能を、自分のアプリに組み込むためのオープンソースの Office SDK（TypeScript、ブラウザと Node.js）。",
+  "can_do": [
+    "Web アプリの中に、表計算や文書の編集画面を埋め込む",
+    "独自の数式エンジンで、表計算の数式を計算する",
+    "画面なしで Node.js から、ブックや文書を読んだり書き換えたりする",
+    "必要な機能だけを plugin として組み合わせる。React、Vue、Web Components と組み合わせられる",
+    "AI エージェントに、決まった API で Office の文書を作らせたり直させたりする"
+  ],
+  "how_to_use": "npm で `@univerjs/...` のパッケージを入れる。手早く始めるなら、用意された組み合わせ（Preset Mode）を使う。細かく選ぶなら、`UniverSheetsPlugin` などを自分で登録する（Plugin Mode）。詳しくは docs.univer.ai。",
+  "use_cases": [
+    "社内ツールに、Excel のように編集できる表を組み込むのに使えそう",
+    "サーバー側でスプレッドシートを生成・計算するバッチ処理に使えそう",
+    "AI エージェントに、報告書の表やスライドを作らせる仕組みの土台として使えそう"
+  ],
+  "for_whom": "自分の Web サービスに、表計算や文書の編集機能を組み込みたいフロントエンド・フルスタックの開発者",
+  "similar": [
+    "Handsontable / AG Grid：Web 用の表のコンポーネント。こちらは数式エンジンや文書・スライドまで含む",
+    "OnlyOffice / Collabora Online：ブラウザで動く Office スイート。こちらは組み込み用の SDK という位置づけ"
+  ],
+  "tech": "TypeScript。Canvas で描画する。ブラウザと Node.js で動き、React、Vue、Web Components に対応する。pnpm の monorepo。",
+  "caveats": "リポジトリは 2022 年からあり、新しいものではない（v1.0 系）。README に「共同編集などは、機能によってパッケージの提供範囲とライセンスが違う」とあり、一部は有料版の機能と思われる。README の冒頭は「AI エージェント向け」を強く打ち出しているが、中身は Office 系の SDK。",
+  "tags": [
+    "ライブラリ・SDK",
+    "Web",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

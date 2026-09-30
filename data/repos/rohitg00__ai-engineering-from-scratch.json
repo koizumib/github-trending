@@ -1,0 +1,41 @@
+{
+  "repo": "rohitg00/ai-engineering-from-scratch",
+  "summarized_at": "2026-09-30",
+  "short": "AI エンジニアリングを基礎から学ぶための、無料の大きな教材。数学、機械学習、深層学習から、LLM、エージェント、MCP、本番運用までを20の段階・500以上の課題に分け、Python・TypeScript・Rust などで手を動かしながら進める。Web 版もある。",
+  "what": "数学の基礎から LLM・AI エージェントの開発と運用までを、コードを書きながら学ぶオンラインの教材（ソフトウェアではない）。",
+  "can_do": [
+    "開発環境の準備から、線形代数などの数学、機械学習、深層学習の基礎を学ぶ",
+    "Transformer、LLM を一から作る課題、プロンプトや RAG などの LLM アプリ開発を学ぶ",
+    "AI エージェント、MCP サーバー、Agent Skills を作る課題に取り組む",
+    "本番の基盤と運用、安全性についての段階もある",
+    "目的別の学習ルート（例：コーディングエージェントを実際のリポジトリで使う）から始められる"
+  ],
+  "how_to_use": "読み方：clone して、`python3 phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner` で環境を確かめてから、目的に合う段階（phases/ の下）を選んで進める。Web 版（aiengineeringfromscratch.com）でも同じ内容を読める。",
+  "use_cases": [
+    "インフラの人が、LLM アプリやエージェントの仕組みを手を動かして理解するのに使えそう",
+    "「本番の基盤と運用」の段階だけ拾い読みして、LLM を運用するときの論点を押さえるのに使えそう",
+    "MCP サーバーを自作してみる入口として使えそう"
+  ],
+  "for_whom": "AI・LLM まわりを体系的に学び直したいエンジニア。全部やると数百時間かかるので、必要な段階だけ拾う人",
+  "similar": [
+    "fast.ai の講座：深層学習の実践的な無料講座。こちらは LLM やエージェント、運用まで範囲が広い",
+    "Hugging Face のコース：LLM や Agents の無料講座。こちらは数学の基礎から始まる"
+  ],
+  "tech": "Python が中心で、TypeScript、Rust、Julia の課題もある。Web 版のサイトあり。",
+  "caveats": "作られて約半年で、課題の数がとても多く、質にはばらつきがあると思われる（全部は確かめていない）。README の冒頭は宣伝の数字が多い。Claude などの認定試験の対策コースも含む。",
+  "tags": [
+    "学習資料",
+    "LLM",
+    "AI エージェント",
+    "機械学習"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "課題が500以上あり、中身は README と構成しか見ていない"
+}

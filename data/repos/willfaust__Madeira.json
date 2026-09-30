@@ -1,0 +1,35 @@
+{
+  "repo": "willfaust/Madeira",
+  "summarized_at": "2026-09-30",
+  "short": "脱獄していない iPhone で、Windows（x86-64）の PC ゲームを動かそうという研究プロジェクト。Wine、x86-64 を ARM64 に変換する FEX-Emu、Direct3D 11 を Metal に変換する DXMT を組み合わせ、1つの iOS アプリの中で動かす。いくつかのゲームは遊べる段階。",
+  "what": "Wine・FEX-Emu・DXMT を組み合わせて、Windows の PC ゲームを脱獄なしの iPhone で動かす iOS アプリ（研究段階）。",
+  "can_do": [
+    "x86-64 の Windows のゲームを、iPhone の上で CPU 命令を変換しながら動かす",
+    "Direct3D 11 の描画を、iOS の Metal に変換する",
+    "Thumper と ULTRAKILL は遊べる状態。ほかのゲームも起動はするが、フレームレートが低い"
+  ],
+  "how_to_use": "App Store では配れないので、自分でビルドして sideload する。`git clone --recurse-submodules` で取ってきて、`build/*/build.sh` で Wine・FEX・DXMT をビルドし、アプリを `xcodebuild` でビルドする。JIT のためにデバッガ（StikDebug）をつなぐ必要がある。無料の Apple ID で署名すると、7日ごとに入れ直しが要る。",
+  "use_cases": [
+    "エミュレーションや命令変換（x86-64 → ARM64）、Wine の仕組みに興味がある人の研究材料として読むのに使えそう",
+    "実用というより、iOS の制限の中でどこまでできるかの実験として見るもの"
+  ],
+  "for_whom": "iOS 開発、エミュレーション、Wine に詳しく、自分でビルドできる人",
+  "similar": [
+    "CrossOver / Whisky：macOS で Windows のゲームを動かす Wine の製品やツール。こちらは iPhone が対象",
+    "UTM：iOS で仮想マシンやエミュレーターを動かすアプリ。こちらは Wine で Windows のアプリだけを動かす"
+  ],
+  "tech": "C が中心。Wine（ARM64EC）、FEX-Emu、DXMT、Xcode。開発は iPhone 13 Pro（A15）で行われている。",
+  "caveats": "作者自身が「製品ではなく研究プロジェクト」と書いている。JIT のためにデバッガの接続が要り、無料の Apple ID では7日ごとに入れ直しが要る。ライセンスは GPL-3.0 で、使っている Wine や FEX の fork も GPL-3.0 に変わっている。Visual C++ のランタイムは自分で用意する必要がある。fork には AI の手が入っていて、FEX-Emu 本体の方針に合わないため、上流に送らないよう書かれている。",
+  "tags": [
+    "ゲーム",
+    "モバイル",
+    "言語・ランタイム"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}
