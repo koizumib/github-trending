@@ -81,11 +81,27 @@ def test_weekly_and_monthly_pages_with_tabs(tmp_path):
 
     # マンスリーはデータがないので、タブは押せない形で出てページは作らない
     index = (out / "index.html").read_text()
-    assert 'href="weekly/"' in index and '<span class="tab disabled">マンスリー</span>' in index
+    assert 'href="weekly/"' in index and '<span class="tab disabled">月次</span>' in index
     assert not (out / "monthly").exists()
     # 9/29 にはウィークリーがないので、その日のページではウィークリーのタブも押せない
-    assert '<span class="tab disabled">ウィークリー</span>' in (out / "d/2026-09-29/index.html").read_text()
+    day29 = (out / "d/2026-09-29/index.html").read_text()
+    assert '<span class="tab disabled">週次</span>' in day29
+
+    # デイリーのタブは、トップ（最新の日）だけ「本日」、日ごとのページは「日次」
+    assert '<span class="tab active" aria-current="page">本日</span>' in index
+    assert '<span class="tab active" aria-current="page">日次</span>' in day29
 
     archive = (out / "archive/index.html").read_text()
     assert 'href="../d/2026-09-30/weekly/"' in archive
     assert 'href="../d/2026-09-29/weekly/"' not in archive
+
+
+def test_rank_tiers_and_language_color(tmp_path):
+    from trending_digest.build_site import lang_color, rank_tier
+
+    assert [rank_tier(r) for r in (1, 2, 3, 4, 5, 6, 25)] == ["xl", "l", "l", "m", "m", "s", "s"]
+    assert lang_color("Python") == "#3572A5" and lang_color(None) == lang_color("Brainfuck") == "#9A9A9A"
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    index = (out / "index.html").read_text()
+    assert 'class="card tier-xl"' in index  # 1位の記事
+    assert 'class="rank" aria-label="1位">1<small>位</small>' in index

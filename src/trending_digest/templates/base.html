@@ -8,6 +8,9 @@
   /* 選んだテーマを、描画の前に当てる（ちらつき防止） */
   try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap">
 <link rel="stylesheet" href="{{ root }}style.css">
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -27,7 +30,7 @@
 {% block main %}{% endblock %}
 </main>
 <footer class="site">
-  GitHub Trending（全言語のデイリー・ウィークリー・マンスリー）を日本語で要約しています。要約は Claude Code が書いたもので、誤りを含むことがあります。
+  GitHub Trending（全言語の日次・週次・月次）を日本語で要約しています。要約は Claude Code が書いたもので、誤りを含むことがあります。
 </footer>
 <script>
   document.querySelector(".theme-toggle").addEventListener("click", function () {

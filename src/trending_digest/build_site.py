@@ -38,6 +38,36 @@ def repo_wbr(repo: str) -> Markup:
     return Markup(f"{escape(owner)}/<wbr>{escape(name)}")
 
 
+# 期間の呼び名。トップ（最新の日）のデイリーだけは「本日」と出す（テンプレートで）
+PERIOD_NAME = {"daily": "日次", "weekly": "週次", "monthly": "月次"}
+
+# 言語の色（GitHub で見慣れた色に近いもの）。ないものは灰色
+LANG_COLORS = {
+    "Python": "#3572A5", "TypeScript": "#3178C6", "JavaScript": "#F1E05A", "Rust": "#DEA584",
+    "Go": "#00ADD8", "C": "#555555", "C++": "#F34B7D", "C#": "#178600", "Java": "#B07219",
+    "Kotlin": "#A97BFF", "Swift": "#F05138", "Ruby": "#701516", "PHP": "#4F5D95",
+    "Shell": "#89E051", "HTML": "#E34C26", "CSS": "#663399", "Vue": "#41B883", "Svelte": "#FF3E00",
+    "Dart": "#00B4AB", "Zig": "#EC915C", "Lua": "#000080", "Jupyter Notebook": "#DA5B0B",
+    "TeX": "#3D6117", "Scala": "#C22D40", "Elixir": "#6E4A7E", "Haskell": "#5E5086",
+    "Nix": "#7E7EFF", "Julia": "#A270BA", "MDX": "#FCB32C", "Dockerfile": "#384D54",
+}
+
+
+def lang_color(language: str | None) -> str:
+    return LANG_COLORS.get(language or "", "#9A9A9A")
+
+
+def rank_tier(rank: int) -> str:
+    """順位の数字の大きさ：1位は特大、2〜3位は大、4〜5位は中、ほかは小。"""
+    if rank == 1:
+        return "xl"
+    if rank <= 3:
+        return "l"
+    if rank <= 5:
+        return "m"
+    return "s"
+
+
 def _env() -> Environment:
     env = Environment(
         loader=PackageLoader("trending_digest", "templates"),
@@ -47,9 +77,12 @@ def _env() -> Environment:
         keep_trailing_newline=True,
     )
     env.globals["status_label"] = STATUS_LABEL
+    env.globals["period_name"] = PERIOD_NAME
     env.filters["code"] = inline_code
     env.filters["ja_date"] = ja_date
     env.filters["wbr"] = repo_wbr
+    env.filters["lang_color"] = lang_color
+    env.filters["rank_tier"] = rank_tier
     return env
 
 
