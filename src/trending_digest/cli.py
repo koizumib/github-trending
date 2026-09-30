@@ -93,6 +93,59 @@ def cmd_build(args) -> int:
     return 0
 
 
+def cmd_notify(args) -> int:
+    from .notify_discord import NotifyError, already_notified, build_messages, dump, mark_notified, post, webhook_url
+
+    config = load_config()
+    store = Store()
+    day = args.date or today(config.tz).isoformat()
+
+    if store.load_daily(day) is None:
+        # routine がまだ今日の分を push していない。見張り（watchdog）が別に知らせるので、ここでは何もしない
+        log.info("%s の data/daily/ がまだないので送らない", day)
+        return 0
+    if already_notified(store, day) and not args.force:
+        log.info("%s は送信済み", day)
+        return 0
+
+    messages = build_messages(day, store, config.site_base_url)
+    if args.dry_run:
+        print(dump(messages))
+        return 0
+    try:
+        post(messages, webhook_url())
+    except NotifyError as e:
+        log.error("%s", e)
+        return 1
+    mark_notified(store, day)
+    log.info("%s の通知を %d 通送った", day, len(messages))
+    return 0
+
+
+def cmd_watchdog(args) -> int:
+    """今日の data/daily/ がなければ、routine が動いていないと Discord に知らせる。"""
+    from .notify_discord import NotifyError, alert_message, post, webhook_url
+
+    config = load_config()
+    day = args.date or today(config.tz).isoformat()
+    if Store().load_daily(day) is not None:
+        log.info("%s の分はある", day)
+        return 0
+    msg = alert_message(
+        f"{day} の分がまだ届いていません。routine が動かなかったか、Trending を読み取れなかった可能性があります。"
+        "Claude Code の routine の実行記録を確かめてください。"
+    )
+    if args.dry_run:
+        print(msg["content"])
+        return 0
+    try:
+        post([msg], webhook_url())
+    except NotifyError as e:
+        log.error("%s", e)
+        return 1
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="trending_digest")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -104,8 +157,13 @@ def main(argv: list[str] | None = None) -> int:
 
     sub.add_parser("validate", help="data/repos/ の形を検査")
     sub.add_parser("build", help="data/ から site/ を作り直す")
-    n = sub.add_parser("notify", help="Discord に送る")
+    n = sub.add_parser("notify", help="その日の分を Discord に送る（1日1回）")
     n.add_argument("--dry-run", action="store_true", help="送る内容を表示するだけ")
+    n.add_argument("--force", action="store_true", help="送信済みの日でも送る")
+    n.add_argument("--date", help="YYYY-MM-DD（省略すると日本時間の今日）")
+    w = sub.add_parser("watchdog", help="今日の分がなければ Discord に知らせる")
+    w.add_argument("--dry-run", action="store_true", help="送る内容を表示するだけ")
+    w.add_argument("--date", help="YYYY-MM-DD（省略すると日本時間の今日）")
 
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -118,4 +176,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_validate(args)
     if args.command == "build":
         return cmd_build(args)
+    if args.command == "notify":
+        return cmd_notify(args)
+    if args.command == "watchdog":
+        return cmd_watchdog(args)
     raise SystemExit(f"{args.command} はまだ作っていない")

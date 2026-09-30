@@ -58,3 +58,38 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: 依存を入れる
+        run: pip install -e .
+
+      - name: Discord に送る（その日の分を1回だけ）
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python -m trending_digest notify
+
+      - name: 送った日を data/notified.json に記録する
+        run: |
+          if [ -z "$(git status --porcelain -- data/notified.json)" ]; then
+            echo "記録することはない"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/notified.json
+          git commit -m "Discord に送った日を記録 [skip ci]"
+          git pull --rebase
+          git push
