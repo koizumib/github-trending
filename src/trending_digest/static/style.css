@@ -237,7 +237,8 @@ header.site { padding: 14px 12px 0; }
 .tier-xl .mark { font-size: 14px; }
 .tier-xl .move { font-size: 14px; }
 
-/* 印の凡例（ページの末尾） */
+/* 印の凡例（ページの末尾）。分野の囲みのすぐ下なら間を詰める */
+.field-box + .legend { margin-top: 16px; }
 .legend {
   display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 28px 0 0; padding-top: 10px;
   border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted);
@@ -299,7 +300,7 @@ header.site { padding: 14px 12px 0; }
 /* ---- 本日の分野（天気欄のような囲み） ---- */
 .field-box {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;
-  margin: 14px 0 2px; padding: 8px 12px;
+  margin: 32px 0 0; padding: 8px 12px;  /* ページの末尾、凡例の上（0023） */
   border: 1px solid var(--rule-strong);
   outline: 1px solid var(--rule); outline-offset: 2px;  /* 二重の枠 */
 }
