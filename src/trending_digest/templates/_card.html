@@ -4,17 +4,17 @@
   <header class="card-head">
     <span class="rank" aria-label="{{ c.rank }}位">{{ c.rank }}<small>位</small></span>
     <div class="head-body">
-      <div class="meta">
-        {% if c.language %}<span class="lang"><i style="background: {{ c.language | lang_color }}"></i>{{ c.language }}</span>{% endif %}
-        {% set gained = c.stars_today if c.stars_today is defined else c.stars_period %}
-        {% if gained %}<span class="stars">★ {{ stars_label }} +{{ "{:,}".format(gained) }}</span>{% endif %}
-        {% if c.status in ("returning",) %}<span class="tag">{{ status_label[c.status] }}</span>{% endif %}
-        {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
-      </div>
       <h2>
         {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo | wbr }}</a>
         {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo | wbr }}</a>{% endif %}
       </h2>
+      <div class="meta">
+        {% if c.language %}<span class="lang"><i style="background: {{ c.language | lang_color }}"></i>{{ c.language }}</span>{% endif %}
+        {% set gained = c.stars_today if c.stars_today is defined else c.stars_period %}
+        {% if gained %}<span class="stars">★ {{ stars_label }} <b>+{{ "{:,}".format(gained) }}</b></span>{% endif %}
+        {% if c.status in ("returning",) %}<span class="tag">{{ status_label[c.status] }}</span>{% endif %}
+        {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
+      </div>
     </div>
   </header>
   {% if s %}

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}{{ s.repo }} | trending-digest{% endblock %}
+{% block title %}{{ s.repo }} | github新聞{% endblock %}
 {% block body_class %}narrow{% endblock %}
 {% block main %}
-<article class="detail panel">
+<article class="detail">
   <h1 class="repo">{{ s.repo | wbr }}</h1>
-  <p class="actions"><a class="button" href="https://github.com/{{ s.repo }}">GitHub で開く</a></p>
   <p class="meta">
-    {% if item and item.language %}<span>{{ item.language }}</span>{% endif %}
-    {% if item and item.stars %}<span>★ {{ "{:,}".format(item.stars) }}</span>{% endif %}
+    {% if item and item.language %}<span class="lang"><i style="background: {{ item.language | lang_color }}"></i>{{ item.language }}</span>{% endif %}
+    {% if item and item.stars %}<span class="stars">★ <b>{{ "{:,}".format(item.stars) }}</b></span>{% endif %}
     <span class="tag {% if s.confidence == 'low' %}warn{% endif %}">確かさ：{{ {"high": "高", "medium": "中", "low": "低"}[s.confidence] }}</span>
     {% if s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
   </p>
   {% if s.tags %}<ul class="tags">{% for t in s.tags %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+  <p class="actions"><a class="button" href="https://github.com/{{ s.repo }}">GitHub で開く</a></p>
   {% if s.confidence_note %}<p class="note">{{ s.confidence_note }}</p>{% endif %}
 
   <p class="lead">{{ s.what | code }}</p>

@@ -66,6 +66,25 @@ Actions が失敗すると、GitHub からメールも届く。
 | push したのに Actions が1つも動かない | コミットのメッセージのどこかに `[skip ci]` と書いた | 自動で記録するコミット以外では、メッセージに `[skip ci]` と書かない |
 | routine のセッションが一覧で「active」のまま残る | routine のセッションは終わっても閉じられない | 終わったものはアーカイブしてよい。実行中かどうかは記録の最後で分かる |
 
+## ロゴを差し替える
+
+原本（大きい PNG、透明の背景）は `assets/logo/logo_light.png`（黒）と `logo_dark.png`（白）。サイトには、縮めて軽くしたものを `src/trending_digest/static/` に置く。原本を差し替えたら、次で作り直す（Pillow は作業用の仮想環境にだけ入れる。このツールの依存には足さない）。
+
+```bash
+python3.12 -m venv /tmp/imgvenv && /tmp/imgvenv/bin/pip install -q pillow
+/tmp/imgvenv/bin/python - <<'EOF'
+from PIL import Image
+for name in ("light", "dark"):
+    im = Image.open(f"assets/logo/logo_{name}.png").convert("RGBA")
+    im = im.crop(im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox())  # 透明の余白を切る
+    im = im.resize((1040, round(im.height * 1040 / im.width)), Image.LANCZOS)          # 横 1040px
+    im.quantize(colors=16, method=Image.Quantize.FASTOCTREE).save(
+        f"src/trending_digest/static/logo_{name}.png", optimize=True)                  # 16色で軽く
+EOF
+```
+
+縦横の比が変わったら、`templates/base.html` の `<img>` の `width`・`height` も合わせる。
+
 ## 外で設定したもの
 
 `docs/design.md` の §8 にまとめている（GitHub の Secrets と Pages、routine の設定と実行環境）。

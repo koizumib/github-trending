@@ -32,6 +32,21 @@ def ja_date(day: str) -> str:
     return f"{d.year}年{d.month}月{d.day}日（{WEEKDAYS[d.weekday()]}）"
 
 
+def ja_ymd(day: str) -> str:
+    """2026-09-30 → 2026年9月30日"""
+    import datetime as dt
+
+    d = dt.date.fromisoformat(day)
+    return f"{d.year}年{d.month}月{d.day}日"
+
+
+def ja_weekday(day: str) -> str:
+    """2026-09-30 → 水曜日"""
+    import datetime as dt
+
+    return f"{WEEKDAYS[dt.date.fromisoformat(day).weekday()]}曜日"
+
+
 def repo_wbr(repo: str) -> Markup:
     """owner/name の「/」の後ろで折り返せるようにする（名前の途中で折れないように）。"""
     owner, _, name = repo.partition("/")
@@ -80,6 +95,8 @@ def _env() -> Environment:
     env.globals["period_name"] = PERIOD_NAME
     env.filters["code"] = inline_code
     env.filters["ja_date"] = ja_date
+    env.filters["ja_ymd"] = ja_ymd
+    env.filters["ja_weekday"] = ja_weekday
     env.filters["wbr"] = repo_wbr
     env.filters["lang_color"] = lang_color
     env.filters["rank_tier"] = rank_tier
@@ -139,11 +156,14 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
-    shutil.copy(STATIC / "style.css", out / "style.css")
+    for f in sorted(STATIC.iterdir()):  # style.css とロゴ
+        if f.is_file():
+            shutil.copy(f, out / f.name)
     (out / ".nojekyll").write_text("")
 
     env = _env()
     days = store.list_days()
+    env.globals["latest_day"] = days[0] if days else None  # ヘッダの日付（日ごとのページ以外）
     history = store.load_history()
     day_tpl, repo_tpl, archive_tpl = (env.get_template(f"{n}.html") for n in ("day", "repo", "archive"))
 

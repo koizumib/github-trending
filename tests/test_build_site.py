@@ -74,7 +74,7 @@ def test_weekly_and_monthly_pages_with_tabs(tmp_path):
     out = build(Config(), store, tmp_path / "site")
 
     weekly = (out / "weekly/index.html").read_text()
-    assert "★ 今週 +900" in weekly and "weekly only" in weekly
+    assert "★ 今週 <b>+900</b>" in weekly and "weekly only" in weekly
     assert 'href="../r/o/r/"' in weekly  # 要約があるものは詳しいページへ
     assert (out / "d/2026-09-30/weekly/index.html").exists()
     assert 'href="../../../r/o/r/"' in (out / "d/2026-09-30/weekly/index.html").read_text()
