@@ -1,0 +1,131 @@
+{
+  "date": "2026-09-30",
+  "items": [
+    {
+      "rank": 1,
+      "repo": "debpalash/VoiceStudio",
+      "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+      "language": "Python",
+      "stars": 49558,
+      "stars_today": 4758,
+      "status": "new"
+    },
+    {
+      "rank": 2,
+      "repo": "NVIDIA/OpenShell",
+      "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+      "language": "Rust",
+      "stars": 11113,
+      "stars_today": 990,
+      "status": "new"
+    },
+    {
+      "rank": 3,
+      "repo": "vectorize-io/hindsight",
+      "description": "Hindsight: Agent Memory That Learns",
+      "language": "Python",
+      "stars": 43446,
+      "stars_today": 2575,
+      "status": "new"
+    },
+    {
+      "rank": 4,
+      "repo": "paperclipai/paperclip",
+      "description": "The open-source app everyone uses to manage agents at work",
+      "language": "TypeScript",
+      "stars": 94953,
+      "stars_today": 2458,
+      "status": "new"
+    },
+    {
+      "rank": 5,
+      "repo": "t8y2/dbx",
+      "description": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP。",
+      "language": "Rust",
+      "stars": 22726,
+      "stars_today": 232,
+      "status": "new"
+    },
+    {
+      "rank": 6,
+      "repo": "mvschwarz/openrig",
+      "description": "Multi-agent harness that runs Claude Code and Codex together as one system",
+      "language": "TypeScript",
+      "stars": 2653,
+      "stars_today": 737,
+      "status": "new"
+    },
+    {
+      "rank": 7,
+      "repo": "oblien/openship",
+      "description": "Self-hosted deployment platform",
+      "language": "TypeScript",
+      "stars": 14103,
+      "stars_today": 437,
+      "status": "new"
+    },
+    {
+      "rank": 8,
+      "repo": "averygan/reclip",
+      "description": "Download videos from almost any website. Lightweight, self-hosted media downloader with a clean web UI.",
+      "language": "HTML",
+      "stars": 10493,
+      "stars_today": 113,
+      "status": "new"
+    },
+    {
+      "rank": 9,
+      "repo": "cs341-illinois/coursebook",
+      "description": "Open Source Introductory Systems Programming Textbook for the University of Illinois",
+      "language": "TeX",
+      "stars": 3279,
+      "stars_today": 572,
+      "status": "new"
+    },
+    {
+      "rank": 10,
+      "repo": "rohitg00/ai-engineering-from-scratch",
+      "description": "Learn it. Build it. Ship it for others.",
+      "language": "Python",
+      "stars": 61926,
+      "stars_today": 786,
+      "status": "new"
+    },
+    {
+      "rank": 11,
+      "repo": "VectifyAI/PageIndex",
+      "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+      "language": "Python",
+      "stars": 37772,
+      "stars_today": 835,
+      "status": "new"
+    },
+    {
+      "rank": 12,
+      "repo": "willfaust/Madeira",
+      "description": "Run x86-64 Windows PC games on jailed iOS via FEX-Emu + Wine + DXMT",
+      "language": "C",
+      "stars": 1168,
+      "stars_today": 81,
+      "status": "new"
+    },
+    {
+      "rank": 13,
+      "repo": "dream-num/univer",
+      "description": "The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.",
+      "language": "TypeScript",
+      "stars": 22059,
+      "stars_today": 696,
+      "status": "new"
+    },
+    {
+      "rank": 14,
+      "repo": "rakyll/hey",
+      "description": "HTTP load generator, ApacheBench (ab) replacement",
+      "language": "Go",
+      "stars": 20579,
+      "stars_today": 34,
+      "status": "new"
+    }
+  ]
+}
