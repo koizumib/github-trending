@@ -39,24 +39,45 @@ def _write(path: Path, html: str) -> None:
     path.write_text(html, encoding="utf-8")
 
 
-def repo_href(repo: str) -> str:
-    return f"r/{repo}/"
+PERIODS = ("daily", "weekly", "monthly")
 
 
-def build_day(store: Store, day: str) -> dict:
-    """1日分の表示用データ。"""
-    daily = store.load_daily(day) or {"date": day, "items": [], "errors": []}
+def dated_href(day: str, period: str) -> str:
+    return f"d/{day}/" if period == "daily" else f"d/{day}/{period}/"
+
+
+def top_href(period: str) -> str:
+    return "" if period == "daily" else f"{period}/"
+
+
+def depth_root(href: str) -> str:
+    return "../" * href.count("/")
+
+
+def build_page(store: Store, day: str, period: str) -> dict | None:
+    """1日1期間分の表示用データ。その期間のデータがなければ None。"""
+    if period == "daily":
+        raw = store.load_daily(day) or {"date": day, "items": [], "errors": []}
+    else:
+        raw = store.load_period(period, day)
+        if raw is None:
+            return None
     cards, others = [], []
-    for item in daily["items"]:
+    for item in raw["items"]:
         entry = dict(item, summary=store.load_summary(item["repo"]))
-        (cards if item["status"] in ("new", "returning") else others).append(entry)
+        if period == "daily" and item.get("status") == "continuing":
+            others.append(entry)
+        else:
+            cards.append(entry)
     return {
         "date": day,
+        "period": period,
         "cards": cards,
         "continuing": others,
-        "errors": daily.get("errors", []),
-        "count_new": sum(1 for c in cards if c["status"] == "new"),
+        "errors": raw.get("errors", []) if period == "daily" else [],
+        "count_new": sum(1 for c in cards if c.get("status") == "new"),
         "count_continuing": len(others),
+        "dated_href": dated_href(day, period),
     }
 
 
@@ -72,37 +93,53 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     env = _env()
     days = store.list_days()
     history = store.load_history()
-    pages = {name: env.get_template(f"{name}.html") for name in ("day", "repo", "archive")}
+    day_tpl, repo_tpl, archive_tpl = (env.get_template(f"{n}.html") for n in ("day", "repo", "archive"))
 
-    # 日ごとのページと、いちばん新しい日をトップに
-    summaries_by_day = []
+    pages = {(d, p): build_page(store, d, p) for d in days for p in PERIODS}
+
     for i, day in enumerate(days):
-        data = build_day(store, day)
-        summaries_by_day.append(data)
-        nav = {
-            "newer": days[i - 1] if i > 0 else None,
-            "older": days[i + 1] if i + 1 < len(days) else None,
-        }
-        _write(out / "d" / day / "index.html", pages["day"].render(root="../../", day=data, nav=nav, is_top=False))
-        if i == 0:
-            _write(out / "index.html", pages["day"].render(root="", day=data, nav=nav, is_top=True))
+        for period in PERIODS:
+            page = pages[(day, period)]
+            if page is None:
+                continue
+            # 前後の日：同じ期間のデータがある日へ
+            newer = next((d for d in reversed(days[:i]) if pages[(d, period)]), None)
+            older = next((d for d in days[i + 1:] if pages[(d, period)]), None)
+            nav = {
+                "newer": {"date": newer, "href": dated_href(newer, period)} if newer else None,
+                "older": {"date": older, "href": dated_href(older, period)} if older else None,
+            }
+            for is_top in ([False, True] if i == 0 else [False]):
+                href = top_href(period) if is_top else dated_href(day, period)
+                tabs = {
+                    p: ((top_href(p) if is_top else dated_href(day, p)) if pages[(day, p)] else None)
+                    for p in PERIODS
+                }
+                html = day_tpl.render(root=depth_root(href), page=dict(page, tabs=tabs), nav=nav, is_top=is_top)
+                _write(out / href / "index.html", html)
     if not days:
-        _write(out / "index.html", pages["archive"].render(root="", days=[]))
+        _write(out / "index.html", archive_tpl.render(root="", days=[]))
 
-    # リポジトリの詳しいページ（要約があるものすべて）
-    latest_item = {}
-    for data in reversed(summaries_by_day):  # 古い日から順に上書きし、最新の値を残す
-        for item in data["cards"] + data["continuing"]:
-            latest_item[item["repo"]] = item
+    # リポジトリの詳しいページ（要約があるものすべて）。言語やスター数は、いちばん新しく見たときの値
+    latest_item: dict[str, dict] = {}
+    for day in reversed(days):
+        for period in ("monthly", "weekly", "daily"):  # 同じ日ならデイリーの値を優先
+            page = pages[(day, period)]
+            for item in (page["cards"] + page["continuing"]) if page else []:
+                latest_item[item["repo"]] = item
     for path in sorted((store.dir / "repos").glob("*.json")):
         summary = store.load_summary(path.stem.replace("__", "/", 1))
         if summary is None:
             continue
         repo = summary["repo"]
-        _write(out / "r" / repo / "index.html", pages["repo"].render(
+        _write(out / "r" / repo / "index.html", repo_tpl.render(
             root="../../../", s=summary, item=latest_item.get(repo),
             seen=history.get(repo, {}).get("seen", []),
         ))
 
-    _write(out / "archive" / "index.html", pages["archive"].render(root="../", days=summaries_by_day))
+    archive_days = [
+        dict(pages[(d, "daily")], has_weekly=bool(pages[(d, "weekly")]), has_monthly=bool(pages[(d, "monthly")]))
+        for d in days
+    ]
+    _write(out / "archive" / "index.html", archive_tpl.render(root="../", days=archive_days))
     return out

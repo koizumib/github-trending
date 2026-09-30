@@ -16,7 +16,8 @@ from .storage import Store
 
 log = logging.getLogger(__name__)
 
-STATUS_ORDER = {NEW: 0, RETURNING: 1, CONTINUING: 2}
+# 要約する順番：デイリーの new → returning → 前の日に回された continuing → ウィークリー → マンスリー
+STATUS_ORDER = {NEW: 0, RETURNING: 1, CONTINUING: 2, "weekly": 3, "monthly": 4}
 
 
 def record(items: list[TrendingItem], day: dt.date, store: Store, config: Config) -> list[dict]:
@@ -34,13 +35,23 @@ def record(items: list[TrendingItem], day: dt.date, store: Store, config: Config
     return daily
 
 
-def pick_targets(daily: list[dict], store: Store, limit: int) -> tuple[list[dict], list[dict]]:
-    """要約がまだないものを選ぶ。new → returning → continuing（前の日に回されたもの）、その中は順位順。
+def pick_targets(
+    daily: list[dict], store: Store, limit: int, periods: dict[str, list[dict]] | None = None,
+) -> tuple[list[dict], list[dict]]:
+    """要約がまだないものを選ぶ。順番は STATUS_ORDER、その中は順位順。同じリポジトリは1回だけ。
 
+    ウィークリー・マンスリーにだけ出ているものは、status に "weekly" / "monthly" を入れる。
     上限を超えた分は deferred として返す（次の日に回る）。
     """
-    todo = [d for d in daily if store.load_summary(d["repo"]) is None]
-    todo.sort(key=lambda d: (STATUS_ORDER[d["status"]], d["rank"]))
+    candidates = list(daily)
+    for period in ("weekly", "monthly"):
+        candidates += [dict(d, status=period) for d in (periods or {}).get(period, [])]
+    todo, seen = [], set()
+    for d in sorted(candidates, key=lambda d: (STATUS_ORDER[d["status"]], d["rank"])):
+        if d["repo"] in seen or store.load_summary(d["repo"]) is not None:
+            continue
+        seen.add(d["repo"])
+        todo.append(d)
     return todo[:limit], todo[limit:]
 
 
@@ -48,16 +59,27 @@ def work_dir_name(repo: str) -> str:
     return repo.replace("/", "__")
 
 
+def record_periods(periods: dict[str, list[TrendingItem]], day: dt.date, store: Store) -> dict[str, list[dict]]:
+    """ウィークリー・マンスリーを data/weekly/、data/monthly/ に書く。分類はしない。"""
+    written = {}
+    for period, items in periods.items():
+        rows = [i.to_period_dict() for i in items]
+        store.save_period(period, day, rows)
+        written[period] = rows
+        log.info("%s %s: %d件", day, period, len(rows))
+    return written
+
+
 def prepare_queue(
     daily: list[dict], day: dt.date, store: Store, config: Config, work: Path,
-    gatherer: Gatherer | None = None,
+    gatherer: Gatherer | None = None, periods: dict[str, list[dict]] | None = None,
 ) -> dict:
     """材料を .work/ に下集めし、.work/queue.json を書く。"""
     if work.exists():
         shutil.rmtree(work)
     work.mkdir(parents=True)
 
-    targets, deferred = pick_targets(daily, store, config.max_summaries_per_day)
+    targets, deferred = pick_targets(daily, store, config.max_summaries_per_day, periods)
     gatherer = gatherer or (Gatherer() if targets else None)
 
     queue_items = []

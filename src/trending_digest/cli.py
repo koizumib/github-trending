@@ -9,7 +9,8 @@ from pathlib import Path
 
 from .config import ROOT, load_config, load_dotenv, today
 from .fetch_trending import TrendingError, TrendingItem, fetch_html, parse_trending
-from .pipeline import prepare_queue, record
+from .net import PoliteClient
+from .pipeline import prepare_queue, record, record_periods
 from .storage import Store
 
 log = logging.getLogger("trending_digest")
@@ -17,26 +18,53 @@ log = logging.getLogger("trending_digest")
 ITEM_FIELDS = TrendingItem.__dataclass_fields__
 
 
+def _items_from(rows: list[dict]) -> list[TrendingItem]:
+    out = []
+    for d in rows:
+        d = dict(d)
+        if "stars_period" in d:
+            d["stars_today"] = d.pop("stars_period")
+        out.append(TrendingItem(**{k: v for k, v in d.items() if k in ITEM_FIELDS}))
+    return out
+
+
 def cmd_prepare(args) -> int:
     config = load_config()
     store = Store()
     day = dt.date.fromisoformat(args.date) if args.date else today(config.tz)
+    client = PoliteClient()  # 3つのページを同じクライアントで、1秒以上空けて取りに行く
 
+    # デイリー：読めなければはっきり失敗させる
     existing = store.load_daily(day)
     if existing and not args.html and not args.refetch:
         # Trending は1日1回だけ取りに行く。今日の分があればそれを使う
         log.info("%s の Trending は取得済みなので、data/daily/ のものを使う", day)
-        items = [TrendingItem(**{k: v for k, v in d.items() if k in ITEM_FIELDS}) for d in existing["items"]]
+        items = _items_from(existing["items"])
     else:
         try:
-            html = Path(args.html).read_text(encoding="utf-8") if args.html else fetch_html()
+            html = Path(args.html).read_text(encoding="utf-8") if args.html else fetch_html(client)
             items = parse_trending(html)
         except TrendingError as e:
             log.error("%s", e)
             return 1
-
     daily = record(items, day, store, config)
-    prepare_queue(daily, day, store, config, ROOT / ".work")
+
+    # ウィークリー・マンスリー：読めなくても止めない
+    periods: dict[str, list[TrendingItem]] = {}
+    for period in ("weekly", "monthly"):
+        saved = store.load_period(period, day)
+        if saved and not args.refetch:
+            periods[period] = _items_from(saved["items"])
+            continue
+        if args.html:  # 保存した HTML で試すときは取りに行かない
+            continue
+        try:
+            periods[period] = parse_trending(fetch_html(client, period))
+        except TrendingError as e:
+            log.warning("%s（この期間は今日は飛ばす）", e)
+    period_rows = record_periods(periods, day, store)
+
+    prepare_queue(daily, day, store, config, ROOT / ".work", periods=period_rows)
     return 0
 
 
@@ -69,7 +97,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="trending_digest")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("prepare", help="取得・分類・材料の下集め → .work/queue.json")
+    p = sub.add_parser("prepare", help="取得（デイリー・ウィークリー・マンスリー）・分類・材料の下集め → .work/queue.json")
     p.add_argument("--html", help="github.com/trending を取りに行かず、保存した HTML を使う")
     p.add_argument("--refetch", action="store_true", help="今日の分が取得済みでも取り直す")
     p.add_argument("--date", help="「今日」を YYYY-MM-DD で上書きする（試すとき用）")

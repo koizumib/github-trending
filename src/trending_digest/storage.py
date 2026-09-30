@@ -55,6 +55,17 @@ class Store:
     def list_days(self) -> list[str]:
         return sorted((p.stem for p in (self.dir / "daily").glob("*.json")), reverse=True)
 
+    # weekly/YYYY-MM-DD.json、monthly/YYYY-MM-DD.json（その日に見た週・月の Trending）
+    def period_path(self, period: str, day: dt.date | str) -> Path:
+        day = day if isinstance(day, str) else day.isoformat()
+        return self.dir / period / f"{day}.json"
+
+    def save_period(self, period: str, day: dt.date, items: list[dict]) -> None:
+        _write(self.period_path(period, day), {"date": day.isoformat(), "period": period, "items": items})
+
+    def load_period(self, period: str, day: dt.date | str) -> dict | None:
+        return _read(self.period_path(period, day), None)
+
     # repos/{owner}__{name}.json
     def repo_path(self, repo: str) -> Path:
         owner, name = repo.split("/", 1)

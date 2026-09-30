@@ -5,7 +5,7 @@
 ## 守ること
 
 - **コードは直さない。** `src/`、`tests/`、`schemas/`、`docs/`、`config.yaml`、`.github/` は触りません。手順どおりにできないことがあっても、コードを直して切り抜けようとせず、下の「うまくいかないとき」に従います。
-- **書いてよいのは次の2つだけ**：`data/repos/{owner}__{name}.json`（要約）と、今日の `data/daily/YYYY-MM-DD.json` の `errors`。`history.json` と `daily` の `items` は `prepare` が書くので、手で変えません。
+- **書いてよいのは次の2つだけ**：`data/repos/{owner}__{name}.json`（要約）と、今日の `data/daily/YYYY-MM-DD.json` の `errors`。`history.json`、`daily` の `items`、`weekly/`、`monthly/` は `prepare` が書くので、手で変えません。
 - **`.work/` と `site/` はコミットしない。**
 - **行儀よく取得する。** homepage は1件につきトップページを1回だけ取りに行きます。同じサイトに続けて取りに行くときは1秒以上間を空けます。
 
@@ -16,8 +16,8 @@ test -x .venv/bin/python || (python3 -m venv .venv && .venv/bin/pip install -q -
 .venv/bin/python -m trending_digest prepare
 ```
 
-- `prepare` は、今日の Trending を取得して `data/daily/` と `data/history.json` を更新し、要約する対象の材料を `.work/` に集めて、一覧を `.work/queue.json` に書きます。
-- **`prepare` が失敗したら**（終了コードが0でない）、Trending を読み取れなかったということです。要約はせず、何もコミットせずに、エラーの内容を報告して終わります。朝の見張り（watchdog）が Discord に知らせます。
+- `prepare` は、今日の Trending（デイリー・ウィークリー・マンスリー）を取得して `data/daily/`、`data/weekly/`、`data/monthly/`、`data/history.json` を更新し、要約する対象の材料を `.work/` に集めて、一覧を `.work/queue.json` に書きます。
+- **`prepare` が失敗したら**（終了コードが0でない）、デイリーの Trending を読み取れなかったということです（ウィークリー・マンスリーが読めないだけなら、警告を出して続きます）。要約はせず、何もコミットせずに、エラーの内容を報告して終わります。朝の見張り（watchdog）が Discord に知らせます。
 
 ## 2. 1件ずつ要約する
 
@@ -28,6 +28,7 @@ test -x .venv/bin/python || (python3 -m venv .venv && .venv/bin/pip install -q -
 | キー | 中身 |
 |---|---|
 | `repo` | `owner/name` |
+| `status` | なぜ対象になったか。`new`（今日デイリーに初めて上がった）、`returning`（久しぶりに上がった）、`continuing`（前の日に回されたもの）、`weekly` / `monthly`（ウィークリー・マンスリーにだけ出ていて、まだ要約がない）。書き方は変わらない |
 | `work_dir` | 材料の置き場所（下の表） |
 | `output` | 書き出す先（`data/repos/{owner}__{name}.json`） |
 | `materials` | 集められた材料の名前 |

@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from .net import PoliteClient
 
 TRENDING_URL = "https://github.com/trending"
+PERIODS = ("daily", "weekly", "monthly")
 
 
 class TrendingError(RuntimeError):
@@ -28,15 +29,22 @@ class TrendingItem:
     def to_dict(self) -> dict:
         return asdict(self)
 
+    def to_period_dict(self) -> dict:
+        """weekly / monthly 用。増えたスターは「その期間に」の数なので名前を変える。"""
+        d = asdict(self)
+        d["stars_period"] = d.pop("stars_today")
+        return d
 
-def fetch_html(client: PoliteClient | None = None) -> str:
+
+def fetch_html(client: PoliteClient | None = None, period: str = "daily") -> str:
     client = client or PoliteClient()
+    url = TRENDING_URL if period == "daily" else f"{TRENDING_URL}?since={period}"
     try:
-        resp = client.get(TRENDING_URL)
+        resp = client.get(url)
     except Exception as e:  # noqa: BLE001
-        raise TrendingError(f"Trending を取得できなかった: {e}") from e
+        raise TrendingError(f"Trending（{period}）を取得できなかった: {e}") from e
     if resp.status_code != 200:
-        raise TrendingError(f"Trending の取得が HTTP {resp.status_code} で失敗した")
+        raise TrendingError(f"Trending（{period}）の取得が HTTP {resp.status_code} で失敗した")
     return resp.text
 
 

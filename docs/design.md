@@ -215,7 +215,7 @@ trending-digest/
 4. **routine の push 先**：routine が `main` に直接 push できるかを、作るときに確かめる。できなければ、決まったブランチに push し、Actions がそのブランチの push で動くようにする
 5. **routine のネットワーク**：homepage を読むために、どこへでも出られる設定にするか。github.com だけに絞るなら、homepage は材料から外す
 6. **プランの使用量**：毎日10〜25件を Claude Code で調べて、使用量の上限に当たらないか。最初の1週間ようすを見て `max_summaries_per_day` を決める
-7. **ウィークリーの Trending**：週に1回、ウィークリーのまとめも作るか
+7. **ウィークリーの Trending**：**決定**。ウィークリーとマンスリーも毎朝取得してサイトにタブで出す（`docs/decisions/0005-weekly-monthly.md`）
 8. **質問できる機能**：詳しいページから質問できるようにするか。入れるなら静的ではなくなる
 
 ## 11. マイルストーン

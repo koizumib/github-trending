@@ -1,45 +1,40 @@
 {% extends "base.html" %}
-{% block title %}{{ day.date }} の Trending | trending-digest{% endblock %}
+{% from "_card.html" import card %}
+{% set period_name = {"daily": "デイリー", "weekly": "ウィークリー", "monthly": "マンスリー"} %}
+{% set stars_label = {"daily": "今日", "weekly": "今週", "monthly": "今月"}[page.period] %}
+{% block title %}{{ page.date }} の Trending（{{ period_name[page.period] }}）| trending-digest{% endblock %}
 {% block main %}
-<h1>{{ day.date }}<span class="sub">の Trending</span></h1>
-<p class="counts">新着 {{ day.count_new }}件／継続 {{ day.count_continuing }}件{% if is_top %}　<a href="{{ root }}d/{{ day.date }}/">この日のページ</a>{% endif %}</p>
+<div class="page-head">
+  <div>
+    <h1>{{ page.date }}<span class="sub">の Trending</span></h1>
+    <p class="counts">
+      {% if page.period == "daily" %}新着 {{ page.count_new }}件／継続 {{ page.count_continuing }}件
+      {% else %}{{ {"weekly": "この1週間", "monthly": "この1か月"}[page.period] }}で伸びた {{ page.cards | length }}件{% endif %}
+      {% if is_top %}<a href="{{ root }}{{ page.dated_href }}">この日のページ</a>{% endif %}
+    </p>
+  </div>
+  <nav class="tabs" aria-label="期間">
+    {% for p in ("daily", "weekly", "monthly") %}
+      {% if page.tabs[p] is none %}<span class="tab disabled">{{ period_name[p] }}</span>
+      {% elif p == page.period %}<span class="tab active" aria-current="page">{{ period_name[p] }}</span>
+      {% else %}<a class="tab" href="{{ root }}{{ page.tabs[p] }}">{{ period_name[p] }}</a>{% endif %}
+    {% endfor %}
+  </nav>
+</div>
 
 <div class="cards">
-{% for c in day.cards %}
-{% set s = c.summary %}
-<article class="card">
-  <div class="meta">
-    <span class="rank">#{{ c.rank }}</span>
-    {% if c.status != "new" %}<span class="tag">{{ status_label[c.status] }}</span>{% endif %}
-    {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
-    {% if c.language %}<span>{{ c.language }}</span>{% endif %}
-    {% if c.stars_today %}<span>★ +{{ "{:,}".format(c.stars_today) }}</span>{% endif %}
-  </div>
-  <h2>
-    {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>
-    {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
-  </h2>
-  {% if s %}
-  <p class="short">{{ s.short | code }}</p>
-  <div class="card-foot">
-    <ul class="tags">{% for t in s.tags or [] %}<li>{{ t }}</li>{% endfor %}</ul>
-    <a class="more" href="{{ root }}r/{{ c.repo }}/">詳しく</a>
-  </div>
-  {% else %}
-  <p class="pending">まだ要約していません。</p>
-  {% if c.description %}<p class="orig" lang="en">{{ c.description }}</p>{% endif %}
-  {% endif %}
-</article>
+{% for c in page.cards %}
+{{ card(c, root, stars_label) }}
 {% else %}
-<p>この日の新着はありません。</p>
+<p>{% if page.period == "daily" %}この日の新着はありません。{% else %}この日のデータはありません。{% endif %}</p>
 {% endfor %}
 </div>
 
-{% if day.continuing %}
+{% if page.continuing %}
 <section class="continuing panel">
   <h2>継続して上がっているもの</h2>
   <ul>
-  {% for c in day.continuing %}
+  {% for c in page.continuing %}
     <li>
       {% if c.summary %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>{% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
       {% if c.summary %}<span class="what">{{ c.summary.what | code }}</span>{% endif %}
@@ -49,11 +44,11 @@
 </section>
 {% endif %}
 
-{% if day.errors %}
+{% if page.errors %}
 <section class="errors panel">
   <h2>要約できなかったもの</h2>
   <ul>
-  {% for e in day.errors %}
+  {% for e in page.errors %}
     <li><a href="https://github.com/{{ e.repo }}">{{ e.repo }}</a>：{{ e.reason }}</li>
   {% endfor %}
   </ul>
@@ -61,7 +56,7 @@
 {% endif %}
 
 <nav class="pager">
-  {% if nav.newer %}<a href="{{ root }}d/{{ nav.newer }}/">← {{ nav.newer }}</a>{% else %}<span></span>{% endif %}
-  {% if nav.older %}<a href="{{ root }}d/{{ nav.older }}/">{{ nav.older }} →</a>{% endif %}
+  {% if nav.newer %}<a href="{{ root }}{{ nav.newer.href }}">← {{ nav.newer.date }}</a>{% else %}<span></span>{% endif %}
+  {% if nav.older %}<a href="{{ root }}{{ nav.older.href }}">{{ nav.older.date }} →</a>{% endif %}
 </nav>
 {% endblock %}

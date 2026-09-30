@@ -1,0 +1,27 @@
+{% macro card(c, root, stars_label) %}
+{% set s = c.summary %}
+<article class="card">
+  <div class="meta">
+    <span class="rank">#{{ c.rank }}</span>
+    {% if c.status in ("returning",) %}<span class="tag">{{ status_label[c.status] }}</span>{% endif %}
+    {% if s and s.confidence == "low" %}<span class="tag warn">情報が少ない</span>{% endif %}
+    {% if c.language %}<span>{{ c.language }}</span>{% endif %}
+    {% set gained = c.stars_today if c.stars_today is defined else c.stars_period %}
+    {% if gained %}<span>★ {{ stars_label }} +{{ "{:,}".format(gained) }}</span>{% endif %}
+  </div>
+  <h2>
+    {% if s %}<a href="{{ root }}r/{{ c.repo }}/">{{ c.repo }}</a>
+    {% else %}<a href="https://github.com/{{ c.repo }}">{{ c.repo }}</a>{% endif %}
+  </h2>
+  {% if s %}
+  <p class="short">{{ s.short | code }}</p>
+  <div class="card-foot">
+    <ul class="tags">{% for t in s.tags or [] %}<li>{{ t }}</li>{% endfor %}</ul>
+    <a class="more" href="{{ root }}r/{{ c.repo }}/">詳しく</a>
+  </div>
+  {% else %}
+  <p class="pending">まだ要約していません。</p>
+  {% if c.description %}<p class="orig" lang="en">{{ c.description }}</p>{% endif %}
+  {% endif %}
+</article>
+{% endmacro %}

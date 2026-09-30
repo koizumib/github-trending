@@ -63,3 +63,29 @@ def test_tags_shown_on_card_and_detail(tmp_path):
     day = (out / "d/2026-09-29/index.html").read_text()
     assert "<li>CLI</li><li>インフラ・運用</li>" in day
     assert "<li>インフラ・運用</li>" in (out / "r/o/r/index.html").read_text()
+
+
+def test_weekly_and_monthly_pages_with_tabs(tmp_path):
+    store = make_store(tmp_path)
+    store.save_period("weekly", dt.date(2026, 9, 30), [
+        {"rank": 1, "repo": "o/r", "description": "x", "language": "Go", "stars": 20, "stars_period": 900},
+        {"rank": 2, "repo": "w/eek", "description": "weekly only", "language": None, "stars": 5, "stars_period": 50},
+    ])
+    out = build(Config(), store, tmp_path / "site")
+
+    weekly = (out / "weekly/index.html").read_text()
+    assert "★ 今週 +900" in weekly and "weekly only" in weekly
+    assert 'href="../r/o/r/"' in weekly  # 要約があるものは詳しいページへ
+    assert (out / "d/2026-09-30/weekly/index.html").exists()
+    assert 'href="../../../r/o/r/"' in (out / "d/2026-09-30/weekly/index.html").read_text()
+
+    # マンスリーはデータがないので、タブは押せない形で出てページは作らない
+    index = (out / "index.html").read_text()
+    assert 'href="weekly/"' in index and '<span class="tab disabled">マンスリー</span>' in index
+    assert not (out / "monthly").exists()
+    # 9/29 にはウィークリーがないので、その日のページではウィークリーのタブも押せない
+    assert '<span class="tab disabled">ウィークリー</span>' in (out / "d/2026-09-29/index.html").read_text()
+
+    archive = (out / "archive/index.html").read_text()
+    assert 'href="../d/2026-09-30/weekly/"' in archive
+    assert 'href="../d/2026-09-29/weekly/"' not in archive
