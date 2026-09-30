@@ -1,0 +1,38 @@
+{
+  "repo": "vercel/next.js",
+  "summarized_at": "2026-09-30",
+  "short": "React のフレームワーク。server rendering と static 生成、ルーティング、ビルドまでまとめて面倒を見る。Rust 製の bundler（Turbopack）を含む。",
+  "what": "React で Web アプリを作るための fullstack フレームワーク。",
+  "can_do": [
+    "server-side rendering と static site generation に対応",
+    "ファイルベースのルーティング",
+    "Turbopack（Rust 製 bundler）でビルドする",
+    "Vercel が開発し、最新のリリースは v16.3.7（バグ修正の backport）"
+  ],
+  "how_to_use": "README はルートになく packages/next/README.md にある。`npx create-next-app@latest` で始めるのが一般的だが、今回の材料では確認していない。",
+  "use_cases": [
+    "社内ツールやダッシュボードを React で作るときの選択肢になりそう",
+    "リポジトリ自体が巨大な monorepo なので、Turbopack や Rust 側の作りを読む題材にもなりそう"
+  ],
+  "for_whom": "React で Web アプリを作る人",
+  "similar": [
+    "Remix / React Router：同じ React のフレームワーク。Next.js は Vercel 製で機能の範囲が広い",
+    "Nuxt：Vue 版の同種のもの"
+  ],
+  "tech": "TypeScript、Rust（Turbopack）、Node.js。manifests は package.json と Cargo.toml。",
+  "caveats": "2016年からあるプロジェクトで、リポジトリがとても大きい（ファイル約5万）。ルートの README が別ファイルへの参照だけで、中身は読んでいない。",
+  "tags": [
+    "Web",
+    "ライブラリ・SDK"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Cargo.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "ルートの README が中身のないパス参照で、説明は meta と既知の知識による"
+}

@@ -1,0 +1,37 @@
+{
+  "repo": "PrismML-Eng/Bonsai-demo",
+  "summarized_at": "2026-09-30",
+  "short": "ternary weight の 27B モデル「Bonsai 2」を、Mac や GPU、CPU のローカルで動かすデモ。setup.sh で取得し、chat・画像・tool 呼び出しが使える。",
+  "what": "Bonsai 2 27B をローカルで動かすための起動スクリプトとデモ UI（llama.cpp の fork と MLX）。",
+  "can_do": [
+    "`./setup.sh` でモデルと実行用バイナリを取得する",
+    "Metal、CUDA、Vulkan、ROCm、CPU で動く",
+    "画像や PDF を入力できる",
+    "OpenAI 形式の tool_calls と MCP に対応",
+    "262K トークンの context、reasoning の強さを切り替えられる"
+  ],
+  "how_to_use": "`./setup.sh` のあと `./scripts/start_llama_server.sh` で http://localhost:8080 に chat が立ち上がる。",
+  "use_cases": [
+    "GPU 1枚や Mac で動く、ローカル LLM の検証に使えそう",
+    "量子化モデルの速度・品質を手元で確かめるのに使えそう"
+  ],
+  "for_whom": "ローカルで大きめの LLM を動かしたい人",
+  "similar": [
+    "Ollama / llama.cpp 本家：ローカル実行の定番。Bonsai は専用の fork が要り、本家では動かない"
+  ],
+  "tech": "llama.cpp の PrismML fork、MLX。モデルは約 5.9 GB（1.75 bit/weight）、既定の packing では約 1.3 GB 多くなる。",
+  "caveats": "「FP16 の 98.2% の性能」は作者側の数字で、第三者の検証は材料にない。専用の llama.cpp fork が必要。",
+  "tags": [
+    "LLM",
+    "機械学習",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml"
+  ],
+  "confidence": "medium",
+  "confidence_note": "性能の数字は README の主張で、検証していない"
+}

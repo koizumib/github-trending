@@ -1,0 +1,37 @@
+{
+  "repo": "HKUDS/CLI-Anything",
+  "summarized_at": "2026-09-30",
+  "short": "既存のソフトウェアを、AI エージェントが CLI で操作できるようにするための仕組みと、その CLI の置き場（CLI-Hub）。ソフトごとの CLI をエージェントに作らせる手順がある。",
+  "what": "GUI ソフトなどを AI エージェント向けの CLI に包む harness の生成手順と、できあがった CLI を配る registry。",
+  "can_do": [
+    "`cli-anything-hub` で registry を見て、作られた CLI を `cli-hub install <name>` で入れる",
+    "エージェント用の plugin / skill から、7段階の手順で新しい CLI を生成する",
+    "v0.4.0 で `cli-hub matrix` を追加（複数 CLI の組み合わせを一括で入れる）",
+    "3MF、QGIS など、ソフトごとの agent-harness ディレクトリがある",
+    "コミュニティから CLI を PR で追加できる"
+  ],
+  "how_to_use": "`pip install cli-anything-hub` のあと `cli-hub install <name>`。",
+  "use_cases": [
+    "GUI しかない社内・業務ソフトを、エージェントから呼べる CLI にするのに使えそう",
+    "CAD や GIS のようなソフトの自動化をエージェントに任せる実験に使えそう"
+  ],
+  "for_whom": "エージェントに既存ソフトを操作させたい人",
+  "similar": [
+    "MCP：エージェントと外部ツールをつなぐ標準。こちらは CLI の形で包む"
+  ],
+  "tech": "Python 3.10 以上。Claude Code、Cursor などの plugin としても配布されている。",
+  "caveats": "2026年3月に作られて間もない。README の宣伝的な表現（「ALL Software」）は割り引いて読むべき。生成される CLI の品質は個別に確認が必要と思われる。",
+  "tags": [
+    "AI エージェント",
+    "CLI",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README が長く、生成手順の細部までは読んでいない"
+}

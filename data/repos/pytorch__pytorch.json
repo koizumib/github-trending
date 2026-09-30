@@ -1,0 +1,38 @@
+{
+  "repo": "pytorch/pytorch",
+  "summarized_at": "2026-09-30",
+  "short": "GPU で高速に動く Tensor 計算と、動的に計算グラフを作る自動微分を持つ Python の機械学習ライブラリ。",
+  "what": "NumPy のような Tensor 計算と、深層学習用の自動微分（autograd）を提供する Python パッケージ。",
+  "can_do": [
+    "GPU（CUDA、ROCm、Intel GPU）で動く Tensor 計算",
+    "tape-based autograd による動的な neural network",
+    "NumPy、SciPy、Cython と組み合わせて拡張できる",
+    "Docker イメージと Jetson 向けのバイナリがある"
+  ],
+  "how_to_use": "pytorch.org の案内に従って pip / conda で入れるのが一般的。ソースからビルドもできる（README に手順あり）。",
+  "use_cases": [
+    "GPU サーバーでの学習・推論基盤を運用するとき、何が動いているかを知る前提になりそう",
+    "ドライバや CUDA のバージョン管理を考える材料になる"
+  ],
+  "for_whom": "機械学習の研究者・エンジニア。GPU 基盤を運用する人",
+  "similar": [
+    "TensorFlow：同じ分野の別フレームワーク。PyTorch は imperative（即時実行）の書き味が特徴",
+    "JAX：関数変換が中心の別のライブラリ"
+  ],
+  "tech": "Python、C++、CUDA。CMake でビルドする。最新リリースは v2.14.0。",
+  "caveats": "ライセンスは meta では NOASSERTION（BSD 系の独自表記と思われる）。リポジトリがとても大きく（ファイル約2.4万）、ソースからのビルドは重い。",
+  "tags": [
+    "機械学習",
+    "ライブラリ・SDK",
+    "言語・ランタイム"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

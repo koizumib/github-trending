@@ -1,0 +1,39 @@
+{
+  "repo": "pbakaus/impeccable",
+  "summarized_at": "2026-09-30",
+  "short": "AI コーディングエージェントにフロントエンドのデザイン指針を与える skill。24個のコマンドと、AI 生成っぽいデザインの癖を検出する61のルールを持つ。",
+  "what": "エージェントが作る UI をよくするための design skill と、ルールベースの検出 CLI・ブラウザ拡張。",
+  "can_do": [
+    "`/impeccable init` で PRODUCT.md に製品の前提を書き出す",
+    "craft、audit、critique、polish など24コマンド",
+    "LLM を使わない61の detector ルールで、Inter 一辺倒・紫のグラデーションといった定番の癖を検出",
+    "ブラウザで見ながら反復する live mode",
+    "Anthropic の frontend-design skill を出発点にしている"
+  ],
+  "how_to_use": "プロジェクトの root で `npx impeccable install` し、エージェント内で `/impeccable init`。",
+  "use_cases": [
+    "社内ツールの UI を、エージェントに作らせるときの品質管理に使えそう",
+    "detector だけなら LLM なしで使える"
+  ],
+  "for_whom": "エージェントで UI を作る人",
+  "similar": [
+    "Anthropic の frontend-design skill：出発点。こちらはコマンドと検出ルールが追加されている"
+  ],
+  "tech": "Node.js（npm、bun）。検出エンジンは Rust 製のバイナリ（engine-v0.1.8）を初回に取得する。",
+  "caveats": "デザインの好みを含むルールなので、合わないと感じる場合もありそう。",
+  "tags": [
+    "開発ツール",
+    "AI エージェント",
+    "Web"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Cargo.toml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

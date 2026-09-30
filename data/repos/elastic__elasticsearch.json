@@ -1,0 +1,38 @@
+{
+  "repo": "elastic/elasticsearch",
+  "summarized_at": "2026-09-30",
+  "short": "分散型の検索・分析エンジン。全文検索、vector 検索、ログやメトリクスの保存と検索に使われる。Java 製。",
+  "what": "REST API で使う分散検索エンジン兼 vector database。",
+  "can_do": [
+    "全文検索",
+    "vector 検索（RAG 向け）",
+    "ログ、メトリクス、APM、セキュリティログの検索・集計",
+    "Docker で手元に立てる `start-local` スクリプト"
+  ],
+  "how_to_use": "ローカル検証用は Docker が要り、elastic/start-local のスクリプトで Elasticsearch と Kibana が起動する（本番用ではない）。",
+  "use_cases": [
+    "ログ基盤の検索層として、構成を理解する材料になりそう",
+    "RAG の vector store の選択肢になりそう"
+  ],
+  "for_whom": "検索基盤やログ基盤を運用する人",
+  "similar": [
+    "OpenSearch：Elasticsearch から分かれた fork。API はほぼ近い",
+    "Apache Solr：別系統の検索エンジン"
+  ],
+  "tech": "Java、Gradle。最新リリースは v9.5.4。",
+  "caveats": "ライセンスは meta では NOASSERTION（複数のライセンスが選べる形と思われる）で、条件は LICENSE を読まないと分からない。ローカル起動は1か月のトライアルライセンス付き。リポジトリが非常に大きい。",
+  "tags": [
+    "データベース",
+    "監視・可観測性",
+    "インフラ・運用"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:build.gradle",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

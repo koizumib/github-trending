@@ -1,0 +1,40 @@
+{
+  "repo": "Tencent/WeKnora",
+  "summarized_at": "2026-09-30",
+  "short": "文書を取り込んで、検索つきの Q&A（RAG）、推論するエージェント、自動で整う Wiki にする knowledge 基盤。Go 製で Docker Compose で動く。",
+  "what": "LLM を使って文書を検索・質問できる状態にする、セルフホストの knowledge 管理プラットフォーム。",
+  "can_do": [
+    "文書から RAG の Q&A を作る（vector 検索と rerank）",
+    "推論を重ねて答える agent モード",
+    "Wiki を自動で維持する機能",
+    "Ollama や OpenAI などのモデルに接続できる",
+    "multi-tenant に対応、WeChat などの連携"
+  ],
+  "how_to_use": "Docker と Git を入れて、README の手順どおり `docker compose pull` → `docker compose up -d` で core services が起動する。",
+  "use_cases": [
+    "社内文書やランブックに質問できる RAG 基盤を自前で立てるのに使えそう",
+    "Ollama と組み合わせて、外に出さない検索環境を作れそう"
+  ],
+  "for_whom": "社内文書の検索・Q&A を自前で立てたい人",
+  "similar": [
+    "Dify：LLM アプリ基盤。こちらは knowledge 管理に絞っている",
+    "RAGFlow：同じく文書理解型の RAG"
+  ],
+  "tech": "Go。docker-compose、Ollama、OpenAI 互換 API。",
+  "caveats": "ライセンスは meta では NOASSERTION で、条件は LICENSE を読まないと分からない。2025年7月開始で、0.8 系とまだ若い。",
+  "tags": [
+    "LLM",
+    "ドキュメント・知識管理",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:go.mod",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "ライセンス条件と agent / Wiki の細部は未確認"
+}

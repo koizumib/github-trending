@@ -1,0 +1,39 @@
+{
+  "repo": "trycua/cua",
+  "summarized_at": "2026-09-30",
+  "short": "AI エージェントに desktop を操作させるための基盤。macOS・Windows・Linux のアプリを操作する driver、macOS の VM、クラウド desktop、評価用 benchmark を含む。",
+  "what": "computer-use エージェント向けの driver、sandbox、VM、小型モデル、benchmark をまとめたオープンソースの基盤。",
+  "can_do": [
+    "Cua Driver：ネイティブアプリとブラウザを CLI、MCP、SDK から操作する",
+    "Lume：macOS の VM を手元で動かす",
+    "Cua Fleets：エージェント用の隔離されたクラウド desktop（サービスは run.cua.ai）",
+    "CUA-S1：computer-use 向けの小型特化モデル",
+    "エージェントの評価・学習データ作りのための benchmark"
+  ],
+  "how_to_use": "Cua Driver は https://cua.ai/docs/how-to-guides/driver/install の手順で入れる（コマンドは今回は未確認）。",
+  "use_cases": [
+    "GUI しか無いアプリの操作を、エージェントに任せる検証環境に使えそう",
+    "macOS VM を使ったエージェントの隔離実行に使えそう"
+  ],
+  "for_whom": "computer-use エージェントを作る・評価する人",
+  "similar": [
+    "Anthropic の computer use のリファレンス環境：用途は近い。こちらは driver と VM まで含む"
+  ],
+  "tech": "Swift（macOS の仮想化）、Python、TypeScript。MIT。",
+  "caveats": "Fleets はホスト型サービスへの入口にもなっている。Driver の background 操作はアプリやプラットフォームによって使えない場合がある（README に注記）。",
+  "tags": [
+    "AI エージェント",
+    "自動化・ワークフロー",
+    "デスクトップアプリ"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "構成要素が多く、各要素の詳細は読んでいない"
+}

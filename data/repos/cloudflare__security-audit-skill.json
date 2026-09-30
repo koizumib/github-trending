@@ -1,0 +1,33 @@
+{
+  "repo": "cloudflare/security-audit-skill",
+  "summarized_at": "2026-09-30",
+  "short": "コーディングエージェントにセキュリティ監査をさせる skill。調査、検証、独立した再確認の段階を分け、検証済みの findings を JSON で出す。",
+  "what": "エージェントが多段階でコードの脆弱性を探し、検証して報告する skill（Markdown の指示書とスクリプト）。",
+  "can_do": [
+    "6段階（偵察、探索、候補の検証、JSON 出力、独立した確認、報告）で監査する",
+    "各候補を別のエージェントが反証しようとする",
+    "findings を confirmed / needs_validation / rejected に分ける",
+    "メモリ安全、LLM、Web 認証、クライアント側など攻撃の種類別の指示書",
+    "同じリポジトリに繰り返し実行すると前回の結果を使う"
+  ],
+  "how_to_use": "`npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit`（`--global` でユーザー全体に入る）。",
+  "use_cases": [
+    "自社コードの脆弱性探しを、エージェントに分担させる試みに使えそう",
+    "検証役を分ける設計は、ほかのエージェント作りの参考になりそう"
+  ],
+  "for_whom": "コードの監査をエージェントで効率化したい人",
+  "similar": [],
+  "tech": "Markdown と Node.js のスクリプト（.cjs）。Skills CLI で入れる。",
+  "caveats": "2026年6月に作られて間もない。誤検出があり得るので、confirmed の結果も人が確かめる前提と思われる。",
+  "tags": [
+    "セキュリティ",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

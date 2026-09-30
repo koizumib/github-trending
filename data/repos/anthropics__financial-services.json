@@ -1,0 +1,33 @@
+{
+  "repo": "anthropics/financial-services",
+  "summarized_at": "2026-09-30",
+  "short": "投資銀行、株式リサーチ、PE、ウェルスマネジメント向けの Claude 用エージェントと skill の集まり。Cowork plugin としても、Managed Agents API 経由でも使える。",
+  "what": "金融業務（ピッチ資料、決算レビュー、GL 照合、KYC など）向けの参考エージェント・skill・データコネクタ集。",
+  "can_do": [
+    "10種類の名前付きエージェント（Pitch Agent、Earnings Reviewer、GL Reconciler、KYC Screener など）",
+    "同じ内容を Claude Cowork の plugin としても、Managed Agents API のテンプレートとしても使える",
+    "/comps、/dcf、/earnings のような slash command とデータコネクタを業種別に plugin 化",
+    "managed-agent-cookbooks に agent.yaml と subagent の例がある",
+    "出力はすべて人の承認待ちにする前提（投資助言や取引の実行はしない）"
+  ],
+  "how_to_use": "Cowork plugin として入れるか、managed-agent-cookbooks の agent.yaml を /v1/agents に登録して使う。具体的なコマンドは今回読んだ範囲では未確認。",
+  "use_cases": [
+    "エージェントの system prompt と skill の構成を、自分の業務向けエージェントを作るときの見本にできそう",
+    "経理・照合のような定型業務を、人の承認を挟むエージェントにする設計の参考になりそう"
+  ],
+  "for_whom": "金融業界で Claude を業務に組み込もうとしている人。エージェントの設計例を見たい人",
+  "similar": [],
+  "tech": "Markdown の prompt と skill が中心（プログラム本体ではない）。Claude Cowork または Claude の Managed Agents API が前提。",
+  "caveats": "Claude（Anthropic のサービス）が前提で、単体では動かない。README に投資・法務・税務・会計の助言ではないと明記されている。Apache-2.0。",
+  "tags": [
+    "AI エージェント",
+    "自動化・ワークフロー"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "導入コマンドは README に見当たらず、各 plugin の中身までは読んでいない"
+}

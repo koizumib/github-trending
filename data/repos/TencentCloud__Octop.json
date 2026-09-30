@@ -1,0 +1,38 @@
+{
+  "repo": "TencentCloud/Octop",
+  "summarized_at": "2026-09-30",
+  "short": "自前で動かす、複数ユーザー・複数エージェント対応の AI アシスタント。Web、CLI のほか、Feishu、Telegram、Discord など多数のチャットから使える。",
+  "what": "1プロセスで起動するセルフホストの AI アシスタント基盤（Python 製）。",
+  "can_do": [
+    "Web dashboard と CLI から使う",
+    "Feishu、DingTalk、QQ、WeChat、Telegram、Discord などに接続",
+    "専門家ライブラリ、Connectors（OAuth と MCP）、IDE 向けの ACP",
+    "長期記憶を持つ",
+    "Ollama のローカルモデルに対応"
+  ],
+  "how_to_use": "macOS / Linux は `curl -fsSL https://finnie-1258344699.cos.ap-guangzhou.myqcloud.com/octop/install.sh | bash`（uv が Python 3.12 を用意する）。Windows は PowerShell の installer。",
+  "use_cases": [
+    "家庭やチームの chat から使える、外に出さない AI アシスタントを作るのに使えそう",
+    "複数ユーザーで権限を分けたエージェントの運用を試せそう"
+  ],
+  "for_whom": "自宅や社内で AI アシスタントを自前運用したい人",
+  "similar": [
+    "Open WebUI：セルフホストの LLM 用 Web UI。こちらは IM 連携と multi-agent が中心"
+  ],
+  "tech": "Python 3.12（uv で隔離した venv）。データは ~/.octop/ に置く。",
+  "caveats": "2026年7月に作られて間もなく、最新は v1.0.2b5（beta）。インストーラが中国のクラウドストレージ（COS）から配られ、curl | bash で実行する。リリースノートは中国語。",
+  "tags": [
+    "AI エージェント",
+    "セルフホスト",
+    "LLM"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "機能一覧は README の宣伝が中心で、実際の動作は確認していない"
+}

@@ -1,0 +1,38 @@
+{
+  "repo": "stablyai/orca",
+  "summarized_at": "2026-09-30",
+  "short": "複数のコーディングエージェントを、git worktree ごとに並べて同時に動かす desktop アプリ。モバイルから状況を見て指示も出せる。",
+  "what": "Codex、Claude Code、OpenCode、Pi などを並列で動かして管理する desktop の開発環境（ADE）。",
+  "can_do": [
+    "1つのプロンプトを複数のエージェントに振り、それぞれ別の worktree で作業させて結果を比べる",
+    "Ghostty 風の terminal（分割、再起動しても残る scrollback）",
+    "モバイルアプリから、エージェントの完了通知を受けて追加の指示を送る",
+    "自分の契約（subscription）でエージェントを動かす",
+    "macOS、Windows、Linux 対応"
+  ],
+  "how_to_use": "https://onorca.dev/download からダウンロードする。macOS は Homebrew の Cask もある（Casks/orca.rb）。",
+  "use_cases": [
+    "同じ課題を複数のエージェントに解かせて比較する作業に使えそう",
+    "長く動くエージェントの進捗を、離席中にスマホで見るのに使えそう"
+  ],
+  "for_whom": "コーディングエージェントを複数同時に使う人",
+  "similar": [
+    "tmux + git worktree の手運用：同じことを手でやる方法。こちらは GUI で一覧できる"
+  ],
+  "tech": "Electron（と思われる）の desktop アプリ、TypeScript。モバイルは iOS / Android。",
+  "caveats": "作られて約半年で、リリースの更新がとても速い（v1.4.217）。エージェント側の仕様変更で動かなくなることがある（リリースノートに Codex 対応の修正がある）。",
+  "tags": [
+    "AI エージェント",
+    "エディタ・IDE",
+    "デスクトップアプリ"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "Electron かどうかなど技術構成の一部は推測"
+}

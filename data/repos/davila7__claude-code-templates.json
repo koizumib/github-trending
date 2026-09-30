@@ -1,0 +1,35 @@
+{
+  "repo": "davila7/claude-code-templates",
+  "summarized_at": "2026-09-30",
+  "short": "Claude Code の設定テンプレート（agents、commands、hooks、MCP など）を選んで入れる CLI。使用状況の監視機能もある。",
+  "what": "Claude Code の設定を配る・入れるためのテンプレート集と、npm で配布される CLI。",
+  "can_do": [
+    "agents、commands、hooks などのテンプレートを CLI で選んで入れる",
+    "Claude Code の動作の監視",
+    "サイト（aitmpl.com）でテンプレートを探せる",
+    "v1.29.6 で、Anthropic の新機能 Claude Mods（旧 Function Hooks）の plugin を `--mod` で入れられるようにした"
+  ],
+  "how_to_use": "npm パッケージ `claude-code-templates` として配布されている。使い方の具体的なコマンドは今回読んだ範囲では未確認。",
+  "use_cases": [
+    "チームの Claude Code の設定を揃えるのに使えそう",
+    "ほかの人の hooks や agent の書き方を見る例集として使えそう"
+  ],
+  "for_whom": "Claude Code を使っていて、設定の雛形を探している人",
+  "similar": [],
+  "tech": "Node.js（npm パッケージ）。Claude Code が前提。",
+  "caveats": "README の冒頭がスポンサーの広告で占められている。テンプレートは第三者のものを含むので、入れる前に中身を確認したほうがよい。",
+  "tags": [
+    "開発ツール",
+    "AI エージェント",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の本文（使い方）まで読めていない"
+}

@@ -1,0 +1,38 @@
+{
+  "repo": "bilawalsidhu/gods-eye-view",
+  "summarized_at": "2026-09-30",
+  "short": "ブラウザで動く、スパイ衛星シミュレータ風の3D 地球儀。実際の航空機、船、衛星、地震、公開カメラのデータを重ねて表示する。",
+  "what": "Cesium ベースの3D globe に、公開されている実データを重ねる OSINT 向け可視化 Web アプリ。",
+  "can_do": [
+    "航空機、軍用機、船、衛星、地震、公開カメラ、ラジオ、打ち上げを表示",
+    "API キーなしで起動できる（写真品質の3D には Cesium ion か Google Maps のキーが要る）",
+    "realtime の AI agent による音声操作",
+    "Pinokio で1クリック導入できる",
+    "DATA_SOURCES.md にデータ源の一覧がある"
+  ],
+  "how_to_use": "Node.js 24.14 以上（または 26）で `git clone`、`npm ci`、`npm run doctor`、`npm run dev` のあと http://localhost:4173 を開く。",
+  "use_cases": [
+    "公開データの可視化の見本として見るのに使えそう",
+    "ネットワークの外に出るリクエストが多いので、社内で動かすなら通信先の確認が要りそう"
+  ],
+  "for_whom": "地理空間データや OSINT に興味のある人",
+  "similar": [
+    "Cesium：3D globe のライブラリ。このアプリはその上の応用",
+    "FlightRadar24：航空機追跡のサービス。こちらは複数のデータを重ねる"
+  ],
+  "tech": "JavaScript / TypeScript、Cesium、WebGL。",
+  "caveats": "ライセンスは meta では NOASSERTION で、条件は LICENSE を読まないと分からない。写真品質の3D は外部サービスの規約と課金の対象。音声操作は外部の AI 機能を使うと思われる（キーの要否は未確認）。",
+  "tags": [
+    "Web",
+    "データ処理"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "音声操作とキーの扱いの細部は未確認"
+}

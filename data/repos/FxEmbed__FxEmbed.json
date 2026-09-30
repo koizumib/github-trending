@@ -1,0 +1,39 @@
+{
+  "repo": "FxEmbed/FxEmbed",
+  "summarized_at": "2026-09-30",
+  "short": "X / Twitter と Bluesky のリンクを Discord や Telegram で埋め込み表示できるようにするサービス。URL の前に fx を付けるだけで使う。",
+  "what": "SNS の投稿リンクを、画像・動画・投票つきで chat に展開させる Cloudflare Worker。FxTwitter、FixupX、FxBluesky の本体。",
+  "can_do": [
+    "twitter.com のリンクに `fx` を付ける（fxtwitter.com）",
+    "x.com は `fixup` を付ける",
+    "bsky.app は `fx` を付ける",
+    "複数画像、動画、投票、引用、翻訳の表示",
+    "API とセルフホストの手順が docs.fxembed.com にある"
+  ],
+  "how_to_use": "リンクのドメインを変えて chat に貼るだけ。セルフホストは .env と wrangler.toml を用意して `docker compose up -d --build`（port 8787）。",
+  "use_cases": [
+    "Discord に X の投稿を貼るときの表示を直すのに使える",
+    "自前ドメインで埋め込み用サービスを立てられそう"
+  ],
+  "for_whom": "Discord や Telegram で X / Bluesky のリンクを共有する人",
+  "similar": [
+    "vxtwitter：同種の埋め込み修正サービス"
+  ],
+  "tech": "TypeScript、Cloudflare Workers。Docker 版は wrangler 経由で workerd を動かす（node:24-bookworm-slim）。",
+  "caveats": "X / Bluesky 側の仕様変更で動かなくなることがあり得る。Host ヘッダーで動作が変わる。",
+  "tags": [
+    "Web",
+    "セルフホスト",
+    "ネットワーク"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "manifest:docker-compose.yml"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}
