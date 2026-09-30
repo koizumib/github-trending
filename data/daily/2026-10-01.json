@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-01",
+  "items": [
+    {
+      "rank": 1,
+      "repo": "NVIDIA/OpenShell",
+      "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+      "language": "Rust",
+      "stars": 11659,
+      "stars_today": 1280,
+      "status": "continuing"
+    },
+    {
+      "rank": 2,
+      "repo": "debpalash/VoiceStudio",
+      "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+      "language": "Python",
+      "stars": 49906,
+      "stars_today": 3481,
+      "status": "continuing"
+    },
+    {
+      "rank": 3,
+      "repo": "mvschwarz/openrig",
+      "description": "Multi-agent harness that runs Claude Code and Codex together as one system",
+      "language": "TypeScript",
+      "stars": 2776,
+      "stars_today": 622,
+      "status": "continuing"
+    },
+    {
+      "rank": 4,
+      "repo": "mksglu/context-mode",
+      "description": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks.",
+      "language": "TypeScript",
+      "stars": 24343,
+      "stars_today": 88,
+      "status": "new"
+    },
+    {
+      "rank": 5,
+      "repo": "DietrichGebert/ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+      "language": "JavaScript",
+      "stars": 148757,
+      "stars_today": 675,
+      "status": "new"
+    },
+    {
+      "rank": 6,
+      "repo": "harry0703/MoneyPrinterTurbo",
+      "description": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
+      "language": "Python",
+      "stars": 127334,
+      "stars_today": 338,
+      "status": "new"
+    },
+    {
+      "rank": 7,
+      "repo": "openclaw/openclaw",
+      "description": "The AI that really does things. Any OS. Any Platform. The lobster way. 🦞",
+      "language": "TypeScript",
+      "stars": 390870,
+      "stars_today": 136,
+      "status": "new"
+    },
+    {
+      "rank": 8,
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+      "language": "Python",
+      "stars": 76000,
+      "stars_today": 118,
+      "status": "new"
+    },
+    {
+      "rank": 9,
+      "repo": "mattpocock/skills",
+      "description": "Skills for Real Engineers. Straight from my .agents directory.",
+      "language": "Shell",
+      "stars": 272694,
+      "stars_today": 736,
+      "status": "new"
+    },
+    {
+      "rank": 10,
+      "repo": "heygen-com/hyperframes",
+      "description": "Write HTML. Render video. Built for agents.",
+      "language": "TypeScript",
+      "stars": 54494,
+      "stars_today": 352,
+      "status": "new"
+    },
+    {
+      "rank": 11,
+      "repo": "firebase/firebase-ios-sdk",
+      "description": "Firebase SDK for Apple App Development",
+      "language": "C++",
+      "stars": 6720,
+      "stars_today": 4,
+      "status": "new"
+    },
+    {
+      "rank": 12,
+      "repo": "modelcontextprotocol/servers",
+      "description": "Model Context Protocol Servers",
+      "language": "TypeScript",
+      "stars": 90738,
+      "stars_today": 48,
+      "status": "new"
+    },
+    {
+      "rank": 13,
+      "repo": "byoungd/up",
+      "description": "An advanced guide which might benefit you a lot 🎉 . 韩先凯的人生进阶指南 人生进阶指南 离谱的人生 人生进阶 AI学习 AI指南 韩先凯的AI学习指南 英语学习指南/英语学习教程/英语学习/学英语",
+      "language": "JavaScript",
+      "stars": 66215,
+      "stars_today": 1102,
+      "status": "new"
+    },
+    {
+      "rank": 14,
+      "repo": "colbymchenry/codegraph",
+      "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+      "language": "C",
+      "stars": 72486,
+      "stars_today": 116,
+      "status": "new"
+    },
+    {
+      "rank": 15,
+      "repo": "t8y2/dbx",
+      "description": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP。",
+      "language": "Rust",
+      "stars": 22899,
+      "stars_today": 1133,
+      "status": "continuing"
+    },
+    {
+      "rank": 16,
+      "repo": "NawfalMotii79/PLFM_RADAR",
+      "description": "Open-source, low-cost 10.5 GHz PLFM phased array RADAR system",
+      "language": "PLSQL",
+      "stars": 26332,
+      "stars_today": 466,
+      "status": "new"
+    },
+    {
+      "rank": 17,
+      "repo": "VectifyAI/PageIndex",
+      "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+      "language": "Python",
+      "stars": 37921,
+      "stars_today": 1095,
+      "status": "continuing"
+    }
+  ],
+  "errors": []
+}
