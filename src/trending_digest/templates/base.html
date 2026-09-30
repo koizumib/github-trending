@@ -4,12 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}trending-digest{% endblock %}</title>
+<script>
+  /* 選んだテーマを、描画の前に当てる（ちらつき防止） */
+  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <link rel="stylesheet" href="{{ root }}style.css">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
+<div class="bg" aria-hidden="true"><span></span><span></span><span></span></div>
 <header class="site">
-  <a class="brand" href="{{ root }}">trending-digest</a>
-  <a href="{{ root }}archive/">過去の日</a>
+  <div class="inner">
+    <a class="brand" href="{{ root }}"><span class="logo" aria-hidden="true"></span>trending-digest</a>
+    <nav>
+      <a href="{{ root }}archive/">過去の日</a>
+      <button class="theme-toggle" type="button" aria-label="ダークモードとライトモードを切り替える" title="テーマを切り替える">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7z"/></svg>
+      </button>
+    </nav>
+  </div>
 </header>
 <main>
 {% block main %}{% endblock %}
@@ -17,5 +30,13 @@
 <footer class="site">
   GitHub Trending（デイリー・全言語）の新着を日本語で要約しています。要約は Claude Code が書いたもので、誤りを含むことがあります。
 </footer>
+<script>
+  document.querySelector(".theme-toggle").addEventListener("click", function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+</script>
 </body>
 </html>

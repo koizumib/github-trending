@@ -4,6 +4,7 @@
 <h1>{{ day.date }}<span class="sub">の Trending</span></h1>
 <p class="counts">新着 {{ day.count_new }}件／継続 {{ day.count_continuing }}件{% if is_top %}　<a href="{{ root }}d/{{ day.date }}/">この日のページ</a>{% endif %}</p>
 
+<div class="cards">
 {% for c in day.cards %}
 {% set s = c.summary %}
 <article class="card">
@@ -29,9 +30,10 @@
 {% else %}
 <p>この日の新着はありません。</p>
 {% endfor %}
+</div>
 
 {% if day.continuing %}
-<section class="continuing">
+<section class="continuing panel">
   <h2>継続して上がっているもの</h2>
   <ul>
   {% for c in day.continuing %}
@@ -45,7 +47,7 @@
 {% endif %}
 
 {% if day.errors %}
-<section class="errors">
+<section class="errors panel">
   <h2>要約できなかったもの</h2>
   <ul>
   {% for e in day.errors %}

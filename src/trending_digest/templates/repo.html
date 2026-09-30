@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ s.repo }} | trending-digest{% endblock %}
+{% block body_class %}narrow{% endblock %}
 {% block main %}
-<article class="detail">
+<article class="detail panel">
   <h1 class="repo">{{ s.repo }}</h1>
   <p class="actions"><a class="button" href="https://github.com/{{ s.repo }}">GitHub で開く</a></p>
   <p class="meta">
