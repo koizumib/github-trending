@@ -10,8 +10,8 @@ GitHub Trending に上がったリポジトリを、毎朝日本語で要約し�
 ## 仕組み
 
 ```
-6:00  GitHub Actions   Trending を取得して分類し、要約の材料を集める
-7:00  Claude Code      材料を読み、足りなければ自分で調べて、日本語の要約を書く（routine）
+朝    GitHub Actions   Trending を取得して分類し、要約の材料を集める
+直後  Claude Code      材料を読み、足りなければ自分で調べて、日本語の要約を書く（routine）
       GitHub Actions   サイトを作り直して Cloudflare Pages に公開し、Discord に通知する
 9:00  GitHub Actions   見張り：届いていなければ知らせる
 ```

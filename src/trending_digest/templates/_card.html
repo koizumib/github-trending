@@ -1,6 +1,6 @@
 {% macro card(c, root, stars_label) %}
 {% set s = c.summary %}
-<article class="card tier-{{ c.rank | rank_tier }}">
+<article class="card tier-{{ c.rank | rank_tier }}{% if s %} has-detail{% endif %}">
   {# 記事の頭はグリッドで組む：PC は順位の右に題名・一文・言語とスター、スマホは一文と言語・スターを記事の幅いっぱいに（0022） #}
   <header class="card-head">
     <span class="rank" aria-label="{{ c.rank }}位">{{ c.rank }}<small>位</small></span>

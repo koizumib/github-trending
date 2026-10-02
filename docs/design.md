@@ -49,16 +49,18 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
 ## 3. 全体の流れ
 
 ```
- ① GitHub Actions「取得と材料集め」（prepare.yml、毎朝 6:00 ごろ・日本時間）
+ ① GitHub Actions「取得と材料集め」（prepare.yml、毎朝 5:47・7:17・8:47 の定期実行。最初に動いた1回だけが取得する）
     ├─ python -m trending_digest prepare
     │     Trending（デイリー・ウィークリー・マンスリー）を取得
     │     → data/daily/、data/weekly/、data/monthly/、data/history.json を更新
     │     要約のないものについて GitHub API で材料を集める → .work/{owner}__{name}/、.work/queue.json
     ├─ data/ を main に push（[skip ci] 付き：この push では公開も通知もしない）
     ├─ .work/ の中身を work ブランチに上書きで push
+    ├─ routine の API（/fire）を呼んで起動する（0024）
     └─ 失敗したら Discord に知らせる
                 │
- ② Claude Code の routine（毎朝 7:08 ごろ。Anthropic のクラウドで動く）
+                ▼ 材料集めが終わった直後に起動される
+ ② Claude Code の routine（Anthropic のクラウドで動く。決まった時刻の起動はしない）
     ├─ work ブランチの材料を .work/ に展開（今日の分が来るまで最大30分待つ）
     ├─ queue の1件ずつ：材料を読む → 足りなければ自分で調べる → data/repos/{owner}__{name}.json を書く
     ├─ python -m trending_digest validate
@@ -228,7 +230,7 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 | 項目 | 値 |
 |---|---|
 | 名前 | trending-digest 毎朝の要約（`trig_01VBSyXRh8g9UMrCLPSrneVQ`） |
-| 時刻 | cron `0 22 * * *`（UTC）＝ 毎朝 7:00 日本時間（実際は数分ずれる） |
+| 起動 | API トリガーだけ。「取得と材料集め」の最後に Actions が `/fire` を呼ぶ（トークンは Secrets の `CLAUDE_ROUTINE_TOKEN`）。決まった時刻の起動はしない（0024） |
 | 実行環境 | 「github trending」（クラウド、ネットワークは Full） |
 | モデル | claude-sonnet-5-5 |
 | ツール | Bash、Read、Write、Edit、Glob、Grep、WebFetch |
@@ -274,7 +276,7 @@ trending-digest/
   tests/
     fixtures/trending*.html   # 保存しておいた Trending のページ（デイリー・ウィークリー・マンスリー）
   .github/workflows/
-    prepare.yml               # 6:00 取得と材料集め
+    prepare.yml               # 5:47ほか 取得と材料集め → routine を起動
     daily.yml                 # data/ などへの push で build・Cloudflare Pages へ公開・notify
     watchdog.yml              # 9:00 見張り
     ci.yml                    # テスト

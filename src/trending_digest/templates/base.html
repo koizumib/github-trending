@@ -12,6 +12,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap">
 <link rel="stylesheet" href="{{ root }}style.css?v={{ asset_v['style.css'] }}">
+{# favicon：明るい画面では墨色、暗い画面では白。色の設定を読まないブラウザには墨色（0025） #}
+<link rel="icon" type="image/png" href="{{ root }}favicon_light.png?v={{ asset_v['favicon_light.png'] }}">
+<link rel="icon" type="image/png" href="{{ root }}favicon_light.png?v={{ asset_v['favicon_light.png'] }}" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="{{ root }}favicon_dark.png?v={{ asset_v['favicon_dark.png'] }}" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="{{ root }}favicon_light.png?v={{ asset_v['favicon_light.png'] }}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% set header_day = page.date if page is defined else latest_day %}

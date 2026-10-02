@@ -11,7 +11,7 @@
 
 ## 1. 準備
 
-Trending の取得と材料集め（`prepare`）は、毎朝 6:00 ごろに GitHub Actions が済ませています。結果は次の2か所にあります。
+Trending の取得と材料集め（`prepare`）は、毎朝 GitHub Actions が済ませ、終わった直後にあなた（この routine）を起動します。そのとき、`<routine-fire-payload>` に「YYYY-MM-DD の材料を work ブランチに置きました」とあります。結果は次の2か所にあります。
 
 - `main` の `data/`：今日の `data/daily/YYYY-MM-DD.json`、`weekly/`、`monthly/`、`history.json`
 - `work` ブランチ：要約する対象の材料と、その一覧 `queue.json`
@@ -28,7 +28,8 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 
 - このツールは Python 3.12 以上が要ります。クラウドの環境では `python3` が 3.11 のことがあるので、必ず `python3.12` で `.venv` を作ります。`python3.12` がなければ `python3.13` を使います。
 - `.work/` は `.gitignore` 済みです。`git archive` で展開するだけなので、`main` の作業ツリーにもインデックスにも入りません。
-- **最後の行の日付が `$TODAY` と違うとき、または `work` ブランチがないとき**は、Actions の取得がまだ終わっていません。5分待ってから `git fetch` からやり直します。これを6回（30分）繰り返しても今日の日付にならなければ、要約はせず、何もコミットせずに報告して終わります。朝9時の見張り（watchdog）が Discord に知らせます。
+- **最後の行の日付が `$TODAY` と違うとき、または `work` ブランチがないとき**は、取得がまだ終わっていないか、手で動かしたなどで順番が前後しています。5分待ってから `git fetch` からやり直します。これを6回（30分）繰り返しても今日の日付にならなければ、要約はせず、何もコミットせずに報告して終わります。朝9時の見張り（watchdog）が Discord に知らせます。
+- `queue.json` の項目のうち、`output` のファイル（`data/repos/…json`）が**すでにあるもの**は、今日のうちにほかの実行が要約し終えたものです。書き直さずに飛ばします。
 - `queue.json` の `items` が空なら、今日は要約するものがありません。何もコミットせずに、そう報告して終わります（通知は9時の見張りが送ります）。
 
 ## 2. 1件ずつ要約する

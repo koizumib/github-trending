@@ -168,3 +168,11 @@ def test_dropcap_only_for_japanese_start():
 
     assert starts_cjk("声のクローン") and starts_cjk("イリノイ大学") and starts_cjk("複数の AI")
     assert not starts_cjk("AI エージェント") and not starts_cjk("MySQL、") and not starts_cjk("")
+
+
+def test_whole_card_links_to_detail_only_when_summarized(tmp_path):
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    day29 = (out / "d/2026-09-29/index.html").read_text()   # o/r は要約あり
+    assert 'class="card tier-xl has-detail"' in day29
+    index = (out / "index.html").read_text()                # 1位 n/ew は要約なし
+    assert 'class="card tier-xl"' in index and "この日のページ" not in index

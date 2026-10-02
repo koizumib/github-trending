@@ -6,12 +6,12 @@
 
 | 時刻 | 何が | どこで見るか |
 |---|---|---|
-| 6:00 ごろ | Actions「取得と材料集め」：Trending の取得、data/ の記録、材料を work ブランチへ | GitHub の Actions タブ |
-| 7:08 ごろ | routine「trending-digest 毎朝の要約」：要約を書いて main に push | https://claude.ai/code/routines/trig_01VBSyXRh8g9UMrCLPSrneVQ |
+| 5:47 ごろ（遅れると 9時台） | Actions「取得と材料集め」：Trending の取得、data/ の記録、材料を work ブランチへ。終わったら routine を起動。7:17・8:47 にも予備で動くが、取得済みなら何もしない | GitHub の Actions タブ |
+| 材料集めの直後 | routine「trending-digest 毎朝の要約」：要約を書いて main に push | https://claude.ai/code/routines/trig_01VBSyXRh8g9UMrCLPSrneVQ |
 | push の数分後 | Actions「サイトを作って公開する」：サイトの更新（Cloudflare Pages）、Discord への通知 | Actions タブ、Discord、https://trending-digest.pages.dev/ |
 | 9:00 | Actions「見張り」：取得の失敗を知らせる、未送信なら送る | Actions タブ、Discord |
 
-- Actions の定期実行（cron）は、GitHub が混んでいると10〜30分ほど遅れることがある
+- Actions の定期実行（cron）は、GitHub が混んでいると数時間遅れることがある（実際に 6:00 の予定が 9時台になった日がある）。routine は材料集めの直後に起動されるので、遅れても順番は崩れない（0024）
 - routine の要約は、15件でおおむね10〜40分
 - 通知がいつもより遅くても、9時の見張りまでに届けば正常の範囲
 

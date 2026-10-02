@@ -10,7 +10,7 @@
 | [0004](0004-summary-tags.md) | 要約に分野のタグ（tags）を足す | 2026-09-30 | 有効 |
 | [0005](0005-weekly-monthly.md) | ウィークリーとマンスリーの Trending も取る | 2026-09-30 | 有効 |
 | [0006](0006-public-via-discord.md) | 他のエンジニアにも公開し、届け方は Discord を本命にする | 2026-09-30 | 方向は決定。まず本人だけで試す |
-| [0007](0007-prepare-on-actions.md) | 取得と材料集め（prepare）は GitHub Actions で動かす | 2026-09-30 | 有効 |
+| [0007](0007-prepare-on-actions.md) | 取得と材料集め（prepare）は GitHub Actions で動かす | 2026-09-30 | 有効（時刻の分担は 0024 で置き換え） |
 | [0008](0008-cloudflare-pages.md) | サイトの公開先を Cloudflare Pages に移す（Actions で作って Direct Upload） | 2026-09-30 | 移行中 |
 | [0009](0009-simple-design.md) | サイトの見た目をシンプルにする（グラスモーフィズムをやめる） | 2026-09-30 | 0010 で置き換え |
 | [0010](0010-newspaper-design.md) | サイトの見た目を新聞のようにする | 2026-09-30 | 組み（題字・トップ記事・罫線・段組み）は有効。書体・記事の頭・タグ・ダークの色は 0011 で置き換え |
@@ -27,3 +27,5 @@
 | [0021](0021-detail-as-article-and-marks-top-right.md) | 詳しいページを新聞の記事の形に、印は記事の右上、凡例はページの末尾 | 2026-10-01 | 有効 |
 | [0022](0022-owner-name-and-mobile-width.md) | 題名は「アカウント名/」を小さく上に、スマホは本文の行を広く、ロゴを大きく | 2026-10-01 | 有効 |
 | [0023](0023-field-box-at-bottom.md) | 「本日の分野」の囲みをページの末尾に移す | 2026-10-01 | 有効 |
+| [0024](0024-fire-routine-after-prepare.md) | 材料集めが終わったら Actions から routine を起動する（時刻の差に頼らない） | 2026-10-02 | 有効 |
+| [0025](0025-favicon-and-tap-whole-card.md) | favicon、「この日のページ」を消す、スマホのタブの帯を1行に、記事のどこを押しても詳しいページへ | 2026-10-02 | 有効 |
