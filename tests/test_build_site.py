@@ -189,6 +189,7 @@ def test_whole_card_links_to_detail_only_when_summarized(tmp_path):
     assert 'class="card tier-xl"' in index and "この日のページ" not in index
 
 
-def test_page_title_is_just_the_name(tmp_path):
+def test_page_title(tmp_path):
     out = build(Config(), make_store(tmp_path), tmp_path / "site")
-    assert "<title>github新聞</title>" in (out / "d/2026-09-29/index.html").read_text()
+    assert "<title>github新聞</title>" in (out / "index.html").read_text()   # トップは名前だけ
+    assert "<title>github新聞（26/09/29）</title>" in (out / "d/2026-09-29/index.html").read_text()
