@@ -1,0 +1,41 @@
+{
+  "repo": "tashfeenahmed/freellmapi",
+  "summarized_at": "2026-10-02",
+  "short": "複数の LLM プロバイダの無料枠をまとめ、1つの OpenAI 互換 `/v1` エンドポイントとして使えるようにするプロキシ。レート制限時に次のプロバイダへ自動で切り替える。個人の実験用と明記されている。",
+  "what": "無料 LLM 枠を束ねる OpenAI 互換プロキシ",
+  "can_do": [
+    "34 プロバイダの無料枠を1つの `/v1` API にまとめる",
+    "リクエストごとにルーターが使えるモデルを選び、制限時は自動フェイルオーバー",
+    "キーごとの使用量を追跡して無料枠の上限内に収める",
+    "プロバイダの API キーを暗号化して保存",
+    "自前の OpenAI 互換エンドポイント（chat、embedding、画像、音声）の追加",
+    "Web ダッシュボードでの管理、デスクトップアプリ（macOS / Windows）"
+  ],
+  "how_to_use": "Docker があれば `curl -fsSL https://freellmapi.co/install.sh | bash` で `~/freellmapi` に構築され、http://localhost:3001 を開く。Keys ページでプロバイダのキーを登録し、発行された統合キーを OpenAI SDK の API キーに指定する。",
+  "use_cases": [
+    "無料枠で LLM アプリや agent の試作をするときの接続先として使えそう",
+    "複数クライアントから使うエンドポイントを1つにまとめる用途に使えそう"
+  ],
+  "for_whom": "LLM アプリを個人で実験したい人。有料 API を契約せずに試したい人",
+  "similar": [
+    "LiteLLM：OpenAI 互換のプロキシ兼ルーター。こちらは無料枠の束ね方に特化している"
+  ],
+  "tech": "TypeScript（Node.js、`.nvmrc` あり）。Docker イメージあり。ほかにデスクトップとモバイルのアプリ。MIT。",
+  "caveats": "README は「個人の実験と学習用で本番には使わない」と明記。無料枠を束ねる使い方が各プロバイダの利用規約に沿うかは、利用者の責任とある。最新モデルは有料のライブ配信カタログ（$19/年）の方が早く反映される。モデルの質や遅延は一定せず、1日の上限に達すると質が下がる。インストールは `curl | bash` なので、事前にスクリプトを読むべき。",
+  "tags": [
+    "LLM",
+    "セルフホスト",
+    "ネットワーク"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の説明、クイックスタート、免責は読んだが、ルーターの実装やプロバイダごとの規約確認の中身は読んでいない。"
+}

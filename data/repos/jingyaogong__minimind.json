@@ -1,0 +1,39 @@
+{
+  "repo": "jingyaogong/minimind",
+  "summarized_at": "2026-10-02",
+  "short": "64M パラメータ級の小さな LLM を、ゼロから PyTorch で学習するための教材兼コード。pretrain、SFT、LoRA、DPO、PPO/GRPO など学習の全段階を、高レベルのライブラリに頼らず実装している。",
+  "what": "小型 LLM を一から学習する PyTorch 実装と教材",
+  "can_do": [
+    "約64M パラメータの MiniMind を pretrain から学習",
+    "SFT、LoRA、DPO、PPO / GRPO、蒸留、Tool Use、Agentic RL の各学習スクリプト（`trainer/`）",
+    "MoE 構成のモデル定義とトークナイザ学習",
+    "`eval_llm.py` での CLI 推論、`scripts/` の WebUI と OpenAI 互換 API サーバー",
+    "学習済みモデルの Hugging Face / ModelScope からのダウンロード",
+    "視覚モデル MiniMind-V などの派生プロジェクトへの導線"
+  ],
+  "how_to_use": "`git clone --depth 1` して `pip install -r requirements.txt`。推論だけなら `modelscope download --model gongjy/minimind-3` などでモデルを取り、`python eval_llm.py --load_from ./minimind-3`。",
+  "use_cases": [
+    "LLM の学習工程（pretrain から RL まで）のコードを読んで理解するのに使えそう",
+    "単一 GPU で小さなモデルを自分で回し、学習の流れを試すのに使えそう"
+  ],
+  "for_whom": "LLM の内部と学習の流れを実コードで学びたい人",
+  "similar": [
+    "nanoGPT：同じく小型 GPT をゼロから学習する教材。こちらは SFT・RL・Tool Use まで範囲が広い"
+  ],
+  "tech": "Python、PyTorch、transformers、trl、peft 系の依存（requirements.txt）。学習には NVIDIA GPU が前提（作者は RTX 3090 で計測）。Apache-2.0。",
+  "caveats": "README は中国語が中心（英語版は README_en.md）。「2時間・3元」は SFT の1 epoch を RTX 3090 1枚で回した場合の値で、全工程の値ではない。64M の小型モデルなので、実用的な回答品質は期待できないと思われる。依存はバージョン固定が多く、環境によっては衝突しうる。",
+  "tags": [
+    "LLM",
+    "機械学習",
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

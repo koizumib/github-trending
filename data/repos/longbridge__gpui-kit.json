@@ -1,0 +1,39 @@
+{
+  "repo": "longbridge/gpui-kit",
+  "summarized_at": "2026-10-02",
+  "short": "Rust 製のデスクトップアプリ向け GUI フレームワーク。GPUI（Zed のUI基盤）の上に、75 以上の部品と、データテーブル・コードエディタ・ドック配置を載せている。",
+  "what": "GPUI で作る Rust 製デスクトップ GUI のコンポーネント集",
+  "can_do": [
+    "フォーム、ナビゲーション、オーバーレイなど 75 以上のコンポーネント",
+    "仮想スクロールのデータテーブルとリスト",
+    "Tree-sitter ハイライトと LSP 連携つきのコードエディタ",
+    "分割・タブ・ドラッグ操作ができ、保存もできるドック配置",
+    "Markdown / HTML 表示、チャート",
+    "headless ウィンドウでの UI 結合テスト、AccessKit によるアクセシビリティ、WebAssembly 対応"
+  ],
+  "how_to_use": "`Cargo.toml` に `gpui-kit = \"0.7\"` を足す。`gpui-kit` が GPUI と各 crate を再エクスポートするので、依存はこれ1つ。実行できる手順は `examples/ai_recipes/README.md`。",
+  "use_cases": [
+    "Rust で macOS / Windows / Linux 向けのネイティブ管理ツールを作るときの部品として使えそう",
+    "ログビューアやエディタ付きのツールの UI に使えそう"
+  ],
+  "for_whom": "Rust でデスクトップアプリを作る人",
+  "similar": [
+    "egui：Rust の即時モード GUI。こちらは GPUI ベースで、部品が作り込まれている",
+    "Tauri：Web 技術で UI を作る。こちらは UI も Rust で書く"
+  ],
+  "tech": "Rust（edition 2024）。GPUI ベース。macOS、Windows、Linux。WebAssembly も可。ワークスペースは gpui-kit / gpui-base / gpui-component などの crate に分割。",
+  "caveats": "バージョンは 0.7 で、API は変わる可能性がある。ライセンスは Apache-2.0（ソースとコード例）で、ドキュメント文章は別に CC BY 4.0 も提供されており、GitHub 上は判定不能（NOASSERTION）。「120 FPS」などの性能表記は README の主張で、確認していない。GPUI 自体は Zed の一部から切り出したもので、追従が必要。",
+  "tags": [
+    "ライブラリ・SDK",
+    "デスクトップアプリ"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:Cargo.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と Cargo.toml は読んだが、コンポーネントの実装や examples は読んでいない。"
+}

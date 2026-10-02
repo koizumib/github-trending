@@ -1,0 +1,39 @@
+{
+  "repo": "NVIDIA/SkillSpector",
+  "summarized_at": "2026-10-02",
+  "short": "AI agent の skill（Claude Code、Codex、MCP など）を、インストール前に検査するセキュリティスキャナ。prompt injection、データ流出、サプライチェーンのリスクを検出し、0〜100 のスコアで報告する。",
+  "what": "AI agent の skill 向けセキュリティスキャナ CLI",
+  "can_do": [
+    "Git リポジトリ、URL、zip、ディレクトリ、単一ファイルを対象にスキャン",
+    "17 カテゴリ・71 のパターンで検出（prompt injection、データ流出、権限昇格、MCP tool poisoning など）",
+    "静的解析に加え、LLM による意味解析を任意で併用（`--no-llm` で無効化）",
+    "依存の脆弱性を OSV.dev に問い合わせ（オフライン時は代替動作）",
+    "ターミナル、JSON、Markdown、SARIF で出力",
+    "既知の誤検知を baseline ファイルで抑制し、再スキャンで新しい問題だけを表示"
+  ],
+  "how_to_use": "`uv tool install git+https://github.com/NVIDIA/skillspector.git` で入れ、`skillspector scan ./my-skill/`。LLM を使わないなら `--no-llm`。Docker でも `docker run --rm -v \"$PWD:/scan\" skillspector scan ./my-skill/ --no-llm` で動く。",
+  "use_cases": [
+    "他人の skill を Claude Code に入れる前の確認に使えそう",
+    "CI に組み込み、SARIF 出力で skill リポジトリを検査できそう"
+  ],
+  "for_whom": "サードパーティの agent skill や MCP サーバーを導入する人、その審査をする人",
+  "similar": [],
+  "tech": "Python 3.12 以上（3.15 未満）。pyproject.toml と Dockerfile あり。MCP 利用時は extra が要る。Apache-2.0。",
+  "caveats": "pyproject.toml の classifier は Development Status 3 - Alpha。LLM 解析を使う場合は外部 LLM の認証情報が要る。検出は静的パターン中心で、見つからなかったことは安全の証明にならないと思われる。README の統計（26.1% に脆弱性など）は研究データセットの値で、材料からは検証できない。",
+  "tags": [
+    "セキュリティ",
+    "AI エージェント",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

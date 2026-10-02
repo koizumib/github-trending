@@ -1,0 +1,39 @@
+{
+  "repo": "fmtlib/fmt",
+  "summarized_at": "2026-10-02",
+  "short": "C++ 向けの文字列フォーマット・出力ライブラリ。C の printf や iostreams の代わりに使え、C++20 の std::format と C++23 の std::print の元になった実装を含む。",
+  "what": "printf と iostreams の代わりになる C++ 整形ライブラリ",
+  "can_do": [
+    "`fmt::format(\"{}\", x)` のように Python 風の書式文字列で整形",
+    "`fmt::print` による出力（C++23 `std::print` 相当）",
+    "位置引数、Unicode、chrono、ranges、ユーザー定義型の整形",
+    "型安全な printf 互換 API（POSIX の位置引数拡張を含む）",
+    "浮動小数点を Dragonbox アルゴリズムで高速・正確に文字列化",
+    "12.2.0 から C11 向けの `fmt-c` API も追加"
+  ],
+  "how_to_use": "CMake の `find_package(fmt)` か FetchContent で組み込み、`#include <fmt/format.h>` して `fmt::print(\"Hello, {}!\\n\", \"world\");` と書く。最小構成は `core.h`、`format.h`、`format-inl.h` の3ファイル。",
+  "use_cases": [
+    "C++ の既存コードの printf / iostreams を、型安全で速い書き方に置き換えるのに使えそう",
+    "ログ出力ライブラリの整形部分として組み込めそう"
+  ],
+  "for_whom": "C++ でログや文字列の整形を書く人",
+  "similar": [
+    "std::format / std::print：fmt が元になった標準ライブラリ。コンパイラの対応状況に左右されない点が違う",
+    "iostreams：標準だが書式指定が冗長で遅い"
+  ],
+  "tech": "C++（C++11 以降、C++20 modules 対応）。ビルドは CMake。クロスプラットフォーム。MIT。",
+  "caveats": "2012年から続く成熟したライブラリで、新しく出たものではない。マンスリーのランキングに入っての要約。",
+  "tags": [
+    "ライブラリ・SDK",
+    "言語・ランタイム"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:CMakeLists.txt",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

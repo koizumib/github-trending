@@ -1,0 +1,39 @@
+{
+  "repo": "max-sixty/worktrunk",
+  "summarized_at": "2026-10-02",
+  "short": "git worktree を、ブランチ並みに手軽に作る・切り替える・消すための CLI。AI agent（Claude Code、Codex）を並列に走らせる使い方を想定している。",
+  "what": "git worktree を手軽に扱う Rust 製 CLI",
+  "can_do": [
+    "`wt switch feat` で、ブランチ名を指定するだけで worktree を作成・移動（`-c` で新規作成）",
+    "`wt switch -c -x claude feat` で、作成と同時に agent を起動",
+    "`wt list` で全 worktree を一覧。`--full` で CI 状態や AI 生成の要約も表示",
+    "`wt switch pr:123` で PR のブランチへ移動",
+    "`wt remove` で worktree を削除",
+    "hooks によるローカル作業の自動化と、ビルドキャッシュの copy-on-write 共有"
+  ],
+  "how_to_use": "`brew install worktrunk && wt config shell install`（macOS / Linux）。ほかに `cargo install worktrunk`、`winget install max-sixty.worktrunk`（Windows では `git-wt`）、pacman、conda など。最初は `wt switch --create feature-auth`。",
+  "use_cases": [
+    "複数の agent に別々のブランチで作業させるときの作業ディレクトリ管理に使えそう",
+    "レビュー用に PR を別ディレクトリで素早く開く用途に使えそう"
+  ],
+  "for_whom": "git worktree で複数の変更を並行して進める人、AI agent を並列に動かす人",
+  "similar": [
+    "素の `git worktree`：同じ仕組み。パス計算やシェル連携を `wt` が肩代わりする"
+  ],
+  "tech": "Rust。依存は Cargo.toml で管理。macOS、Linux、Windows。ライセンスは README に MIT OR Apache-2.0 とあるが、GitHub 上は判定不能（NOASSERTION）。",
+  "caveats": "2025年10月公開で、バージョンは 0.80 台とまだ 1.0 前。設定ファイルや挙動が変わる可能性がある。ライセンス表記が README と GitHub で食い違うので、利用前に LICENSE ファイルを確認すべき。シェル連携のため `wt config shell install` が必要。",
+  "tags": [
+    "開発ツール",
+    "CLI",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:Cargo.toml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

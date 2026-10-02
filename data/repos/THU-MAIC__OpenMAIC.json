@@ -1,0 +1,40 @@
+{
+  "repo": "THU-MAIC/OpenMAIC",
+  "summarized_at": "2026-10-02",
+  "short": "プロンプトや資料から、スライド・クイズ・PBL を含む授業コース全体を複数の agent が作るセルフホストの Web アプリ。チャットで agent と相談しながら修正できる workbench もある。",
+  "what": "授業コースを AI で生成するセルフホストの Web アプリ",
+  "can_do": [
+    "テーマや資料（文書・音声・動画）から授業コースを生成",
+    "スライド、クイズ、インタラクティブ教材、PBL（課題解決型学習）を作成",
+    "agent workbench で、カリキュラム設計とページ修正をチャットで進める",
+    "セッションをサーバーに保存し、中断・再開・途中の指示変更に対応",
+    "`.pptx` の取り込みと MP4 動画への書き出し",
+    "LLM・画像・音声・検索などのプロバイダを自分で選んで差し替え"
+  ],
+  "how_to_use": "Node.js 22.19 以上、pnpm 10 以上、PostgreSQL 16 が前提。`git clone` して `pnpm install`、`pnpm db:up` で開発用 PostgreSQL を Docker で起動し、`.env` に `DATABASE_URL` と LLM の API キーを設定して `pnpm dev`。Dockerfile と docker-compose.yml もある。",
+  "use_cases": [
+    "社内勉強会やオンボーディング資料の下書き作成に使えそう",
+    "手元の資料から教材のたたき台を作る用途に使えそう"
+  ],
+  "for_whom": "教材や研修資料を作る人。自前でサーバー（Postgres 付き）を立てられる人",
+  "similar": [],
+  "tech": "TypeScript、Next.js 16、React 19、LangGraph、Tailwind CSS。PostgreSQL 16 が必要。Docker 対応。MIT。",
+  "caveats": "LLM プロバイダの API キーが別途必要で、利用料は外部の LLM 側にかかる。作られて約7か月だがリリースが速く、仕様の変動が大きいと思われる。直近のリリース v1.1.2 はプロバイダ URL 周りの SSRF 対策のセキュリティ修正で、公開運用するなら更新を追う必要がある。生成した内容の正確さは材料からは確認できない。",
+  "tags": [
+    "AI エージェント",
+    "LLM",
+    "セルフホスト",
+    "学習資料"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:Dockerfile",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の機能一覧、前提条件、リリースノートは読んだが、実際の生成品質や agent の動きは確認していない。"
+}
