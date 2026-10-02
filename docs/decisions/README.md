@@ -32,3 +32,4 @@
 | [0026](0026-dropcap-word-and-page-title.md) | 英字で始まる本文も書き出しを大きく、ページの題は「github新聞」（日付のページは日付付き）に | 2026-10-03 | 有効 |
 | [0027](0027-seo-feed-refresh-drop-github-pages.md) | OGP・sitemap・Atom フィードを出す、古い要約を書き直す、GitHub Pages をやめる | 2026-10-03 | 有効 |
 | [0028](0028-name-github-trending.md) | 名前を github-trending に決める（サイトの名前は「github新聞」） | 2026-10-03 | 有効 |
+| [0029](0029-cards-column-rule-like-detail.md) | 一覧の2段組みの罫線を、詳しいページと同じ組み方にする | 2026-10-03 | 有効 |

@@ -425,10 +425,14 @@ footer.site .feed-link { display: inline-block; margin-top: 6px; color: var(--mu
   .article-body .lead { column-span: all; font-size: 18px; max-width: 46rem; margin-bottom: 10px; }
   .article-body section:first-of-type h2 { margin-top: 10px; }
   .info-box .about { grid-template-columns: max-content 1fr max-content 1fr; }
-  .cards { display: grid; grid-template-columns: 1fr 1fr; }
+  /* 詳しいページの2段組みと同じ組み方（0029）：段のあいだに切れ目のない縦の罫線を通し、
+     記事を区切る横の線は各段の幅だけにして、縦の線とは交わらせない */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; column-gap: 44px; }
   .cards > .card:first-child { grid-column: 1 / -1; padding-bottom: 22px; border-bottom: 1px solid var(--rule-strong); }
-  .cards > .card:nth-child(even) { padding-right: 22px; }                                   /* 左の記事 */
-  .cards > .card:nth-child(odd):not(:first-child) { padding-left: 22px; border-left: 1px solid var(--rule); }  /* 右の記事 */
+  .cards > .card:nth-child(odd):not(:first-child)::before {  /* 右の記事の左に、段のあいだの縦の罫線 */
+    content: ""; position: absolute; top: 0; bottom: -1px; left: -22px;
+    border-left: 1px solid var(--rule); pointer-events: none;
+  }
   .cards > .card:first-child .short { font-size: 18px; max-width: 46rem; }
   .tier-xl .rank { font-size: 84px; }
   .tier-xl h2 { font-size: 34px; }
