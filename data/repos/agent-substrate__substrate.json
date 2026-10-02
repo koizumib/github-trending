@@ -1,0 +1,39 @@
+{
+  "repo": "agent-substrate/substrate",
+  "summarized_at": "2026-10-02",
+  "short": "Kubernetes 上で AI agent などを大量の sandbox で動かす実行基盤。多数の「actor」を少数の「worker」Pod に割り当て、使っていない間は suspend して状態を保存、必要なとき resume する。",
+  "what": "agent 向けの sandbox 実行基盤（Kubernetes 上）",
+  "can_do": [
+    "actor（agent などのアプリ）の作成・削除、suspend / resume を管理する",
+    "idle の多い agent を少数の worker Pod に多重化して割り当て、通信を振り分ける（デモでは約250の actor を8 Pod に載せる）",
+    "suspend 時に RAM とファイルシステムの状態をスナップショットし、別の worker で再開する（README は 500ms 未満の resume をうたう）",
+    "sandbox に gVisor と microVM を選べる。OCI コンテナを動かすので、ADK、LangChain、Claude Code、MCP server などを載せられるとある",
+    "`kubectl-ate` コマンドで操作する"
+  ],
+  "how_to_use": "Go、kubectl、docker を入れ、README の Quickstart に従う。`hack/install-ate-kind.sh --deploy-ate-system` で kind 上に ate、PostgreSQL、rustfs を入れ、`--deploy-demo-counter` でデモを入れる。`go install ./cmd/kubectl-ate` で CLI を入れる。",
+  "use_cases": [
+    "社内で agent の実行環境を多数、隔離して動かす基盤の検討材料になりそう",
+    "Kubernetes 上の sandbox 運用（gVisor、スナップショット、autoscaling）の設計の参考にできそう"
+  ],
+  "for_whom": "Kubernetes 上で agent やコード実行環境を大規模に運用するインフラエンジニア",
+  "similar": [
+    "Agent Sandbox（Kubernetes SIG）：Kubernetes 上の agent 用 sandbox という点は近い",
+    "Firecracker / Kata Containers：microVM の部分は共通。こちらはその上の actor の管理とスケジューリングを担う"
+  ],
+  "tech": "Go（go.mod は go 1.27.0）。Kubernetes（最新の安定版と1つ前のマイナーを対象）、PostgreSQL、gVisor / microVM、Google Cloud と AWS の SDK を依存に含む。Apache-2.0。",
+  "caveats": "pre-1.0（v0.3.0）で、API や挙動の後方互換は保証されない。性能の数字（10倍の密度、500ms 未満の resume）は README の主張で、確認していない。Google 関連のエコシステム（Agent Executor など）との結びつきが強い。コード量が大きく、手元で試すには kind と複数コンポーネントが必要。",
+  "tags": [
+    "AI エージェント",
+    "コンテナ・Kubernetes",
+    "インフラ・運用"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:go.mod",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の概要とクイックスタートは読んだが、設計文書やコードは読んでおらず、性能や仕組みの詳細は README の記述のままで未確認。"
+}

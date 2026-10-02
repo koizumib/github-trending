@@ -1,0 +1,41 @@
+{
+  "repo": "earendil-works/pi",
+  "summarized_at": "2026-10-02",
+  "short": "ターミナルで動く、拡張しやすい coding agent の CLI（Pi）と、その土台のパッケージ群。複数の LLM を共通 API で扱う層、agent の実行基盤、TUI も別パッケージで提供する。",
+  "what": "拡張しやすい coding agent の CLI と部品群の monorepo",
+  "can_do": [
+    "`pi` コマンドでターミナル上の coding agent を起動し、`/login` で subscription や API キーをつなぐ",
+    "prompt template、skill、extension、theme を足して自分用に拡張する（agent に作らせることもできる）",
+    "print / JSON / RPC モードで自動化に使い、TypeScript SDK でアプリに組み込む",
+    "`pi-ai`（OpenAI、Anthropic、Google などの共通 API）、`pi-agent-core`（tool calling と状態管理）、`pi-tui` を単体のライブラリとして使う",
+    "v1.0.0 では TUI が既定でフルスクリーンになった（`tuiMode` で従来表示に戻せる）"
+  ],
+  "how_to_use": "Node.js 22.19 以上で `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`。macOS / Linux は `curl -fsSL https://pi.dev/install.sh | sh` も可。プロジェクトのディレクトリで `pi` を打ち、`/login` で接続する。",
+  "use_cases": [
+    "Claude Code や Codex の代わりに、中身を自分で拡張できる terminal agent を試したいときに使えそう",
+    "複数の LLM provider を同じ API で呼ぶ自作ツールの土台として `pi-ai` を使えそう"
+  ],
+  "for_whom": "terminal の coding agent を自分好みに拡張したい人、LLM 連携ツールを TypeScript で作る人",
+  "similar": [
+    "Claude Code：terminal の coding agent という点は同じ。こちらは OSS（MIT）で provider を選べ、拡張を前提にしている",
+    "OpenAI Codex CLI：用途は近い"
+  ],
+  "tech": "TypeScript の monorepo（npm workspaces）。Node.js 22.19 以上。MIT。Linux / macOS 向けの standalone binary のビルド手順もある。",
+  "caveats": "組み込みの permission システムはなく、起動したユーザーの権限でそのまま動く。強く隔離するなら Docker や micro-VM などで囲む必要がある（docs に3つの方法）。新規の contributor の issue / PR は自動で閉じられる運営方針。v1.0.0 が出たばかりで、挙動が変わる可能性がある。実際に動かしてはいない。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "CLI",
+    "LLM"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release",
+    "packages/coding-agent/README.md"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

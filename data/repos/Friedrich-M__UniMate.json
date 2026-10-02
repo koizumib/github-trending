@@ -1,0 +1,34 @@
+{
+  "repo": "Friedrich-M/UniMate",
+  "summarized_at": "2026-10-02",
+  "short": "骨格の形が違うキャラクター（人、四足動物、鳥、虫、ヘビなど）を1つのモデルで動かす研究の公式実装（SIGGRAPH Asia 2026）。テキストからのモーション生成、編集、補間の学習・推論コードとデータセットを含む。",
+  "what": "多様な骨格を1つのモデルで動かすモーション生成の研究コード",
+  "can_do": [
+    "テキストの指示から、骨格の異なるキャラクターのモーションを生成する（`scripts/run_sample_motion_text.sh`）",
+    "既存モーションの編集、延長（expand）、in-betweening（間の補間）を行う",
+    "データセット UniML3D（13,006 本のテキスト付きモーション、骨格は二足、四足、鳥、海洋生物、虫、ヘビ、関節のある物体など）を使う",
+    "生データから UniML3D を作る処理（書き出し、レンダリング、VLM による caption、関節の注釈、特徴抽出）が `data_process/` にある",
+    "`configs/` の JSON と `accelerate launch` で学習し、単一 GPU と1ノード複数 GPU に対応する。attention は graph と full の2種類"
+  ],
+  "how_to_use": "conda で Python 3.10 の環境を作り、`pip install \"setuptools<81\"` のあと `pip install -r requirements.txt --no-build-isolation`（CUDA 12.4 前提）。学習は `accelerate launch -m unimate.training.train --config configs/uniml3d_60frames_graph_adaln.json`。推論は `scripts/` の shell を使う。preview の checkpoint は HuggingFace にある。",
+  "use_cases": [
+    "ゲームや CG 向けのキャラクターのモーション生成の研究動向を追うときの参考にできそう",
+    "骨格を扱う ML の実装（graph attention、adaLN による条件付け）の読み物として使えそう"
+  ],
+  "for_whom": "モーション生成や character animation の研究者、ML の実装を読みたい人。インフラ運用の実務とは縁が遠い",
+  "similar": [],
+  "tech": "Python 3.10、PyTorch 系、HuggingFace Accelerate。CUDA 12.4 と GPU が必要。MIT。Blender 等でのレンダリングを含むデータ処理パイプラインあり。",
+  "caveats": "研究コードで、preview checkpoint の段階。README に、新しい骨格（学習データ外）向けの前処理の公開は予定と書かれており、未公開。学習データの Truebones ZOO は商用素材で再配布できず、利用者が自分で購入する必要がある。GPU が必須。実際には動かしていない。",
+  "tags": [
+    "機械学習",
+    "音声・画像・動画"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

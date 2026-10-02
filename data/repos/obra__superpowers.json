@@ -1,0 +1,38 @@
+{
+  "repo": "obra/superpowers",
+  "summarized_at": "2026-10-02",
+  "short": "coding agent に開発手順を守らせる skill 集。設計の聞き取り、計画、TDD、レビューまでを skill が自動で起動して進める。Claude Code、Codex、Cursor、Gemini CLI など多くの agent に入れられる。",
+  "what": "coding agent に開発手順を守らせる skill フレームワーク",
+  "can_do": [
+    "`brainstorming` で作る前に目的を聞き出し、設計を短く区切って確認する",
+    "`writing-plans` で、ファイルパスと検証手順つきの小さなタスクに分けた実装計画を作る",
+    "`subagent-driven-development` で、タスクごとに subagent を立てて実装とレビューを回す。`executing-plans` なら1セッションで実行する",
+    "`test-driven-development`（RED-GREEN-REFACTOR）、`systematic-debugging`、`verification-before-completion` などの手順を強制する",
+    "`using-git-worktrees` で作業用ブランチと workspace を切り、`finishing-a-development-branch` で merge / PR を選ぶ",
+    "skill は作業内容に応じて自動で起動する"
+  ],
+  "how_to_use": "Claude Code では `/plugin install superpowers@claude-plugins-official`。Gemini CLI は `gemini extensions install https://github.com/obra/superpowers`、Cursor は `/add-plugin superpowers`。agent ごとに導入方法が違い、複数使うならそれぞれ入れる。",
+  "use_cases": [
+    "agent に任せる開発の進め方（設計 → 計画 → TDD → レビュー）を揃えたいときに使えそう",
+    "長めの作業を agent に自走させるときの、skill の書き方の実例として読めそう"
+  ],
+  "for_whom": "coding agent に長めの実装を任せていて、進め方を型にはめたい人",
+  "similar": [
+    "ComposioHQ/awesome-claude-skills：skill の寄せ集め。こちらは開発手順を一式にした方法論"
+  ],
+  "tech": "skill は Markdown が中心で、主言語は Shell。Node の package.json（pi 用）も含む。MIT。Claude Code、Codex、Cursor、Gemini CLI、Copilot CLI、OpenCode などに対応。最新は v6.4.2。",
+  "caveats": "skill は「必ず守る手順」として agent を縛るため、小さな作業でも手順が重くなりうる。README によると brainstorming の visual companion はロゴを作者のサイトから読み込み、バージョン情報が送られる（`SUPERPOWERS_DISABLE_TELEMETRY` で止められる）。企業向けの商用サポートの案内がある。各 skill の中身は読んでいないので効果は未確認。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

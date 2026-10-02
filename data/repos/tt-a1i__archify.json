@@ -1,0 +1,39 @@
+{
+  "repo": "tt-a1i/archify",
+  "summarized_at": "2026-10-02",
+  "short": "説明文やリポジトリの中身から、構成図・シーケンス図・データフロー図などを自己完結した HTML で作る agent skill。ノードの詳細表示や経路のたどり方が付き、PNG などで書き出せる。",
+  "what": "図を操作できる HTML で生成する agent skill",
+  "can_do": [
+    "文章で説明した内容（例：ブラウザ → API → Redis → PostgreSQL のキャッシュ経路）を、構成図、workflow、sequence、data-flow、lifecycle の図にする",
+    "リポジトリを agent に読ませて、ソースへのリンク付きの構成図を作る",
+    "出力は1つの HTML ファイルで、受け取った人は何も入れずにブラウザで開ける。ノードの詳細、上流・下流のたどり、経路の指定ができる",
+    "Export メニューから PNG のコピー、静止画・動画形式の書き出し、経路の share card（1200×630 の PNG）を作る",
+    "テーマの切り替え（ライト / ダーク）や、描画スタイルの切り替え"
+  ],
+  "how_to_use": "`npx skills add tt-a1i/archify -g` で入れる（Cursor、Claude Code、Codex CLI、OpenCode 対応）。そのあと agent に「Use Archify to diagram a web request: ...」のように頼み、「認証を足して」「cache miss の経路を強調して」と続ける。",
+  "use_cases": [
+    "システム構成やデプロイの流れを、説明用の資料として HTML で作る用途に使えそう",
+    "引き継ぎ時に、既存リポジトリの構成図を agent に起こさせる用途に使えそう",
+    "Mermaid の代わりに、見栄えのよい図を手早く作りたいときに試せそう"
+  ],
+  "for_whom": "構成図や処理の流れを図にして共有する機会が多い開発者・インフラエンジニア",
+  "similar": [
+    "Mermaid：図をコードで書く点は同じ。こちらは agent が HTML を生成し、操作性と見た目を重視している",
+    "draw.io：手で描くのに対し、こちらは文章から生成する"
+  ],
+  "tech": "Node.js のスクリプトと SKILL.md が中心（`archify/` 配下）。出力は自己完結した HTML / SVG。MIT。最新は v3.0.1。",
+  "caveats": "更新確認のため、公式の manifest に GET で接続することがある（バージョンやプロジェクトの情報は送らないと README にあるが、未確認）。`ARCHIFY_UPDATE_CHECK_DISABLED=1` で止められる。生成した図が実際の構成と合っているかは agent の読み取り次第なので、確認が必要。スポンサー名が README に並ぶ。描画の品質は実際に生成して確かめていない。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "ドキュメント・知識管理"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と release は読んだが、SKILL.md や生成された HTML は読んでおらず、図の品質や安全性は未確認。"
+}

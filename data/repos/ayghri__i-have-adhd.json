@@ -1,0 +1,34 @@
+{
+  "repo": "ayghri/i-have-adhd",
+  "summarized_at": "2026-10-02",
+  "short": "coding agent の返答の形を変える skill。結論と次の操作を先頭に置き、手順に番号を振り、前置きや締めの挨拶を省かせる。Claude Code、Codex、Cursor、Gemini CLI などに入れられる。",
+  "what": "agent の出力を「次の操作が先頭」に整える skill",
+  "can_do": [
+    "10個のルールで返答を整える：次の操作から始める、複数手順は番号付き、最後に具体的な次の一歩、脱線を抑える、毎ターン現在の状態を書き直す",
+    "所要時間は「少し」でなく分で書く、成果を見えるようにする、エラーは淡々と書く、リストは5項目まで、前置き・要約・締めを付けない",
+    "README に Before / After の例がある（冗長な説明が、コマンドと番号付き手順に変わる）",
+    "`hooks/always-on` で常時有効にできると思われる",
+    "`evals/` に評価用のケースと rubric がある"
+  ],
+  "how_to_use": "CLI に「Install the i-have-adhd skill/plugin from https://github.com/ayghri/i-have-adhd, refer to the repo's AGENTS.md for instructions.」と貼ると agent が入れる。詳細は INSTALL.md。Claude Code では `/i-have-adhd` で呼ぶ。自分好みに変えるには `skills/i-have-adhd/SKILL.md` を fork して編集する。",
+  "use_cases": [
+    "agent の返答が長く前置きが多いと感じるとき、読む負担を減らす目的で試せそう",
+    "日本語で使う場合の効き方は材料から分からない。ルールを自分用に書き換える際の参考にできそう"
+  ],
+  "for_whom": "agent の長い返答を読むのがつらく、結論と手順だけ欲しい人",
+  "similar": [],
+  "tech": "中身は SKILL.md が中心（Markdown）。補助に hook（sh / mjs / ps1）と TypeScript の extension。MIT。Claude Code、Codex、Cursor、Gemini CLI、OpenCode に対応する構成。",
+  "caveats": "ルールは英語の返答を想定して書かれていると思われ、日本語の返答での効果は未確認。`evals/RESULTS.md` の結果は読んでいない。スター数に対して中身は小さく（ファイル97）、単一の skill。README の名前は医療的な意味合いを含むが、診断や治療の効果をうたうものではなく、出力の書式を変えるだけ。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

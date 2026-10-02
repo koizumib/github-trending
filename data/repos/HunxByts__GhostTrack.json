@@ -1,0 +1,37 @@
+{
+  "repo": "HunxByts/GhostTrack",
+  "summarized_at": "2026-10-02",
+  "short": "IP アドレス、電話番号、ユーザー名から公開情報を調べる OSINT 用の対話式 Python スクリプト。1ファイル構成で、外部の公開 API や各 SNS の URL を引くだけの簡易ツール。",
+  "what": "IP・電話番号・ユーザー名を調べる OSINT スクリプト",
+  "can_do": [
+    "IP Tracker：入力した IP を ipwho.is に問い合わせ、位置情報などを表示し、Google Maps のリンクを出す",
+    "Phone Tracker：`phonenumbers` ライブラリで、電話番号の国、キャリア、タイムゾーンなどを調べる",
+    "Username Tracker：Facebook、Twitter、GitHub、TikTok など多数の SNS の URL にそのユーザー名があるかを確認する",
+    "IP 追跡は、別ツールの seeker と組み合わせる使い方が README にある"
+  ],
+  "how_to_use": "`git clone https://github.com/HunxByts/GhostTrack.git`、`pip3 install -r requirements.txt`（requests、phonenumbers）、`python3 GhostTR.py` を実行し、メニューから選ぶ。Linux と Termux 向け。",
+  "use_cases": [
+    "OSINT の入門として、公開情報の集め方の流れを見る教材に使えそう",
+    "不審な IP や番号の素性をざっと確認する用途に使えそう（精度は限られると思われる）"
+  ],
+  "for_whom": "OSINT や情報収集の入口を触ってみたい人",
+  "similar": [
+    "Sherlock：ユーザー名を多数のサイトで探す点は同じ。こちらは IP と電話番号も1本にまとめた簡易版",
+    "PhoneInfoga：電話番号の調査という点は近い"
+  ],
+  "tech": "Python 3 の単一スクリプト `GhostTR.py`。依存は requests と phonenumbers。Linux（deb 系）と Termux。",
+  "caveats": "README の説明は短く、ライセンスは未設定（meta は null 相当）。「track」という名前でも、位置が分かるのは IP の概算位置とされる範囲で、端末の現在地を追えるわけではない。他人の追跡に使うのはプライバシーや法律の問題になりうる。IP の問い合わせは `http://ipwho.is`（平文の HTTP）を使う。",
+  "tags": [
+    "セキュリティ",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt",
+    "GhostTR.py"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

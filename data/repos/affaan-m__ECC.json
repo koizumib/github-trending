@@ -1,0 +1,40 @@
+{
+  "repo": "affaan-m/ECC",
+  "summarized_at": "2026-10-02",
+  "short": "Claude Code や Codex などの coding agent に入れる、agent・skill・hook・rule のまとめ。計画 → テスト → 実装 → レビュー → 検証 → 記憶の流れを agent に取らせる。有料の ECC Pro / GitHub App への案内も README に多い。",
+  "what": "coding agent 用の agent・skill・hook 詰め合わせ",
+  "can_do": [
+    "計画、レビュー、build 修復、セキュリティなど用途別の subagent（README では68個）を入れる",
+    "TDD、調査、docs、frontend、運用などの skill（同293個）と slash command の互換 shim（同94個）を使う",
+    "hook で、セッションの要約、学習内容（instincts）の蓄積、context の制御を行う",
+    "言語別の rule を選んで入れる",
+    "AgentShield：prompt、hook、MCP 設定、権限、秘密情報、agent ファイルを走査する",
+    "Claude Code が主対象。Codex は同期の手順があり、Cursor、OpenCode、Gemini、Copilot などは機能限定のアダプタ"
+  ],
+  "how_to_use": "Node.js 18 以上で `npx ecc-universal@2.2.3 setup`（README 推奨のガイド付き設定）。Claude Code では plugin `ecc@ecc` としても入る。手動の全体インストールと plugin の併用はしないよう README が注意している。hook は生の hooks.json を写さず、`install.sh --enable-hooks` で入れる。",
+  "use_cases": [
+    "Claude Code に、レビューや TDD の型を一括で入れる土台として試せそう",
+    "skill や hook の書き方・並べ方の実例集として読めそう",
+    "AgentShield で、自分の agent 設定に危ない権限や秘密情報が混ざっていないか点検できそう"
+  ],
+  "for_whom": "coding agent を日常的に使い、設定や手順を一式で揃えたい人",
+  "similar": [
+    "obra/superpowers：agent に開発手順を守らせる skill 集という点は近い。こちらは規模が大きく、hook、memory、rule、有料機能も含む"
+  ],
+  "tech": "JavaScript（Node.js 18 以上）が中心で、Shell、TypeScript、Python、Go などを含む。npm パッケージは `ecc-universal` と `ecc-agentshield`。MIT。最新は v2.2.3。",
+  "caveats": "規模が大きく（skill 数百、ファイル5,700超）、入れると agent の context や挙動への影響が大きい。hook を有効にすると設定ファイルに書き込まれる。README は ECC Pro と GitHub App、Discord などへの誘導が強く、一部は有料。README は公式以外の配布元を使わないよう警告している。数字（68 / 293 / 94）は README のもので、節によって67など食い違いがある。各 skill や hook の中身は読んでいない。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "セキュリティ"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の概要とインストール手順は読んだが、個々の agent、skill、hook の中身は読んでおらず、効果や安全性は未確認。"
+}

@@ -1,0 +1,36 @@
+{
+  "repo": "cursor/plugins",
+  "summarized_at": "2026-10-02",
+  "short": "Cursor の公式プラグイン集と、プラグイン仕様のサンプルを兼ねるマーケットプレイス用リポジトリ。skill、rule、MCP 定義などを束ねた約80個のプラグインを収録する。",
+  "what": "Cursor 公式プラグインのマーケットプレイスリポジトリ",
+  "can_do": [
+    "ルートの `.cursor-plugin/marketplace.json` に全プラグインを列挙し、各プラグインは `.cursor-plugin/plugin.json` を持つ",
+    "開発向け：`create-plugin`（プラグインの雛形と検証）、`cursor-sdk`、`orchestrate`（大きな作業を並列の cloud agent に分担）、`pr-review-canvas`（PR の diff を重要度別に表示）など",
+    "`continual-learning` は会話ログから AGENTS.md を少しずつ更新する",
+    "`third_party/` に Gmail、Google Drive、GitHub、Playwright、Salesforce など外部サービス連携のプラグインを多数収録",
+    "各プラグインは `skills/`（SKILL.md）、`rules/`（.mdc）、`mcp.json`、`agents/`、`hooks/` を持てる"
+  ],
+  "how_to_use": "Cursor のマーケットプレイス経由で入れる想定と思われる（README に導入手順はない）。書き方の参考にするなら、`create-plugin` や各プラグインのディレクトリ構成を読む。",
+  "use_cases": [
+    "Cursor 用の自作プラグインや skill を書くときの実例集として使えそう",
+    "agent 向けの CLI 設計（`cli-for-agent`）やレビュー運用の考え方を参考にできそう"
+  ],
+  "for_whom": "Cursor を使っていて、プラグインを探したり自作したい人",
+  "similar": [
+    "ComposioHQ/awesome-claude-skills：skill 集という点は近い。こちらは Cursor 専用の公式マーケットプレイス形式"
+  ],
+  "tech": "TypeScript が主言語とされるが、中身は Markdown（SKILL.md）、JSON の manifest が中心。MIT。Cursor が前提。",
+  "caveats": "README は一覧表が中心で、導入手順は書かれていない。`third_party/` のプラグインは外部 SaaS のアカウントが前提と思われる。Cursor 以外では動かない。meta 上のライセンス欄は空だが README には MIT とある。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "エディタ・IDE"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の一覧と構成は読んだが、個々のプラグインの中身と導入手順は読んでいない。"
+}

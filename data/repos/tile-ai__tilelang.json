@@ -1,0 +1,39 @@
+{
+  "repo": "tile-ai/tilelang",
+  "summarized_at": "2026-10-02",
+  "short": "GPU / CPU / NPU 向けの高速な kernel を Python 風の構文で書く DSL（Tile Language）。TVM の上のコンパイラで、GEMM や FlashAttention などを書ける。最新版で Huawei Ascend 950 に対応した。",
+  "what": "高性能 GPU kernel を書くための Python 風 DSL",
+  "can_do": [
+    "`@tilelang.jit` と `T.gemm` などで、タイル単位に kernel を書いて JIT コンパイルし、PyTorch のテンソルで実行する",
+    "GEMM、Dequant GEMM、FlashAttention、LinearAttention などの kernel を書く（`examples/` に実例）",
+    "NVIDIA（CUDA）、AMD（ROCm）、Apple（Metal）、Huawei Ascend 950 を対象にできる。実行環境から target を自動で選ぶ",
+    "v0.1.15 で、CUDA の warp specialization（TMA load、MMA、store を役割別の warp group に割り当てる）を opt-in で自動化",
+    "コンパイラの各 pass の IR の変化を追う IR Lower Trace、pass ごとの時間計測などのデバッグ手段がある"
+  ],
+  "how_to_use": "`pip install tilelang`（Python 3.10 以上、torch が必要）。`python -c \"import tilelang; print(tilelang.__version__)\"` で確認し、README の Quick Start（FP16 GEMM + ReLU）を動かす。AMD GPU は ROCm 版 PyTorch を先に入れる。",
+  "use_cases": [
+    "LLM 推論で使う attention や量子化 GEMM の kernel を自作・最適化したいときに使えそう",
+    "CUDA C++ や Triton を書く代わりに試す選択肢になりそう"
+  ],
+  "for_whom": "GPU kernel を書いて性能を詰める ML systems のエンジニア。インフラ運用だけの人には直接は縁が薄い",
+  "similar": [
+    "Triton：Python で GPU kernel を書く点は同じ。こちらは TVM ベースで、タイルやメモリ配置をより明示的に書く方針と思われる",
+    "CUTLASS：用途は近い。こちらは Python 風の DSL"
+  ],
+  "tech": "Python + C++（TVM ベースのコンパイラ）。依存に torch、apache-tvm-ffi、numpy など。Linux / macOS / Windows 向けの wheel。Python 3.10 以上。GPU（CUDA / ROCm / Metal）か Ascend が実質必要。",
+  "caveats": "pyproject の classifier は Beta。v0.1.13 で複数の旧 API が削除されており、アップグレード時は互換性の注意書きを読む必要がある。ライセンスは pyproject では MIT だが、GitHub のメタ情報では判定不能（NOASSERTION）。kernel を書くには GPU の知識が要る。実際には動かしていない。",
+  "tags": [
+    "機械学習",
+    "言語・ランタイム",
+    "ライブラリ・SDK"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

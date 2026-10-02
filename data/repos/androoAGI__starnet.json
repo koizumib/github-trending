@@ -1,0 +1,38 @@
+{
+  "repo": "androoAGI/starnet",
+  "summarized_at": "2026-10-02",
+  "short": "AI agent を作って動かす local-first のデスクトップアプリ。agent をピクセルアート風の宇宙ステーションに配置する見た目で、部屋が権限の範囲、廊下が受け渡し経路に対応する。自分の API キーを使う。",
+  "what": "agent を宇宙ステーション風の画面で管理するデスクトップアプリ",
+  "can_do": [
+    "役割や persona の違う agent を複数作り、それぞれ別の workspace、権限、記録で同時に動かす",
+    "モデルは OpenRouter のキーか、Anthropic / OpenAI / Google のアカウントでつなぐ。Ollama のローカルモデルも使える。キーは OS の keychain に保存する",
+    "Telegram、Discord、Slack、Signal、Matrix から agent にメッセージを送る",
+    "Night Shift：離席中も、決めた制限の範囲で agent を動かし、行動を記録する",
+    "レシピ、skill、cron の定期実行、MCP connector、音声入力に対応",
+    "成果物はファイルとして OUTBOX に出す。コストと実行履歴はディスクに残す"
+  ],
+  "how_to_use": "Windows 10/11 と macOS（Apple Silicon / Intel）向けのインストーラーが starnet-releases のリリースページにある。ソースからは Node.js 18 以上で `node sidecar/index.js` を実行し、`http://localhost:8787` を開いて provider をつなぐ。デスクトップ版のビルドには Rust と Tauri が要る。",
+  "use_cases": [
+    "複数の agent を並行して動かし、コストや権限を画面で管理する使い方を試せそう",
+    "agent の権限を「部屋」で区切る設計は、agent の権限管理の発想として参考になりそう"
+  ],
+  "for_whom": "自分の API キーで、デスクトップから複数の AI agent を動かして遊びたい・試したい人",
+  "similar": [
+    "Claude Code / Codex CLI など：agent を動かす点は同じ。こちらは GUI の見た目が主体で、複数 agent の管理を前面に出している"
+  ],
+  "tech": "JavaScript の Node sidecar（Node core module のみで動く）と、Tauri のデスクトップシェル。Windows と macOS 向け。MIT。最新は v0.12.5。",
+  "caveats": "v0.12.x と 1.0 前。配布のバイナリは別リポジトリ（starnet-releases）にあり、ソースと配布物の対応は確認していない。agent を動かすと、モデル提供元に送信される。Linux 向けの配布はない。README の「本物の処理で、シミュレーションではない」といった主張は未検証。リポジトリが非常に大きい（ファイル数5万超）。",
+  "tags": [
+    "AI エージェント",
+    "デスクトップアプリ"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と release は読んだが、docs や実際のコードは読んでおらず、機能が README のとおり動くかは未確認。"
+}

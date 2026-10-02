@@ -1,0 +1,38 @@
+{
+  "repo": "anthropics/claude-code",
+  "summarized_at": "2026-10-02",
+  "short": "Anthropic の terminal 向け coding agent、Claude Code の公開リポジトリ。自然言語で、コードの理解、定型作業、git 操作を頼める。ここにあるのは主に issue・changelog・plugin 例で、本体のソースではないと思われる。",
+  "what": "Anthropic 製の terminal 向け coding agent",
+  "can_do": [
+    "コードベースを読み、自然言語の指示で編集、コマンド実行、git 操作を行う",
+    "terminal、IDE、GitHub（@claude）から使える",
+    "plugin で独自の command や agent を足せる。リポジトリの `plugins/` に例がある",
+    "v2.1.287 では Claude Mods（plugin による深い挙動の変更）が入った",
+    "`/bug` で不具合を報告できる"
+  ],
+  "how_to_use": "macOS / Linux は `curl -fsSL https://claude.ai/install.sh | bash`、Homebrew は `brew install --cask claude-code`、Windows は `irm https://claude.ai/install.ps1 | iex` か WinGet。npm 経由は非推奨。プロジェクトのディレクトリで `claude` を実行する。",
+  "use_cases": [
+    "ログ調査、設定ファイルの修正、スクリプト作成など、ターミナル作業の補助に使えそう",
+    "plugin の書き方の参考として、`plugins/` を読めそう"
+  ],
+  "for_whom": "terminal で coding agent を使いたい開発者、インフラエンジニア。Anthropic のアカウントか API が必要",
+  "similar": [
+    "earendil-works/pi：terminal の coding agent という点は同じ。pi は OSS で provider を選べる",
+    "OpenAI Codex CLI：用途は近い"
+  ],
+  "tech": "Node.js 18 以上のバッジがあるが、現在は npm 経由の導入が非推奨で、ネイティブのインストーラーが推奨。リポジトリ内には devcontainer の定義（egress firewall の設定を含む）と plugin の例がある。ライセンスは GitHub 上で未設定。",
+  "caveats": "このリポジトリは本体のソース公開ではなく、changelog、issue 管理、plugin 例が中心と思われる（tree からの推測）。ライセンスは meta で未設定で、利用は Anthropic の利用規約に従う。README によると、利用データ（コードの採否、会話、`/bug` のフィードバック）が収集される。Anthropic のアカウント（有料）が要る。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "CLI"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と release は読んだが、plugins/ や CHANGELOG の中身は読んでおらず、リポジトリの位置づけ（本体のソースかどうか）は tree からの推測。"
+}

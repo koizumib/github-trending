@@ -1,0 +1,39 @@
+{
+  "repo": "superdesigndev/treg",
+  "summarized_at": "2026-10-02",
+  "short": "agent が使う外部ツール（API や CLI）を、1つの URL と1つのトークンで呼べるようにするレジストリ兼プロキシ。認証情報はサーバー側で付けるので、agent に鍵を渡さずに済む。ホスト版 treg.to は従量課金。",
+  "what": "agent のツール呼び出しを中継する、認証情報注入つきのレジストリ",
+  "can_do": [
+    "`treg catalog search \"backlinks for a domain\"` のように、やりたいことでツールを探し、`treg call ...` で呼ぶ。料金は `treg balance` で確認する",
+    "ホスト版のカタログには、SEO、SNS、企業情報の補完、スクレイピング、画像・動画生成などの API が2,896個あるとされ、プロバイダとの契約なしで1回あたりの従量で使える",
+    "チームが自分の API キー、OAuth 接続、vendor CLI（`stripe`、`gh` など）、`SKILL.md` を登録し、各メンバーの agent が鍵を見ずに呼べる。自分のキーを使う呼び出しは課金されない",
+    "プロキシはアップストリームを中継するだけで、認証をサーバー側で注入する",
+    "Claude Code の plugin としても入れられる。`treg org agent-new --pin` で、顧客別に履歴の見える範囲を絞った agent 用トークンを作る"
+  ],
+  "how_to_use": "`curl -fsSL https://treg.to/install.sh | sh` で CLI を入れ、`treg login`（GitHub、メール、`--token`）。自前で動かすなら `tmux` と `uv` を入れて `scripts/dev-local.sh up`（localhost:18790、sqlite、開発用設定）。Python 3.12 または 3.13。",
+  "use_cases": [
+    "agent に API キーを持たせず、チームの共有ツールを権限つきで使わせる仕組みとして検討できそう",
+    "社内の認証情報注入プロキシの設計（バインディング、監査、チーム単位の管理）の参考になりそう"
+  ],
+  "for_whom": "チームで複数の agent を使い、API キーの配布と管理を一箇所にまとめたい人",
+  "similar": [
+    "OpenRouter：モデルを1つの API にまとめる点は同じ。こちらは対象がモデルでなく外部ツール",
+    "Composio：SaaS 連携を agent に提供する点は近い"
+  ],
+  "tech": "Python 3.12〜3.13 のサーバー（alembic で DB マイグレーション）と CLI。Node 側の dsh プラグインも含む。ホスト版は Render。",
+  "caveats": "ライセンスは Apache 2.0 に追加条件が付く：競合するホスト型レジストリとして第三者に再配布してはいけない。自社内での自前運用は可。ホスト版を使うと呼び出し内容が treg.to を経由し、課金が発生する（新規アカウントに $1 の無料枠）。カタログの数や価格は README の主張で、確認していない。作られて間もない（2026年7月作成）。",
+  "tags": [
+    "AI エージェント",
+    "セキュリティ",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:pyproject.toml"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

@@ -1,0 +1,37 @@
+{
+  "repo": "pablostanley/yoinks",
+  "summarized_at": "2026-10-02",
+  "short": "動画の URL を貼ると、解像度を選んでダウンロードできる terminal 用の CLI。中身は yt-dlp を呼ぶ対話 UI。YouTube、X、Instagram、TikTok など1,800以上のサイトに対応するとある。",
+  "what": "yt-dlp を使う対話式の動画ダウンロード CLI",
+  "can_do": [
+    "URL を貼ると、解像度ごとの推定ファイルサイズつきの形式一覧を出して選ばせる",
+    "音声だけの mp3 としても保存できる",
+    "↑/↓、j/k、数字キー、マウス操作に対応したフルスクリーンの TUI（終了時に scrollback を復元）",
+    "`--theme auto|light|dark` で配色を選ぶ。auto は terminal の色に追従",
+    "yt-dlp の単体バイナリを初回に `~/.yoinks/bin` へ取得する（既存の yt-dlp があればそれを使う）。ffmpeg は PATH のものか同梱の `ffmpeg-static` を使う"
+  ],
+  "how_to_use": "`npm install -g yoinks`、または `npx yoinks`（Node 18 以上）。`yoinks https://youtu.be/...` で形式選択に進む。保存先は `~/Downloads` で、現状は変えられない。",
+  "use_cases": [
+    "手元の動画を個人用に保存する用途に使えそう",
+    "yt-dlp のオプションを覚えなくても使える対話 UI として試せそう"
+  ],
+  "for_whom": "yt-dlp の引数を調べずに、terminal から手早く動画を保存したい人",
+  "similar": [
+    "yt-dlp：実際の取得処理はこれ。yoinks はその対話式のラッパー",
+    "youtube-dl：同系統の元祖"
+  ],
+  "tech": "TypeScript、Ink（terminal 向けの React）、tsup。Node 18 以上。MIT。内部で yt-dlp と ffmpeg を使う。",
+  "caveats": "作られて間もない（2026年7月作成、v0.3.1）。README のロードマップでは、`--best` / `--mp3` などのスクリプト向けフラグ、出力先の指定、playlist 対応が未実装なので、自動化には向かない。初回に外部から yt-dlp のバイナリを取得する。README にあるとおり、ダウンロードは各サイトの規約に反することがある。",
+  "tags": [
+    "CLI",
+    "音声・画像・動画"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

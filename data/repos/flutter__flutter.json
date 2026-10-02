@@ -1,0 +1,39 @@
+{
+  "repo": "flutter/flutter",
+  "summarized_at": "2026-10-02",
+  "short": "1つのコードベースから iOS、Android、Web、Windows、macOS、Linux のアプリを作る Google の UI SDK。言語は Dart。ウィークリー Trending に出ているが、新しいプロジェクトではなく長く続く定番。",
+  "what": "Dart で書くクロスプラットフォームの UI SDK",
+  "can_do": [
+    "1つのコードから、モバイル、Web、デスクトップ向けのアプリを作る",
+    "独自の描画エンジンで画面を描くので、プラットフォームが違っても見た目をそろえやすい",
+    "Material などの widget 一式が付属する",
+    "`flutter` コマンドで、ビルド、実行、テスト、hot reload を行う",
+    "既存のネイティブアプリに組み込む（add-to-app）こともできるとされる"
+  ],
+  "how_to_use": "docs.flutter.dev/get-started の手順で SDK を入れる。GitHub から入れると、初回実行時に Google のサーバーから Dart SDK を取得する。このリポジトリ自体は SDK の開発用で、使うだけなら clone は不要。",
+  "use_cases": [
+    "社内向けの管理アプリを iOS と Android で1本のコードで作る用途に使えそう",
+    "インフラ関連の監視や操作用のモバイルアプリを、少人数で作る用途に使えそう"
+  ],
+  "for_whom": "モバイルやデスクトップのアプリを、少ないコードで複数の OS に出したい人",
+  "similar": [
+    "React Native：クロスプラットフォームのアプリ基盤。こちらは Dart と独自描画で、ネイティブ UI 部品に頼らない",
+    "Kotlin Multiplatform / Compose Multiplatform：目的は近い"
+  ],
+  "tech": "Dart（SDK 3.13 系）が中心で、エンジン部分に C++。BSD-3-Clause。対応先は iOS、Android、Web、Windows、macOS、Linux。",
+  "caveats": "新しいプロジェクトではなく、2015年から続く成熟したプロジェクト。リリースの材料は 3.19 beta（2024年1月）と古いものしか取れておらず、今の最新版は不明。ツールは Google のサーバーから資源を取得し、Google の利用規約への同意が前提。",
+  "tags": [
+    "モバイル",
+    "デスクトップアプリ",
+    "ライブラリ・SDK"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pubspec.yaml",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}
