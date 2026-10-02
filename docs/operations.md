@@ -7,7 +7,7 @@
 | 時刻 | 何が | どこで見るか |
 |---|---|---|
 | 5:47 ごろ（遅れると 9時台） | Actions「取得と材料集め」：Trending の取得、data/ の記録、材料を work ブランチへ。終わったら routine を起動。7:17・8:47 にも予備で動くが、取得済みなら何もしない | GitHub の Actions タブ |
-| 材料集めの直後 | routine「trending-digest 毎朝の要約」：要約を書いて main に push | https://claude.ai/code/routines/trig_01VBSyXRh8g9UMrCLPSrneVQ |
+| 材料集めの直後 | routine「github-trending 毎朝の要約」：要約を書いて main に push | https://claude.ai/code/routines/trig_01VBSyXRh8g9UMrCLPSrneVQ |
 | push の数分後 | Actions「サイトを作って公開する」：サイトの更新（Cloudflare Pages）、Discord への通知 | Actions タブ、Discord、https://trending-digest.pages.dev/ |
 | 9:00 | Actions「見張り」：取得の失敗を知らせる、未送信なら送る | Actions タブ、Discord |
 
@@ -24,14 +24,14 @@
 | ⚠️ 9時までに要約が N 件そろわなかったので、そのまま送ります | routine が終わらなかった、失敗した、または動かなかった | routine の管理画面 → 今日の実行 → セッションの記録 |
 | ⚠️ 要約に失敗したものが多い | routine が `errors` に多く記録した | `data/daily/YYYY-MM-DD.json` の `errors` |
 | 何も来ない | 通知の Actions が失敗した、または Webhook の URL が無効 | Actions タブの「サイトを作って公開する」と「見張り」 |
-| サイトが更新されない | 「サイトを作って公開する」の「Cloudflare Pages に公開する」の段階が失敗した（API トークンの期限切れ・権限不足など） | その段階のログ。Cloudflare のダッシュボードの Pages → trending-digest の Deployments |
+| サイトが更新されない | 「サイトを作って公開する」の「Cloudflare Pages に公開する」の段階が失敗した（API トークンの期限切れ・権限不足など） | その段階のログ。Cloudflare のダッシュボードの Pages → trending-digest（旧名のまま）の Deployments |
 
 Actions が失敗すると、GitHub からメールも届く。
 
 ## 手で動かし直す
 
 ### Actions を手で動かす
-1. https://github.com/koizumib/trending-digest/actions を開く
+1. https://github.com/koizumib/github-trending/actions を開く
 2. 左の一覧から workflow を選ぶ（「取得と材料集め」「サイトを作って公開する」「見張り」）
 3. 右の「Run workflow」→ ブランチは `main` のまま →「Run workflow」
 
@@ -39,15 +39,15 @@ Actions が失敗すると、GitHub からメールも届く。
 - 「見張り」を手で動かすと、今日の分をまだ送っていなければ送る
 
 ### routine を手で動かす
-- routine の管理画面（上の URL）にある「今すぐ実行する」ボタンを押す。または Claude Code で `/schedule` を開き、「trending-digest の routine を今すぐ動かして」と頼む
+- routine の管理画面（上の URL）にある「今すぐ実行する」ボタンを押す。または Claude Code で `/schedule` を開き、「github-trending の routine を今すぐ動かして」と頼む
 - 6時の取得が終わる前に動かすと、30分待っても材料が来なければ何もせずに終わる
 
 ### Discord に送り直す
 今日の分はもう送った、と記録されている日に送り直すには、手元で:
 
 ```bash
-.venv/bin/python -m trending_digest notify --dry-run    # 送る内容を確かめる
-.venv/bin/python -m trending_digest notify --force      # 送る（.env に DISCORD_WEBHOOK_URL が要る）
+.venv/bin/python -m github_trending notify --dry-run    # 送る内容を確かめる
+.venv/bin/python -m github_trending notify --force      # 送る（.env に DISCORD_WEBHOOK_URL が要る）
 ```
 
 ## 止める・再開する
@@ -68,7 +68,7 @@ Actions が失敗すると、GitHub からメールも届く。
 
 ## ロゴを差し替える
 
-原本（大きい PNG、透明の背景）は `assets/logo/logo_light.png`（黒）と `logo_dark.png`（白）。サイトには、縮めて軽くしたものを `src/trending_digest/static/` に置く。原本を差し替えたら、次で作り直す（Pillow は作業用の仮想環境にだけ入れる。このツールの依存には足さない）。
+原本（大きい PNG、透明の背景）は `assets/logo/logo_light.png`（黒）と `logo_dark.png`（白）。サイトには、縮めて軽くしたものを `src/github_trending/static/` に置く。原本を差し替えたら、次で作り直す（Pillow は作業用の仮想環境にだけ入れる。このツールの依存には足さない）。
 
 ```bash
 python3.12 -m venv /tmp/imgvenv && /tmp/imgvenv/bin/pip install -q pillow
@@ -79,7 +79,7 @@ for name in ("light", "dark"):
     im = im.crop(im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox())  # 透明の余白を切る
     im = im.resize((1040, round(im.height * 1040 / im.width)), Image.LANCZOS)          # 横 1040px
     im.quantize(colors=16, method=Image.Quantize.FASTOCTREE).save(
-        f"src/trending_digest/static/logo_{name}.png", optimize=True)                  # 16色で軽く
+        f"src/github_trending/static/logo_{name}.png", optimize=True)                  # 16色で軽く
 EOF
 ```
 
@@ -96,7 +96,7 @@ im = Image.open("assets/texture/paper_texture.webp").convert("L")
 hp = ImageChops.subtract(im, im.filter(ImageFilter.GaussianBlur(24)), offset=128)  # 大きなむらを引く
 hp = ImageEnhance.Contrast(hp).enhance(1.8)                                           # 凹凸を少し強く
 hp = hp.resize((1000, round(hp.height * 1000 / hp.width)), Image.LANCZOS)
-hp.save("src/trending_digest/static/paper_texture.webp", "WEBP", quality=40, method=6)
+hp.save("src/github_trending/static/paper_texture.webp", "WEBP", quality=40, method=6)
 EOF
 ```
 

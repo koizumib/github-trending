@@ -1,10 +1,11 @@
-# trending-digest 設計書（v0.3）
+# github-trending 設計書（v0.4）
 
 この文書には、何を作るかとどう作るかを、**今の実装のとおりに**書く。なぜそうしたかの経緯は `docs/decisions/` にある（一覧は `docs/decisions/README.md`）。毎朝の動かし方と、困ったときの見方は `docs/operations.md` に書く。
 
 - v0.1（2026-09-30）：Actions から Claude API で要約する設計
 - v0.2（2026-09-30）：要約を Claude Code の routine に変えた（0002）
 - v0.3（2026-09-30）：取得と材料集めを Actions に移した（0007）。ウィークリー・マンスリー（0005）、タグ（0004）、公開先を Cloudflare Pages に（0008）、見た目を新聞のように（0010）
+- v0.4（2026-10-03）：名前を github-trending に決めた（0028。サイトの名前は「github新聞」）。routine を Actions から API で起動（0024）。OGP・sitemap・Atom フィード、古い要約の書き直し、GitHub Pages をやめた（0027）
 
 ## 1. 目的と範囲
 
@@ -15,7 +16,7 @@
   - 短い要約（`short`）：2〜3文。通知と一覧に使う
   - 詳しい要約：何ができるか、使い方、活用できそうな場面、向いている人、似ているもの、技術、注意点。詳しいページに使う
   - 分野のタグ：決まった語彙から1〜4個
-- 静的サイトを作って Cloudflare Pages に公開する
+- 静的サイト「github新聞」を作って Cloudflare Pages に公開する。Atom フィードと、検索エンジン・リンクのカード（OGP）向けの情報も出す
 - Discord に通知する
 
 ### 作らないもの（今は）
@@ -27,7 +28,7 @@
 ### 受け入れ基準
 - 毎朝、手を動かさなくても Discord に通知が届く
 - 通知の各項目をタップすると、そのリポジトリの詳しいページが開く
-- 同じリポジトリを二度要約しない
+- 同じリポジトリを二度要約しない（ただし、要約してから90日以上たったものは書き直す）
 - README がほとんど空のリポジトリでも、「何をするものか」を一文で言えている。言えないときは「情報が少ない」と正直に書く
 - 1件の失敗で全体が止まらない
 - Trending を読み取れなかったとき、または routine が終わらなかったときは、それが Discord で分かる
@@ -50,7 +51,7 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
 
 ```
  ① GitHub Actions「取得と材料集め」（prepare.yml、毎朝 5:47・7:17・8:47 の定期実行。最初に動いた1回だけが取得する）
-    ├─ python -m trending_digest prepare
+    ├─ python -m github_trending prepare
     │     Trending（デイリー・ウィークリー・マンスリー）を取得
     │     → data/daily/、data/weekly/、data/monthly/、data/history.json を更新
     │     要約のないもの（と古くなったもの）について GitHub API で材料を集める → .work/{owner}__{name}/、.work/queue.json
@@ -63,7 +64,7 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
  ② Claude Code の routine（Anthropic のクラウドで動く。決まった時刻の起動はしない）
     ├─ work ブランチの材料を .work/ に展開（今日の分が来るまで最大30分待つ）
     ├─ queue の1件ずつ：材料を読む → 足りなければ自分で調べる → data/repos/{owner}__{name}.json を書く
-    ├─ python -m trending_digest validate
+    ├─ python -m github_trending validate
     └─ main に commit & push
                 │
                 ▼ push をきっかけに動く
@@ -225,19 +226,19 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 | `site_base_url` | https://trending-digest.pages.dev/ | 通知のリンク、canonical・OGP・sitemap・フィードの絶対 URL の元 |
 | `timezone` | Asia/Tokyo | 「今日」を決めるタイムゾーン |
 
-### GitHub（リポジトリ koizumib/trending-digest、公開）
+### GitHub（リポジトリ koizumib/github-trending、公開）
 - Secrets：`DISCORD_WEBHOOK_URL`、`CLOUDFLARE_API_TOKEN`（Cloudflare Pages の編集権限だけ）、`CLOUDFLARE_ACCOUNT_ID`。GitHub API の鍵は Actions が自動で用意する `GITHUB_TOKEN` を使う
 - Pages：使わない（0027 でやめた。Settings → Pages は無効にする）
 
 ### Cloudflare
-- Pages のプロジェクト `trending-digest`（Direct Upload。GitHub にはつながない）。`daily.yml` が `wrangler pages deploy` で送る
+- Pages のプロジェクト `trending-digest`（Direct Upload。GitHub にはつながない。名前を github-trending に変える前に作ったので、プロジェクト名と URL は旧名のまま。0028）。`daily.yml` が `wrangler pages deploy` で送る
 - Access での制限はかけない
 - ブランチ：`main`（コードと data/）、`work`（材料。毎朝上書き）
 
 ### Claude Code の routine
 | 項目 | 値 |
 |---|---|
-| 名前 | trending-digest 毎朝の要約（`trig_01VBSyXRh8g9UMrCLPSrneVQ`） |
+| 名前 | github-trending 毎朝の要約（`trig_01VBSyXRh8g9UMrCLPSrneVQ`） |
 | 起動 | API トリガーだけ。「取得と材料集め」の最後に Actions が `/fire` を呼ぶ（トークンは Secrets の `CLAUDE_ROUTINE_TOKEN`）。決まった時刻の起動はしない（0024） |
 | 実行環境 | 「github trending」（クラウド、ネットワークは Full） |
 | モデル | claude-sonnet-5-5 |
@@ -253,7 +254,7 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 ## 9. ディレクトリ構成
 
 ```
-trending-digest/
+github-trending/
   README.md                   # 入口
   CLAUDE.md                   # Claude Code 向けの決まり
   config.yaml
@@ -265,7 +266,7 @@ trending-digest/
     decisions/                # 設計判断の記録（1判断1ファイル。README.md が一覧）
   schemas/
     summary.schema.json       # 要約の形とタグの語彙
-  src/trending_digest/
+  src/github_trending/
     cli.py                    # prepare / validate / build / notify / watchdog / alert
     config.py                 # config.yaml、日本時間の「今日」、.env
     net.py                    # 1秒以上空けて取りに行く HTTP クライアント
@@ -292,13 +293,12 @@ trending-digest/
 
 ## 10. 未決事項
 
-1. **名前**：仮称は trending-digest。公開するなら決める
-2. **「新しい」の日数**：10日でよいか
-3. **returning の扱い**：今は new と同じくカードで出し、「再登場」の印を付けている。これでよいか
-4. **プランの使用量**：毎日15件前後を routine で調べて、使用量の上限に当たらないか。最初の1〜2週間ようすを見て `max_summaries_per_day` を決める
-5. **質問できる機能**：詳しいページから質問できるようにするか。入れるなら静的ではなくなる
-6. **他のエンジニアにも公開する**：方向は決定。まず1〜2週間は本人だけで使い、よければ公開する（0006）。公開の前に確かめること：アナウンスチャンネルのフォロー先に Webhook の投稿が流れるか、名前とドメイン、個人のプランの routine で公開の配信を続けてよいか（利用規約）
-7. **過去の Trending**：記録を始めた 2026-09-30 より前の分は、Wayback Machine の保存ページから取れる可能性がある。やるなら、何日分残っているかを先に確かめる
+1. **「新しい」の日数**：10日でよいか
+2. **returning の扱い**：今は new と同じくカードで出し、「再登場」の印を付けている。これでよいか
+3. **プランの使用量**：毎日15件前後を routine で調べて、使用量の上限に当たらないか。最初の1〜2週間ようすを見て `max_summaries_per_day` を決める
+4. **質問できる機能**：詳しいページから質問できるようにするか。入れるなら静的ではなくなる
+5. **他のエンジニアにも公開する**：方向は決定。まず1〜2週間は本人だけで使い、よければ公開する（0006）。公開の前に確かめること：アナウンスチャンネルのフォロー先に Webhook の投稿が流れるか、ドメイン（名前は 0028 で決定）、個人のプランの routine で公開の配信を続けてよいか（利用規約）
+6. **過去の Trending**：記録を始めた 2026-09-30 より前の分は、Wayback Machine の保存ページから取れる可能性がある。やるなら、何日分残っているかを先に確かめる
 
 ## 11. マイルストーン
 

@@ -1,6 +1,6 @@
 import datetime as dt
 
-from trending_digest.classify import CONTINUING, NEW, RETURNING, classify, update_history
+from github_trending.classify import CONTINUING, NEW, RETURNING, classify, update_history
 
 TODAY = dt.date(2026, 9, 30)
 W = 10

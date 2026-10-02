@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/koizumib/trending-digest/schemas/summary.schema.json",
+  "$id": "https://github.com/koizumib/github-trending/schemas/summary.schema.json",
   "title": "リポジトリの要約（data/repos/{owner}__{name}.json）",
   "type": "object",
   "additionalProperties": false,

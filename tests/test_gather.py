@@ -3,11 +3,11 @@ import json
 
 import httpx
 
-from trending_digest.config import Config
-from trending_digest.gather import Gatherer
-from trending_digest.net import PoliteClient
-from trending_digest.pipeline import pick_targets, prepare_queue
-from trending_digest.storage import Store
+from github_trending.config import Config
+from github_trending.gather import Gatherer
+from github_trending.net import PoliteClient
+from github_trending.pipeline import pick_targets, prepare_queue
+from github_trending.storage import Store
 
 REPO_INFO = {
     "full_name": "o/r", "description": "A tool", "homepage": "https://example.com",
@@ -87,7 +87,7 @@ def test_pick_targets_skips_summarized_and_defers_over_limit(tmp_path):
 
 
 def test_pick_readme_prefers_plain_name():
-    from trending_digest.gather import pick_readme
+    from github_trending.gather import pick_readme
 
     assert pick_readme({"README-NIX.md", "README.md", "README.zh-CN.md"}) == "README.md"
     assert pick_readme({"readme.rst", "src/"}) == "readme.rst"

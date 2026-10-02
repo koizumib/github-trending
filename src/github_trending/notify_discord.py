@@ -105,7 +105,7 @@ def unsummarized_count(day: str, store: Store) -> int:
 
 
 def alert_message(text: str) -> dict:
-    return {"content": f"⚠️ trending-digest：{text}"}
+    return {"content": f"⚠️ github-trending：{text}"}
 
 
 def post(messages: list[dict], webhook_url: str, client: httpx.Client | None = None) -> None:

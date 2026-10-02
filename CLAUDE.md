@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## このリポジトリについて
 
-trending-digest（仮称）は、**GitHub Trending に新しく上がったリポジトリを毎朝日本語で要約し、静的サイトと Discord 通知で届けるツール**です。
+github-trending は、**GitHub Trending に新しく上がったリポジトリを毎朝日本語で要約し、静的サイト「github新聞」と Discord 通知で届けるツール**です。ソフトウェア（リポジトリ・Python のパッケージ `github_trending`）の名前は github-trending、読者に見せるサイトの名前は「github新聞」です。Cloudflare Pages のプロジェクトと URL（trending-digest.pages.dev）だけは、旧名の trending-digest のままです。
 
 - 毎朝、GitHub Actions が `prepare` で Trending を取得・分類し、材料を集めます（data/ は main に、材料は work ブランチに）。終わったら Actions が Claude Code の routine を API で起動し、routine が材料を読んで要約の JSON を書き、push します。
 - push をきっかけに GitHub Actions が動き、`data/` から HTML を生成して Cloudflare Pages に公開し、Discord に通知します。
@@ -44,12 +44,12 @@ trending-digest（仮称）は、**GitHub Trending に新しく上がったリ�
 
 ```bash
 .venv/bin/python -m pytest                              # テスト
-.venv/bin/python -m trending_digest validate            # data/repos/ と errors の形を検査
-.venv/bin/python -m trending_digest build               # data/ から site/ を作り直す
+.venv/bin/python -m github_trending validate            # data/repos/ と errors の形を検査
+.venv/bin/python -m github_trending build               # data/ から site/ を作り直す
 .venv/bin/python -m http.server -d site 8000            # 手元でサイトを見る
-.venv/bin/python -m trending_digest notify --dry-run    # 送る内容を表示するだけ
-.venv/bin/python -m trending_digest watchdog --dry-run  # 9時の見張りが何をするかを表示するだけ
-.venv/bin/python -m trending_digest alert "文" --dry-run
+.venv/bin/python -m github_trending notify --dry-run    # 送る内容を表示するだけ
+.venv/bin/python -m github_trending watchdog --dry-run  # 9時の見張りが何をするかを表示するだけ
+.venv/bin/python -m github_trending alert "文" --dry-run
 ```
 
 - `prepare`（取得・分類・材料集め）は、ふだんは Actions（`prepare.yml`）が動かします。手元で動かすと github.com と GitHub API に取りに行き、`data/` を書き換えます。試すときは `--html tests/fixtures/trending.html` を付け、あとで `git checkout data/` で戻します。

@@ -1,7 +1,7 @@
 import json
 
-from trending_digest.storage import Store
-from trending_digest.validate import validate_all
+from github_trending.storage import Store
+from github_trending.validate import validate_all
 
 GOOD = {
     "repo": "o/r", "summarized_at": "2026-09-30",
@@ -69,8 +69,8 @@ def test_queue_leftovers_are_noted(tmp_path):
 def test_routine_md_lists_same_tags_as_schema():
     import re
 
-    from trending_digest.config import ROOT
-    from trending_digest.validate import SCHEMA_PATH
+    from github_trending.config import ROOT
+    from github_trending.validate import SCHEMA_PATH
 
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     vocab = schema["properties"]["tags"]["items"]["enum"]

@@ -48,7 +48,7 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python -m trending_digest prepare
+        run: python -m github_trending prepare
 
       - name: data/ を main に記録する
         if: steps.check.outputs.skip != 'true'
@@ -96,11 +96,11 @@ jobs:
             -d "{\"text\": \"${{ steps.check.outputs.today }} の材料を work ブランチに置きました\"}")
           echo "routine の起動：HTTP $code"
           if [ "${code:0:1}" != "2" ]; then
-            python -m trending_digest alert "routine を起動できませんでした（HTTP $code）。claude.ai/code/routines から手で動かしてください。トークンの期限切れなら、作り直して Secrets の CLAUDE_ROUTINE_TOKEN を差し替えてください。"
+            python -m github_trending alert "routine を起動できませんでした（HTTP $code）。claude.ai/code/routines から手で動かしてください。トークンの期限切れなら、作り直して Secrets の CLAUDE_ROUTINE_TOKEN を差し替えてください。"
           fi
 
       - name: 失敗したら Discord に知らせる
         if: failure()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python -m trending_digest alert "取得と材料集め（prepare）が失敗しました。Trending のページを読み取れなかった可能性があります。GitHub の Actions タブで記録を確かめてください。"
+        run: python -m github_trending alert "取得と材料集め（prepare）が失敗しました。Trending のページを読み取れなかった可能性があります。GitHub の Actions タブで記録を確かめてください。"

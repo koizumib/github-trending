@@ -140,7 +140,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 ## 3. 検査する
 
 ```bash
-.venv/bin/python -m trending_digest validate
+.venv/bin/python -m github_trending validate
 ```
 
 - `NG` が出たら、そのファイルの JSON を直して、もう一度 `validate` します。直すのは JSON だけです。

@@ -1,9 +1,9 @@
 import datetime as dt
 
-from trending_digest.config import Config
-from trending_digest.fetch_trending import parse_trending
-from trending_digest.pipeline import record
-from trending_digest.storage import Store
+from github_trending.config import Config
+from github_trending.fetch_trending import parse_trending
+from github_trending.pipeline import record
+from github_trending.storage import Store
 
 
 def test_record_two_days(tmp_path, trending_html):

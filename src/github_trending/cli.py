@@ -1,4 +1,4 @@
-"""python -m trending_digest prepare / validate / build / notify"""
+"""python -m github_trending prepare / validate / build / notify"""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from .net import PoliteClient
 from .pipeline import prepare_queue, record, record_periods
 from .storage import Store
 
-log = logging.getLogger("trending_digest")
+log = logging.getLogger("github_trending")
 
 ITEM_FIELDS = TrendingItem.__dataclass_fields__
 
@@ -197,7 +197,7 @@ def cmd_alert(args) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="trending_digest")
+    parser = argparse.ArgumentParser(prog="github_trending")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p = sub.add_parser("prepare", help="取得（デイリー・ウィークリー・マンスリー）・分類・材料の下集め → .work/queue.json")

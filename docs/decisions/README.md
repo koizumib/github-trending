@@ -11,7 +11,7 @@
 | [0005](0005-weekly-monthly.md) | ウィークリーとマンスリーの Trending も取る | 2026-09-30 | 有効 |
 | [0006](0006-public-via-discord.md) | 他のエンジニアにも公開し、届け方は Discord を本命にする | 2026-09-30 | 方向は決定。まず本人だけで試す |
 | [0007](0007-prepare-on-actions.md) | 取得と材料集め（prepare）は GitHub Actions で動かす | 2026-09-30 | 有効（時刻の分担は 0024 で置き換え） |
-| [0008](0008-cloudflare-pages.md) | サイトの公開先を Cloudflare Pages に移す（Actions で作って Direct Upload） | 2026-09-30 | 移行中 |
+| [0008](0008-cloudflare-pages.md) | サイトの公開先を Cloudflare Pages に移す（Actions で作って Direct Upload） | 2026-09-30 | 有効（移行は 0027 で完了） |
 | [0009](0009-simple-design.md) | サイトの見た目をシンプルにする（グラスモーフィズムをやめる） | 2026-09-30 | 0010 で置き換え |
 | [0010](0010-newspaper-design.md) | サイトの見た目を新聞のようにする | 2026-09-30 | 組み（題字・トップ記事・罫線・段組み）は有効。書体・記事の頭・タグ・ダークの色は 0011 で置き換え |
 | [0011](0011-readable-font-and-rank.md) | フォントを BIZ UDPゴシックに、順位を大きく、タグを塗りつぶしに、ダークを無彩色に、期間を日次・週次・月次に | 2026-09-30 | 有効（ライトの色は 0012 で置き換え） |
@@ -31,3 +31,4 @@
 | [0025](0025-favicon-and-tap-whole-card.md) | favicon、「この日のページ」を消す、スマホのタブの帯を1行に、記事のどこを押しても詳しいページへ | 2026-10-02 | 有効 |
 | [0026](0026-dropcap-word-and-page-title.md) | 英字で始まる本文も書き出しを大きく、ページの題は「github新聞」（日付のページは日付付き）に | 2026-10-03 | 有効 |
 | [0027](0027-seo-feed-refresh-drop-github-pages.md) | OGP・sitemap・Atom フィードを出す、古い要約を書き直す、GitHub Pages をやめる | 2026-10-03 | 有効 |
+| [0028](0028-name-github-trending.md) | 名前を github-trending に決める（サイトの名前は「github新聞」） | 2026-10-03 | 有効 |

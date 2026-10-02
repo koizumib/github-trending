@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from trending_digest.config import today
+from github_trending.config import today
 
 JST = ZoneInfo("Asia/Tokyo")
 UTC = dt.timezone.utc

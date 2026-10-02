@@ -3,8 +3,8 @@ import datetime as dt
 import httpx
 import pytest
 
-from trending_digest import notify_discord as nd
-from trending_digest.storage import Store
+from github_trending import notify_discord as nd
+from github_trending.storage import Store
 
 BASE = "https://example.github.io/td/"
 

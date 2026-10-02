@@ -1,8 +1,8 @@
 import datetime as dt
 
-from trending_digest.build_site import build, inline_code
-from trending_digest.config import Config
-from trending_digest.storage import Store
+from github_trending.build_site import build, inline_code
+from github_trending.config import Config
+from github_trending.storage import Store
 
 SUMMARY = {
     "repo": "o/r", "summarized_at": "2026-09-30", "short": "負荷をかける CLI。<b>太字</b>にはしない。",
@@ -97,7 +97,7 @@ def test_weekly_and_monthly_pages_with_tabs(tmp_path):
 
 
 def test_issue_number_and_field_box(tmp_path):
-    from trending_digest.build_site import count_fields
+    from github_trending.build_site import count_fields
 
     items = [
         {"summary": {"tags": ["LLM", "CLI"]}}, {"summary": {"tags": ["LLM"]}},
@@ -116,7 +116,7 @@ def test_issue_number_and_field_box(tmp_path):
 
 
 def test_rank_tiers_and_language_color(tmp_path):
-    from trending_digest.build_site import lang_color, rank_tier
+    from github_trending.build_site import lang_color, rank_tier
 
     assert [rank_tier(r) for r in (1, 2, 3, 4, 5, 6, 25)] == ["xl", "l", "l", "m", "m", "s", "s"]
     assert lang_color("Python") == "#3572A5" and lang_color(None) == lang_color("Brainfuck") == "#9A9A9A"
@@ -127,7 +127,7 @@ def test_rank_tiers_and_language_color(tmp_path):
 
 
 def test_marks_and_moves_across_days(tmp_path):
-    from trending_digest.build_site import annotate_marks, build_page
+    from github_trending.build_site import annotate_marks, build_page
 
     store = Store(tmp_path / "data")
     def day(d, repos):
@@ -164,7 +164,7 @@ def test_marks_and_moves_across_days(tmp_path):
 
 
 def test_dropcap_wraps_first_char_or_first_word():
-    from trending_digest.build_site import dropcap
+    from github_trending.build_site import dropcap
 
     assert dropcap("声のクローン") == '<span class="drop">声</span>のクローン'
     assert dropcap("イリノイ大学") == '<span class="drop">イ</span>リノイ大学'

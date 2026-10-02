@@ -1,22 +1,31 @@
-# trending-digest（仮称）
+# github-trending
 
-GitHub Trending に上がったリポジトリを、毎朝日本語で要約して届けるツールです。「結局これは何ができるのか」「どう使えそうか」を、README だけでなくファイル構成や依存、リリースまで読んで、2〜3文の短い要約と詳しいページにまとめます。
+GitHub Trending に上がったリポジトリを毎朝日本語で要約し、新聞の形のサイト **「github新聞」** と Discord で届けるツールです。
 
-- サイト：https://trending-digest.pages.dev/ （日次・週次・月次）
-- 通知：毎朝 Discord に、新着の短い要約と詳しいページへのリンクが届く
+英語の README を読まなくても、「結局これは何ができるのか」「どう使えそうか」が分かるようにしています。要約には README のほか、ファイル構成・依存の定義・リリースも読み、足りなければ examples やコードまで調べて書いています。
 
-要約は Claude Code が書いたもので、誤りを含むことがあります。
+- **サイト**：https://trending-digest.pages.dev/
+  - 日次・週次・月次の順位を、1件ずつ短い要約つきで並べます。
+  - リポジトリごとに詳しいページがあります（何ができるか、使い方、活用できそうな場面、似ているもの、注意点）。
+- **Discord**：毎朝、新しく上がったものの短い要約と、詳しいページへのリンクが届きます。
+- **RSS**：https://trending-digest.pages.dev/feed.xml （Atom）。RSS リーダーで購読できます。
+
+要約は Claude Code が書いたもので、誤りを含むことがあります。分からないことは書かず、推測は推測と書くようにしています。
 
 ## 仕組み
 
 ```
-朝    GitHub Actions   Trending を取得して分類し、要約の材料を集める
-直後  Claude Code      材料を読み、足りなければ自分で調べて、日本語の要約を書く（routine）
+毎朝  GitHub Actions   Trending（日次・週次・月次）を取得して分類し、要約の材料を GitHub API で集める
+       ↓ 終わったら API で起動
+      Claude Code      材料を読み、足りなければ自分で調べて、日本語の要約を書いて push（routine）
+       ↓ push をきっかけに
       GitHub Actions   サイトを作り直して Cloudflare Pages に公開し、Discord に通知する
-9:00  GitHub Actions   見張り：届いていなければ知らせる
+9:00  GitHub Actions   見張り：取得の失敗や、届いていないことを知らせる
 ```
 
-判断が要る仕事（要約）だけを Claude Code に任せ、ほかは毎回同じ結果になるスクリプトで動かしています。Claude API は使っていません。
+- 判断が要る仕事（要約）だけを Claude Code に任せ、ほかは毎回同じ結果になるスクリプトで動かしています。Claude API は使っていません。
+- 新しく上がったもの（ここ10日で初めて）だけを要約し、一度書いた要約は使い回します。要約してから90日以上たったものがまた上がったときは、書き直します。
+- 記録（`data/`）は JSON でコミットし、HTML は毎回そこから作り直します。
 
 ## 文書
 
@@ -35,15 +44,15 @@ WSL2（Ubuntu）と Python 3.12 で開発しています。
 ```bash
 python3.12 -m venv .venv && .venv/bin/pip install -e '.[dev]'
 
-.venv/bin/python -m pytest                              # テスト
-.venv/bin/python -m trending_digest build               # data/ から site/ を作る
+.venv/bin/python -m pytest                              # テスト（ネットワークには出ない）
+.venv/bin/python -m github_trending build               # data/ から site/ を作る
 .venv/bin/python -m http.server -d site 8000            # http://localhost:8000 で見る
-.venv/bin/python -m trending_digest validate            # 要約の形を検査する
-.venv/bin/python -m trending_digest notify --dry-run    # Discord に送る内容を表示するだけ
+.venv/bin/python -m github_trending validate            # 要約の形を検査する
+.venv/bin/python -m github_trending notify --dry-run    # Discord に送る内容を表示するだけ
 ```
 
 `prepare`（Trending の取得と材料集め）は、ふだんは Actions が毎朝動かします。手元で動かすと、github.com と GitHub API に実際に取りに行き、`data/` を書き換えます。
-- `--html tests/fixtures/trending.html` を付けると、Trending のページは取りに行きません。ただし、材料集めでは GitHub API を呼びます
-- 試したあとは `git checkout data/` で元に戻します
+- `--html tests/fixtures/trending.html` を付けると、Trending のページは取りに行きません。ただし、材料集めでは GitHub API を呼びます。
+- 試したあとは `git checkout data/` で元に戻します。
 
 Discord に実際に送るときは、`.env` に `DISCORD_WEBHOOK_URL` を書きます（`.gitignore` 済み）。

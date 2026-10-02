@@ -1,4 +1,4 @@
-# trending-digest の設定。秘密情報（Discord の Webhook の URL など）はここに書かない。
+# github-trending の設定。秘密情報（Discord の Webhook の URL など）はここに書かない。
 
 # ここ何日のうちに一度も Trending に上がっていなければ「new」とみなすか
 new_window_days: 10

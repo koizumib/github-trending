@@ -4,10 +4,10 @@ from pathlib import Path
 import httpx
 import pytest
 
-from trending_digest.fetch_trending import TrendingError, fetch_html, parse_trending
-from trending_digest.net import PoliteClient
-from trending_digest.pipeline import pick_targets, record_periods
-from trending_digest.storage import Store
+from github_trending.fetch_trending import TrendingError, fetch_html, parse_trending
+from github_trending.net import PoliteClient
+from github_trending.pipeline import pick_targets, record_periods
+from github_trending.storage import Store
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

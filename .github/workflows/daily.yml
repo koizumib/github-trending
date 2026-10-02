@@ -37,10 +37,10 @@ jobs:
         run: pip install -e .
 
       - name: 要約の形を検査する
-        run: python -m trending_digest validate
+        run: python -m github_trending validate
 
       - name: HTML を作る
-        run: python -m trending_digest build
+        run: python -m github_trending build
 
       - name: Cloudflare Pages に公開する
         uses: cloudflare/wrangler-action@v4
@@ -69,7 +69,7 @@ jobs:
       - name: Discord に送る（その日の分を1回だけ）
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python -m trending_digest notify
+        run: python -m github_trending notify
 
       - name: 送った日を data/notified.json に記録する
         run: |

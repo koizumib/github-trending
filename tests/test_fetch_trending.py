@@ -1,6 +1,6 @@
 import pytest
 
-from trending_digest.fetch_trending import TrendingError, parse_trending
+from github_trending.fetch_trending import TrendingError, parse_trending
 
 
 def test_parse_saved_page(trending_html):

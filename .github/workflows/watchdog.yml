@@ -29,7 +29,7 @@ jobs:
       - name: 今日の分を確かめる
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python -m trending_digest watchdog
+        run: python -m github_trending watchdog
 
       - name: 送った日を data/notified.json に記録する
         run: |

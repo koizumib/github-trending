@@ -114,7 +114,7 @@ def rank_tier(rank: int) -> str:
 
 def _env() -> Environment:
     env = Environment(
-        loader=PackageLoader("trending_digest", "templates"),
+        loader=PackageLoader("github_trending", "templates"),
         autoescape=select_autoescape(["html", "xml"]),
         trim_blocks=True,
         lstrip_blocks=True,

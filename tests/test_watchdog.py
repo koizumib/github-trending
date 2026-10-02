@@ -3,9 +3,9 @@ import json
 
 import pytest
 
-from trending_digest import cli
-from trending_digest import notify_discord as nd
-from trending_digest.storage import Store
+from github_trending import cli
+from github_trending import notify_discord as nd
+from github_trending.storage import Store
 
 
 @pytest.fixture
@@ -59,7 +59,7 @@ def test_all_summarized_sends_without_warning(env):
 def test_alert_command(env):
     _, sent = env
     assert cli.main(["alert", "prepare が失敗"]) == 0
-    assert sent == [{"content": "⚠️ trending-digest：prepare が失敗"}]
+    assert sent == [{"content": "⚠️ github-trending：prepare が失敗"}]
 
 
 def test_too_early_boundary():
