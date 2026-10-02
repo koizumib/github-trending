@@ -115,7 +115,7 @@ def rank_tier(rank: int) -> str:
 def _env() -> Environment:
     env = Environment(
         loader=PackageLoader("trending_digest", "templates"),
-        autoescape=select_autoescape(["html"]),
+        autoescape=select_autoescape(["html", "xml"]),
         trim_blocks=True,
         lstrip_blocks=True,
         keep_trailing_newline=True,
@@ -141,6 +141,7 @@ def _write(path: Path, html: str) -> None:
 
 
 PERIODS = ("daily", "weekly", "monthly")
+FEED_ENTRIES = 50  # フィードに載せる要約の数（新しい順）
 
 
 def dated_href(day: str, period: str) -> str:
@@ -233,9 +234,11 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
     for f in sorted(STATIC.iterdir()):  # style.css とロゴ
         if f.is_file():
             shutil.copy(f, out / f.name)
-    (out / ".nojekyll").write_text("")
 
     env = _env()
+    base_url = config.site_base_url.rstrip("/") + "/" if config.site_base_url else ""
+    env.globals["base_url"] = base_url  # canonical・OGP・sitemap・フィードに使う絶対 URL の頭（0027）
+    urls: list[tuple[str, str]] = []  # sitemap に載せる（ページの path、最終更新日）
     days = store.list_days()
     env.globals["latest_day"] = days[0] if days else None  # ヘッダの日付（日ごとのページ以外）
     env.globals["issue_no"] = {d: n for n, d in enumerate(sorted(days), start=1)}  # 号数：最初の日が第1号
@@ -264,10 +267,13 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
                     p: ((top_href(p) if is_top else dated_href(day, p)) if pages[(day, p)] else None)
                     for p in PERIODS
                 }
-                html = day_tpl.render(root=depth_root(href), page=dict(page, tabs=tabs), nav=nav, is_top=is_top)
+                html = day_tpl.render(
+                    root=depth_root(href), path=href, page=dict(page, tabs=tabs), nav=nav, is_top=is_top,
+                )
                 _write(out / href / "index.html", html)
+                urls.append((href, day))
     if not days:
-        _write(out / "index.html", archive_tpl.render(root="", days=[]))
+        _write(out / "index.html", archive_tpl.render(root="", path="", days=[]))
 
     # リポジトリの詳しいページ（要約があるものすべて）。言語やスター数は、いちばん新しく見たときの値
     latest_item: dict[str, dict] = {}
@@ -276,19 +282,34 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
             page = pages[(day, period)]
             for item in page["cards"] if page else []:
                 latest_item[item["repo"]] = item
+    summaries = []
     for path in sorted((store.dir / "repos").glob("*.json")):
         summary = store.load_summary(path.stem.replace("__", "/", 1))
         if summary is None:
             continue
         repo = summary["repo"]
-        _write(out / "r" / repo / "index.html", repo_tpl.render(
-            root="../../../", s=summary, item=latest_item.get(repo),
+        href = f"r/{repo}/"
+        _write(out / href / "index.html", repo_tpl.render(
+            root="../../../", path=href, s=summary, item=latest_item.get(repo),
             seen=history.get(repo, {}).get("seen", []),
         ))
+        urls.append((href, summary["summarized_at"]))
+        summaries.append(summary)
 
     archive_days = [
         dict(pages[(d, "daily")], has_weekly=bool(pages[(d, "weekly")]), has_monthly=bool(pages[(d, "monthly")]))
         for d in days
     ]
-    _write(out / "archive" / "index.html", archive_tpl.render(root="../", days=archive_days))
+    _write(out / "archive" / "index.html", archive_tpl.render(root="../", path="archive/", days=archive_days))
+    if days:
+        urls.append(("archive/", days[0]))
+
+    # 検索エンジンと RSS リーダー向け。絶対 URL が要るので、site_base_url があるときだけ作る（0027）
+    if base_url:
+        _write(out / "sitemap.xml", env.get_template("sitemap.xml").render(urls=urls))
+        _write(out / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base_url}sitemap.xml\n")
+        # 新しい日付の順、同じ日はリポジトリ名の順
+        entries = sorted(sorted(summaries, key=lambda x: x["repo"]), key=lambda x: x["summarized_at"], reverse=True)
+        entries = entries[:FEED_ENTRIES]
+        _write(out / "feed.xml", env.get_template("feed.xml").render(entries=entries))
     return out

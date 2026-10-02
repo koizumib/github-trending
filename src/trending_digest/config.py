@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 class Config:
     new_window_days: int = 10
     max_summaries_per_day: int = 15
+    resummarize_after_days: int = 90
     site_base_url: str = ""
     timezone: str = "Asia/Tokyo"
 

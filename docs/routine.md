@@ -29,7 +29,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 - このツールは Python 3.12 以上が要ります。クラウドの環境では `python3` が 3.11 のことがあるので、必ず `python3.12` で `.venv` を作ります。`python3.12` がなければ `python3.13` を使います。
 - `.work/` は `.gitignore` 済みです。`git archive` で展開するだけなので、`main` の作業ツリーにもインデックスにも入りません。
 - **最後の行の日付が `$TODAY` と違うとき、または `work` ブランチがないとき**は、取得がまだ終わっていないか、手で動かしたなどで順番が前後しています。5分待ってから `git fetch` からやり直します。これを6回（30分）繰り返しても今日の日付にならなければ、要約はせず、何もコミットせずに報告して終わります。朝9時の見張り（watchdog）が Discord に知らせます。
-- `queue.json` の項目のうち、`output` のファイル（`data/repos/…json`）が**すでにあるもの**は、今日のうちにほかの実行が要約し終えたものです。書き直さずに飛ばします。
+- `queue.json` の項目のうち、`output` のファイル（`data/repos/…json`）があって、その `summarized_at` が**今日（`queue.json` の `date`）のもの**は、今日のうちにほかの実行が要約し終えたものです。書き直さずに飛ばします。`summarized_at` が今日より前のものは、下の `refresh` の書き直しの対象なので、飛ばしません。
 - `queue.json` の `items` が空なら、今日は要約するものがありません。何もコミットせずに、そう報告して終わります（通知は9時の見張りが送ります）。
 
 ## 2. 1件ずつ要約する
@@ -47,6 +47,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 | `status` | なぜ対象になったか。`new`（今日デイリーに初めて上がった）、`returning`（久しぶりに上がった）、`continuing`（前の日に回されたもの）、`weekly` / `monthly`（ウィークリー・マンスリーにだけ出ていて、まだ要約がない）。書き方は変わらない |
 | `work_dir` | 材料の置き場所（下の表） |
 | `output` | 書き出す先（`data/repos/{owner}__{name}.json`） |
+| `refresh` | `true` なら、前に書いた要約が古くなった（90日以上前）ので書き直すもの。下の「書き直すとき」を見る |
 | `materials` | 集められた材料の名前 |
 | `errors` | 集められなかったもの |
 
@@ -59,6 +60,14 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 | `tree.txt` | ファイル構成（深さ2まで） |
 | `manifests/` | ルートにある依存の定義（`package.json`、`pyproject.toml`、`Cargo.toml`、`go.mod` など） |
 | `release.md` | 最新のリリース（なければファイルもない） |
+
+### 書き直すとき（`refresh` が `true`）
+
+`output` には前に書いた要約があります。リポジトリは前に要約したときから変わっているかもしれないので、**今日の材料を読んで最初から書き直し**、ファイルを上書きします。
+
+- 前の要約は、どこを調べればよいかの手がかりとして読んでかまいません。ただし、前の要約の文を写さず、材料と食い違うところは材料を正とします。
+- `summarized_at` は今日の日付にします。
+- 手順（2-1 → 2-2 → 2-3）は、新しく書くときと同じです。
 
 ### 2-1. 材料を読む
 
@@ -142,7 +151,7 @@ python3 -c "import json;print(json.load(open('.work/queue.json'))['date'])"
 
 ```bash
 git add data/
-git commit -m "YYYY-MM-DD の要約（N件）"
+git commit -m "YYYY-MM-DD の要約（N件）"   # 書き直しがあれば「（N件、うち書き直し M件）」
 git pull --rebase -q origin main
 git push origin HEAD:main
 ```

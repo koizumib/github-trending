@@ -193,3 +193,32 @@ def test_page_title(tmp_path):
     out = build(Config(), make_store(tmp_path), tmp_path / "site")
     assert "<title>github新聞</title>" in (out / "index.html").read_text()   # トップは名前だけ
     assert "<title>github新聞（26/09/29）</title>" in (out / "d/2026-09-29/index.html").read_text()
+
+
+def test_seo_files_and_ogp_with_base_url(tmp_path):
+    import xml.etree.ElementTree as ET
+
+    out = build(Config(site_base_url="https://example.com"), make_store(tmp_path), tmp_path / "site")
+    repo = (out / "r/o/r/index.html").read_text()
+    assert '<link rel="canonical" href="https://example.com/r/o/r/">' in repo
+    assert '<meta property="og:image" content="https://example.com/og_image.png?v=' in repo
+    assert '<meta property="og:type" content="article">' in repo
+    assert 'content="HTTP の負荷試験 CLI。負荷をかける CLI。&lt;b&gt;太字' in repo  # 説明文もエスケープされる
+    assert '<link rel="canonical" href="https://example.com/">' in (out / "index.html").read_text()
+
+    ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "a": "http://www.w3.org/2005/Atom"}
+    locs = [e.text for e in ET.parse(out / "sitemap.xml").findall("s:url/s:loc", ns)]
+    assert "https://example.com/" in locs and "https://example.com/r/o/r/" in locs
+    assert "https://example.com/d/2026-09-29/" in locs and "https://example.com/archive/" in locs
+    assert "Sitemap: https://example.com/sitemap.xml" in (out / "robots.txt").read_text()
+
+    feed = ET.parse(out / "feed.xml").getroot()
+    entries = feed.findall("a:entry", ns)
+    assert [e.find("a:id", ns).text for e in entries] == ["https://example.com/r/o/r/"]
+    assert entries[0].find("a:updated", ns).text == "2026-09-30T07:00:00+09:00"
+
+
+def test_no_absolute_urls_without_base_url(tmp_path):
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    assert not (out / "sitemap.xml").exists() and not (out / "feed.xml").exists()
+    assert 'rel="canonical"' not in (out / "index.html").read_text()

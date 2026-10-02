@@ -35,11 +35,24 @@ def record(items: list[TrendingItem], day: dt.date, store: Store, config: Config
     return daily
 
 
+def is_stale(summary: dict, day: dt.date, stale_days: int | None) -> bool:
+    """要約が古くなったか（summarized_at から stale_days 日以上たった）。0027"""
+    if not stale_days:
+        return False
+    try:
+        summarized = dt.date.fromisoformat(summary.get("summarized_at", ""))
+    except ValueError:
+        return False
+    return (day - summarized).days >= stale_days
+
+
 def pick_targets(
     daily: list[dict], store: Store, limit: int, periods: dict[str, list[dict]] | None = None,
+    day: dt.date | None = None, stale_days: int | None = None,
 ) -> tuple[list[dict], list[dict]]:
-    """要約がまだないものを選ぶ。順番は STATUS_ORDER、その中は順位順。同じリポジトリは1回だけ。
+    """要約がまだないもの、と古くなったものを選ぶ。同じリポジトリは1回だけ。
 
+    順番は、要約がないものが先、古くなったもの（refresh）が後。その中は STATUS_ORDER、さらに順位順。
     ウィークリー・マンスリーにだけ出ているものは、status に "weekly" / "monthly" を入れる。
     上限を超えた分は deferred として返す（次の日に回る）。
     """
@@ -48,10 +61,17 @@ def pick_targets(
         candidates += [dict(d, status=period) for d in (periods or {}).get(period, [])]
     todo, seen = [], set()
     for d in sorted(candidates, key=lambda d: (STATUS_ORDER[d["status"]], d["rank"])):
-        if d["repo"] in seen or store.load_summary(d["repo"]) is not None:
+        if d["repo"] in seen:
+            continue
+        summary = store.load_summary(d["repo"])
+        if summary is None:
+            todo.append(dict(d, refresh=False))
+        elif day and is_stale(summary, day, stale_days):
+            todo.append(dict(d, refresh=True))
+        else:
             continue
         seen.add(d["repo"])
-        todo.append(d)
+    todo.sort(key=lambda d: d["refresh"])  # 安定ソート：要約がないものを先に
     return todo[:limit], todo[limit:]
 
 
@@ -79,7 +99,9 @@ def prepare_queue(
         shutil.rmtree(work)
     work.mkdir(parents=True)
 
-    targets, deferred = pick_targets(daily, store, config.max_summaries_per_day, periods)
+    targets, deferred = pick_targets(
+        daily, store, config.max_summaries_per_day, periods, day=day, stale_days=config.resummarize_after_days,
+    )
     gatherer = gatherer or (Gatherer() if targets else None)
 
     queue_items = []
@@ -88,6 +110,7 @@ def prepare_queue(
         entry = {
             "repo": d["repo"], "rank": d["rank"], "status": d["status"],
             "work_dir": f".work/{name}", "output": f"data/repos/{name}.json",
+            "refresh": d["refresh"],  # true なら、古くなった要約を書き直す（0027）
         }
         try:
             entry.update(gatherer.gather(d["repo"], work / name))

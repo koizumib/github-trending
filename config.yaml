@@ -6,6 +6,10 @@ new_window_days: 10
 # 1日に要約する件数の上限。超えた分は次の日に回す
 max_summaries_per_day: 15
 
+# 要約してから何日たったら、もう一度 Trending に上がったときに要約を書き直すか（0027）。
+# 書き直しは、まだ要約のないものを済ませたあと、上の上限の残りで行う
+resummarize_after_days: 90
+
 # 公開するサイトの URL（末尾の / まで）。Discord のリンクに使う
 site_base_url: https://trending-digest.pages.dev/
 

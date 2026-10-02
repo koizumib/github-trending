@@ -1,5 +1,5 @@
-# data/ から HTML を作って GitHub Pages に公開する。
-# 毎朝の routine が data/ を push したとき、または Actions の画面から手動で動かしたときに動く。
+# data/ から HTML を作って Cloudflare Pages に公開し、Discord に通知する。
+# 毎朝の routine が data/ を push したとき、コードを push したとき、または Actions の画面から手動で動かしたときに動く。
 name: サイトを作って公開する
 
 on:
@@ -15,11 +15,10 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# 公開が2つ同時に走らないように、順番待ちにする（途中で止めない）
 concurrency:
-  group: pages
+  group: site
   cancel-in-progress: false
 
 jobs:
@@ -50,24 +49,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy site --project-name=trending-digest --branch=main
 
-      - uses: actions/configure-pages@v6
-
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
-
   notify:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write

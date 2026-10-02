@@ -93,3 +93,23 @@ def test_pick_readme_prefers_plain_name():
     assert pick_readme({"readme.rst", "src/"}) == "readme.rst"
     assert pick_readme({"README_ja.md"}) == "README_ja.md"
     assert pick_readme({"main.go"}) is None
+
+
+def test_pick_targets_refreshes_stale_summaries_after_new_ones(tmp_path):
+    store = Store(tmp_path)
+    day = dt.date(2026, 12, 29)
+    store.save_summary({"repo": "a/old", "summarized_at": "2026-09-30"})     # 90日前：書き直す
+    store.save_summary({"repo": "b/recent", "summarized_at": "2026-10-01"})  # 89日前：使い回す
+    daily = [
+        {"rank": 1, "repo": "a/old", "status": "returning"},
+        {"rank": 2, "repo": "b/recent", "status": "returning"},
+        {"rank": 3, "repo": "c/new", "status": "new"},
+    ]
+    targets, deferred = pick_targets(daily, store, limit=5, day=day, stale_days=90)
+    assert [(t["repo"], t["refresh"]) for t in targets] == [("c/new", False), ("a/old", True)]
+    # 上限が足りなければ、書き直しの方が次の日に回る
+    targets, deferred = pick_targets(daily, store, limit=1, day=day, stale_days=90)
+    assert [t["repo"] for t in targets] == ["c/new"] and [d["repo"] for d in deferred] == ["a/old"]
+    # 日付を渡さなければ書き直さない
+    targets, _ = pick_targets(daily, store, limit=5)
+    assert [t["repo"] for t in targets] == ["c/new"]

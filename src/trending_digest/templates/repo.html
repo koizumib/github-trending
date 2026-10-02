@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ s.repo }} | github新聞{% endblock %}
+{% block description %}{{ s.what | headline }}。{{ s.short | replace("`", "") }}{% endblock %}
+{% block og_type %}article{% endblock %}
 {% block main %}
 {% set conf = {"high": "高", "medium": "中", "low": "低"}[s.confidence] %}
 <article class="detail">

@@ -53,7 +53,7 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
     ├─ python -m trending_digest prepare
     │     Trending（デイリー・ウィークリー・マンスリー）を取得
     │     → data/daily/、data/weekly/、data/monthly/、data/history.json を更新
-    │     要約のないものについて GitHub API で材料を集める → .work/{owner}__{name}/、.work/queue.json
+    │     要約のないもの（と古くなったもの）について GitHub API で材料を集める → .work/{owner}__{name}/、.work/queue.json
     ├─ data/ を main に push（[skip ci] 付き：この push では公開も通知もしない）
     ├─ .work/ の中身を work ブランチに上書きで push
     ├─ routine の API（/fire）を呼んで起動する（0024）
@@ -68,7 +68,7 @@ routine（Claude Code のクラウドの実行環境）からは、GitHub API �
                 │
                 ▼ push をきっかけに動く
  ③ GitHub Actions「サイトを作って公開する」（daily.yml）
-    ├─ validate → build（data/ → site/）→ Cloudflare Pages に公開（移行中は GitHub Pages にも）
+    ├─ validate → build（data/ → site/）→ Cloudflare Pages に公開
     └─ notify：その日の分を Discord に1回だけ送り、data/notified.json に記録（[skip ci]）
 
  ④ GitHub Actions「見張り」（watchdog.yml、毎朝 9:00）
@@ -148,7 +148,8 @@ queue.json                       # {"date", "items": [...], "deferred": [...]}
 {owner}__{name}/manifests/…      # ルートの依存の定義
 {owner}__{name}/release.md       # 最新のリリース
 ```
-- `queue.json` の `items` の順番：デイリーの new → returning → 前の日に回された continuing → ウィークリー → マンスリー（その中は順位順）。同じリポジトリは1回だけ。`config.yaml` の `max_summaries_per_day` を超えた分は `deferred` に入り、次の日に回る
+- `queue.json` の `items` の順番：まず要約のないものを、デイリーの new → returning → 前の日に回された continuing → ウィークリー → マンスリー（その中は順位順）。そのあとに、要約が古くなったもの（`summarized_at` から `resummarize_after_days` 日以上）を同じ順で（0027）。同じリポジトリは1回だけ。`config.yaml` の `max_summaries_per_day` を超えた分は `deferred` に入り、次の日に回る
+- 各項目の `refresh` が `true` なら書き直し。routine は今日の材料で最初から書き直し、上書きする
 
 ## 5. 要約の手順
 
@@ -162,7 +163,7 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 
 ## 6. サイト（Cloudflare Pages）
 
-公開先：https://trending-digest.pages.dev/ （移行中は https://koizumib.github.io/trending-digest/ にも同じものを出している。0008）
+公開先：https://trending-digest.pages.dev/ （0008。GitHub Pages への公開は 0027 でやめた）
 
 ```
 /                          最新の日の日次（「本日」）
@@ -170,11 +171,13 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 /d/2026-09-30/             日ごとのページ（/d/日付/weekly/、/d/日付/monthly/ も）
 /r/owner/name/             リポジトリの詳しいページ
 /archive/                  過去の日の一覧
+/feed.xml                  Atom フィード（要約1件を1記事、新しい順に50件）
+/sitemap.xml  /robots.txt  検索エンジン向け
 ```
 
 - Python と Jinja2 で HTML を生成する。入力が同じなら出力も同じ（生成時刻などは入れない）
 - ヘッダ（題字の欄）：左にロゴ「github新聞」（ライト用・ダーク用を CSS で出し分け）、右上に日付（日ごとのページはその日、ほかは最新の日）と「過去の日」・テーマの切り替え。下を表罫（太い線と細い線）で区切る（0013）
-- ヘッダの下の帯に、期間のタブ（細い縦線で区切った文字）と、件数・「この日のページ」
+- ヘッダの下の帯に、期間のタブ（細い縦線で区切った文字）と、右に件数。スマホでも1行（0025）
 - 上部のタブで日次・週次・月次を切り替える。トップ（最新の日）の日次だけは「本日」と出す。データのない期間のタブは押せない（0011）
 - 日次・週次・月次とも、全件を順位どおりに記事として並べる（0019）
 - 記事の右上に印：顔ぶれ（「新」初めてランク入り／「続」前回から継続／「再」圏外から再びランク入り）と、前回からの順位の動き（▲n 赤／▼n 青／→）。比べる相手は同じ期間の前回の記録。印の意味はページの末尾に凡例で示す（0019、0021）
@@ -187,9 +190,13 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 - 紙面（ヘッダ・本文・フッター）の左右にごく細かい波線を引き、紙の切れ目のように見せる。フッターの横線（2px）は本文の幅の内側に収める（0015）
 - ヘッダの日付に「第N号」（記録を始めた日が第1号）（0015）
 - ページの末尾（印の凡例の上）に「本日の分野」の囲み（0023）：そのページの記事の要約のタグを数え、多い順に最大6つ（週次は「今週の分野」、月次は「今月の分野」）（0015）
-- トップ記事の本文は、日本語で始まるときだけ最初の1文字を大きくする（0015）
+- トップ記事と詳しいページの本文は、書き出しを大きくする。日本語で始まるなら1文字目、英字で始まるなら最初の単語（10文字まで）（0015、0026）
 - CSS とロゴの URL には、中身から作った印（`?v=8桁`）を付け、変更がキャッシュに邪魔されずに届くようにする（0014）
 - ライトの背景は新聞紙のように、少し青みがかった薄いグレーに、紙の写真から取り出した凹凸の質感（`paper_texture.webp`）を soft-light で薄く重ねる（0012、0018）
+- タブの題：トップは「github新聞」、日付を指定したページは「github新聞（26/10/02）」（週次・月次は後ろに期間）、詳しいページは「owner/name | github新聞」（0026）
+- 要約のある記事は、どこを押しても詳しいページへ行く（0025）
+- favicon は明るい画面用（墨色）と暗い画面用（白）を出し分ける（0025）
+- 検索エンジンとリンクのカード（0027）：各ページに description、canonical、OGP（og:title・og:description・og:image など）、`twitter:card`。OGP の画像は題字を紙の色に置いた 1200×630 の `og_image.png`。絶対 URL は `site_base_url` から作り、`site_base_url` がないときは canonical・og:url・og:image・sitemap・フィードを出さない
 - 右上のボタンでダーク／ライトを切り替える（初めは OS の設定、選んだものはブラウザに覚える）。JavaScript はこのためだけの数行（0003）
 
 ## 7. 通知（Discord Webhook）
@@ -214,12 +221,13 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 |---|---|---|
 | `new_window_days` | 10 | 何日以内に上がっていなければ new とみなすか |
 | `max_summaries_per_day` | 15 | 1日に要約する件数の上限 |
-| `site_base_url` | https://trending-digest.pages.dev/ | 通知に入れるリンクの元 |
+| `resummarize_after_days` | 90 | 要約してからこの日数がたったものが再び Trending に上がったら、書き直す（0027） |
+| `site_base_url` | https://trending-digest.pages.dev/ | 通知のリンク、canonical・OGP・sitemap・フィードの絶対 URL の元 |
 | `timezone` | Asia/Tokyo | 「今日」を決めるタイムゾーン |
 
 ### GitHub（リポジトリ koizumib/trending-digest、公開）
 - Secrets：`DISCORD_WEBHOOK_URL`、`CLOUDFLARE_API_TOKEN`（Cloudflare Pages の編集権限だけ）、`CLOUDFLARE_ACCOUNT_ID`。GitHub API の鍵は Actions が自動で用意する `GITHUB_TOKEN` を使う
-- Pages：Source は「GitHub Actions」（Cloudflare Pages への移行が終わったら外す）
+- Pages：使わない（0027 でやめた。Settings → Pages は無効にする）
 
 ### Cloudflare
 - Pages のプロジェクト `trending-digest`（Direct Upload。GitHub にはつながない）。`daily.yml` が `wrangler pages deploy` で送る

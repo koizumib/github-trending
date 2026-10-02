@@ -4,6 +4,7 @@
 {% set period_name = dict(period_name, daily="本日") if is_top else period_name %}
 {# タブの題：トップは「github新聞」だけ（base.html の既定）、日付を指定したページは「github新聞（26/10/02）」（0026） #}
 {% block title %}{% if is_top %}{{ super() }}{% else %}github新聞（{{ page.date[2:].replace("-", "/") }}）{% if page.period != "daily" %} {{ period_name[page.period] }}{% endif %}{% endif %}{% endblock %}
+{% block description %}{{ page.date | ja_date }}の GitHub Trending（{{ period_name[page.period] }}）{{ page.cards | length }}件を日本語で要約。{% for c in page.cards[:3] if c.summary %}{{ c.repo }}：{{ c.summary.what | headline }}。{% endfor %}{% endblock %}
 {% block main %}
 <header class="section-bar">
   <h1 class="visually-hidden">{{ page.date | ja_date }}の GitHub Trending（{{ period_name[page.period] }}）</h1>

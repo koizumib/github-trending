@@ -402,6 +402,7 @@ footer.site::before {
   content: ""; position: absolute; top: 0; left: 12px; right: 12px;
   border-top: 2px solid var(--rule-strong);
 }
+footer.site .feed-link { display: inline-block; margin-top: 6px; color: var(--muted); }
 
 /* ---- PC：2段組み（左 → 右 → 次の行の順）、段のあいだに縦の罫線（0016） ---- */
 @media (min-width: 900px) {
