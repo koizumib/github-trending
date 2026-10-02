@@ -201,7 +201,7 @@ header.site { padding: 14px 12px 0; }
 
 /* ---- 記事（一覧） ---- */
 .cards { margin-top: 4px; }
-.card { position: relative; padding: 18px 0 16px; border-bottom: 1px solid var(--rule); break-inside: avoid; }
+.card { position: relative; padding: 18px 0 16px; border-bottom: 1px solid var(--rule-strong); break-inside: avoid; }  /* 詳しいページの節の線と同じ濃さ（0029） */
 /* 要約のある記事は、記事のどこを押しても詳しいページへ（題名のリンクを記事全体に広げる。0025） */
 .card.has-detail h2 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 .card.has-detail .more { position: relative; z-index: 2; }
@@ -433,6 +433,7 @@ footer.site .feed-link { display: inline-block; margin-top: 6px; color: var(--mu
     content: ""; position: absolute; top: 0; bottom: -1px; left: -22px;
     border-left: 1px solid var(--rule); pointer-events: none;
   }
+  .cards > .card:nth-child(3)::before { top: 18px; }  /* 最初の行は、トップ記事の下の線と交わらないように少し下から */
   .cards > .card:first-child .short { font-size: 18px; max-width: 46rem; }
   .tier-xl .rank { font-size: 84px; }
   .tier-xl h2 { font-size: 34px; }
