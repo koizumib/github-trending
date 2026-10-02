@@ -23,7 +23,7 @@
     </div>
   </header>
   {% if s %}
-  <p class="short{% if s.short is cjk_start %} dropcap{% endif %}">{{ s.short | code }}</p>
+  <p class="short">{{ s.short | dropcap }}</p>
   <div class="card-foot">
     <ul class="tags">{% for t in s.tags or [] %}<li>{{ t }}</li>{% endfor %}</ul>
     <a class="more" href="{{ root }}r/{{ c.repo }}/">詳しく</a>

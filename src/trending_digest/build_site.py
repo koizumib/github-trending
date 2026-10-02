@@ -52,9 +52,22 @@ def headline(text: str) -> str:
     return text.strip().rstrip("。．.")
 
 
-def starts_cjk(text: str) -> bool:
-    """最初の1文字が日本語（ひらがな・カタカナ・漢字）か。英字で始まる文は大きな1文字目にしない（単語が割れるため）。"""
-    return bool(text) and ("぀" <= text[0] <= "ヿ" or "一" <= text[0] <= "鿿")
+DROP_WORD = re.compile(r"[A-Za-z0-9][A-Za-z0-9.+#_-]*")
+
+
+def dropcap(text: str) -> Markup:
+    """本文の書き出しを <span class="drop"> で囲む（ドロップキャップ用）。
+
+    日本語で始まるときは1文字目、英字で始まるときは最初の単語（10文字まで）を囲む。
+    英字の1文字目だけを大きくすると単語が割れて読みにくいため。それ以外（` で始まる、長い単語）は囲まない。
+    """
+    if text and ("\u3040" <= text[0] <= "\u30ff" or "\u4e00" <= text[0] <= "\u9fff"):
+        head, kind = text[0], "drop"
+    elif (m := DROP_WORD.match(text or "")) and len(word := m.group().rstrip("._-")) <= 10:
+        head, kind = word, "drop drop-word"
+    else:
+        return inline_code(text)
+    return Markup(f'<span class="{kind}">{escape(head)}</span>') + inline_code(text[len(head):])
 
 
 def repo_title(repo: str) -> Markup:
@@ -110,13 +123,13 @@ def _env() -> Environment:
     env.globals["status_label"] = STATUS_LABEL
     env.globals["period_name"] = PERIOD_NAME
     env.filters["code"] = inline_code
+    env.filters["dropcap"] = dropcap
     env.filters["ja_date"] = ja_date
     env.filters["ja_ymd"] = ja_ymd
     env.filters["ja_weekday"] = ja_weekday
     env.filters["wbr"] = repo_wbr
     env.filters["repo_title"] = repo_title
     env.filters["headline"] = headline
-    env.tests["cjk_start"] = starts_cjk
     env.filters["lang_color"] = lang_color
     env.filters["rank_tier"] = rank_tier
     return env

@@ -16,7 +16,7 @@
   </header>
 
   <div class="article-body">
-    <p class="lead{% if s.short is cjk_start %} dropcap{% endif %}">{{ s.short | code }}</p>
+    <p class="lead">{{ s.short | dropcap }}</p>
 
     {% if s.can_do %}
     <section><h2>できること</h2>

@@ -163,11 +163,22 @@ def test_marks_and_moves_across_days(tmp_path):
     assert "4件（新 1・続 2・再 1）" in html
 
 
-def test_dropcap_only_for_japanese_start():
-    from trending_digest.build_site import starts_cjk
+def test_dropcap_wraps_first_char_or_first_word():
+    from trending_digest.build_site import dropcap
 
-    assert starts_cjk("声のクローン") and starts_cjk("イリノイ大学") and starts_cjk("複数の AI")
-    assert not starts_cjk("AI エージェント") and not starts_cjk("MySQL、") and not starts_cjk("")
+    assert dropcap("声のクローン") == '<span class="drop">声</span>のクローン'
+    assert dropcap("イリノイ大学") == '<span class="drop">イ</span>リノイ大学'
+    # 英字で始まるときは単語ごと（1文字目だけだと単語が割れる）
+    assert dropcap("AI エージェント") == '<span class="drop drop-word">AI</span> エージェント'
+    assert dropcap("MySQL、") == '<span class="drop drop-word">MySQL</span>、'
+    assert dropcap("C++ の") == '<span class="drop drop-word">C++</span> の'
+    assert dropcap("Node.js. で") == '<span class="drop drop-word">Node.js</span>. で'
+    # 長い単語、` で始まる文、空は飾らない
+    assert "drop" not in dropcap("Kubernetesoperator を")
+    assert dropcap("`wt` で") == "<code>wt</code> で"
+    assert dropcap("") == ""
+    # 残りは今までどおりエスケープし、` を <code> に
+    assert dropcap("AI <b> と `x`") == '<span class="drop drop-word">AI</span> &lt;b&gt; と <code>x</code>'
 
 
 def test_whole_card_links_to_detail_only_when_summarized(tmp_path):
@@ -176,3 +187,8 @@ def test_whole_card_links_to_detail_only_when_summarized(tmp_path):
     assert 'class="card tier-xl has-detail"' in day29
     index = (out / "index.html").read_text()                # 1位 n/ew は要約なし
     assert 'class="card tier-xl"' in index and "この日のページ" not in index
+
+
+def test_page_title_is_just_the_name(tmp_path):
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    assert "<title>github新聞</title>" in (out / "d/2026-09-29/index.html").read_text()

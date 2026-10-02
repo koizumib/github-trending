@@ -2,7 +2,7 @@
 {% from "_card.html" import card %}
 {% set stars_label = {"daily": "今日", "weekly": "今週", "monthly": "今月"}[page.period] %}
 {% set period_name = dict(period_name, daily="本日") if is_top else period_name %}
-{% block title %}{{ page.date | ja_date }} {{ period_name[page.period] }} | github新聞{% endblock %}
+{# タブの題は「github新聞」だけ（日付は入れない）。base.html の既定のまま #}
 {% block main %}
 <header class="section-bar">
   <h1 class="visually-hidden">{{ page.date | ja_date }}の GitHub Trending（{{ period_name[page.period] }}）</h1>

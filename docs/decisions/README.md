@@ -29,3 +29,4 @@
 | [0023](0023-field-box-at-bottom.md) | 「本日の分野」の囲みをページの末尾に移す | 2026-10-01 | 有効 |
 | [0024](0024-fire-routine-after-prepare.md) | 材料集めが終わったら Actions から routine を起動する（時刻の差に頼らない） | 2026-10-02 | 有効 |
 | [0025](0025-favicon-and-tap-whole-card.md) | favicon、「この日のページ」を消す、スマホのタブの帯を1行に、記事のどこを押しても詳しいページへ | 2026-10-02 | 有効 |
+| [0026](0026-dropcap-word-and-page-title.md) | 英字で始まる本文も書き出しを大きく、ページの題は「github新聞」だけに | 2026-10-03 | 有効 |

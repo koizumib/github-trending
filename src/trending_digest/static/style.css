@@ -299,12 +299,16 @@ header.site { padding: 14px 12px 0; }
 .pending { color: var(--muted); font-size: 13px; margin: 0 0 4px; }
 .orig { color: var(--muted); font-size: 13.5px; line-height: 1.65; margin: 0; }
 
-/* トップ記事（最初の1件）は本文も大きく、最初の1文字を大きく（ドロップキャップ） */
+/* トップ記事（最初の1件）は本文も大きく、書き出しを大きく（ドロップキャップ）。
+   日本語は1文字目、英字は最初の単語（0026）。2件目以降の .drop は飾らない */
 .cards > .card:first-child .short { font-size: 17.5px; line-height: 1.9; }
-.cards > .card:first-child .short.dropcap::first-letter {
+.cards > .card:first-child .short .drop,
+.article-body .lead .drop {
   float: left; font-size: 3.1em; line-height: 1; font-weight: 700;
   margin: 0.08em 0.12em 0 0;
 }
+.cards > .card:first-child .short .drop-word,
+.article-body .lead .drop-word { font-size: 2.6em; margin-top: 0.1em; margin-right: 0.18em; }
 
 /* ---- 本日の分野（天気欄のような囲み） ---- */
 .field-box {
@@ -358,9 +362,6 @@ header.site { padding: 14px 12px 0; }
 .detail .tags { margin: 0; }
 .article-body { margin-top: 22px; }
 .article-body .lead { font-size: 17.5px; line-height: 1.9; margin: 0 0 8px; }
-.article-body .lead.dropcap::first-letter {
-  float: left; font-size: 3.1em; line-height: 1; font-weight: 700; margin: 0.08em 0.12em 0 0;
-}
 .article-body section { break-inside: avoid; }
 .article-body h2 {
   font-size: 14px; letter-spacing: 0.14em; margin: 22px 0 6px; padding-top: 8px;
