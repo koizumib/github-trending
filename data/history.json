@@ -10,13 +10,15 @@
     "seen": [
       "2026-10-01",
       "2026-10-02",
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "Effect-TS/effect": {
     "first_seen": "2026-10-03",
     "seen": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "Friedrich-M/UniMate": {
@@ -34,7 +36,8 @@
   "JuliusBrussee/caveman": {
     "first_seen": "2026-10-03",
     "seen": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "NVIDIA/OpenShell": {
@@ -52,10 +55,17 @@
       "2026-10-01"
     ]
   },
+  "OpenCut-app/OpenCut": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
+    ]
+  },
   "Panniantong/Agent-Reach": {
     "first_seen": "2026-10-03",
     "seen": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "VectifyAI/PageIndex": {
@@ -63,6 +73,24 @@
     "seen": [
       "2026-09-30",
       "2026-10-01"
+    ]
+  },
+  "addyosmani/agent-skills": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
+    ]
+  },
+  "affaan-m/ECC": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
+    ]
+  },
+  "anthropics/claude-code": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
     ]
   },
   "averygan/reclip": {
@@ -75,6 +103,12 @@
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01"
+    ]
+  },
+  "cloudflare/cloudflare-os": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
     ]
   },
   "colbymchenry/codegraph": {
@@ -119,7 +153,8 @@
   "earendil-works/pi": {
     "first_seen": "2026-10-02",
     "seen": [
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-04"
     ]
   },
   "firebase/firebase-ios-sdk": {
@@ -132,7 +167,8 @@
   "getsentry/sentry": {
     "first_seen": "2026-10-03",
     "seen": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "google/skills": {
@@ -155,12 +191,25 @@
       "2026-10-03"
     ]
   },
+  "jamwithai/production-agentic-rag-course": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
+    ]
+  },
   "mattpocock/skills": {
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01",
       "2026-10-02",
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
+    ]
+  },
+  "meituan-longcat/LongCat-Video": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
     ]
   },
   "mksglu/context-mode": {
@@ -168,7 +217,8 @@
     "seen": [
       "2026-10-01",
       "2026-10-02",
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "modelcontextprotocol/servers": {
@@ -196,7 +246,8 @@
     "first_seen": "2026-10-02",
     "seen": [
       "2026-10-02",
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
     ]
   },
   "openclaw/openclaw": {
@@ -222,7 +273,14 @@
     "first_seen": "2026-10-02",
     "seen": [
       "2026-10-02",
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-04"
+    ]
+  },
+  "pingdotgg/t3code": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
     ]
   },
   "rakyll/hey": {
@@ -242,6 +300,12 @@
     "seen": [
       "2026-09-30",
       "2026-10-01"
+    ]
+  },
+  "thedotmack/claude-mem": {
+    "first_seen": "2026-10-04",
+    "seen": [
+      "2026-10-04"
     ]
   },
   "tile-ai/tilelang": {
