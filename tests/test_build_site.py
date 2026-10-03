@@ -222,3 +222,12 @@ def test_no_absolute_urls_without_base_url(tmp_path):
     out = build(Config(), make_store(tmp_path), tmp_path / "site")
     assert not (out / "sitemap.xml").exists() and not (out / "feed.xml").exists()
     assert 'rel="canonical"' not in (out / "index.html").read_text()
+
+
+def test_repo_page_has_star_history_chart(tmp_path):
+    out = build(Config(), make_store(tmp_path), tmp_path / "site")
+    repo = (out / "r/o/r/index.html").read_text()
+    # ライト用とダーク用の2枚（サイトのテーマで出し分ける）。名前は小文字で（大文字だと転送が1回挟まる）
+    assert 'src="https://api.star-history.com/chart?repos=o/r&amp;type=date"' in repo
+    assert 'src="https://api.star-history.com/chart?repos=o/r&amp;type=date&amp;theme=dark"' in repo
+    assert 'href="https://www.star-history.com/?repos=o/r&amp;type=date"' in repo
