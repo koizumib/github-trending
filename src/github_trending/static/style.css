@@ -390,7 +390,7 @@ header.site { padding: 14px 12px 0; }
 /* スターの推移の画像（0031）。基本データの枠の幅に収め、PC では大きくなりすぎないように */
 .star-chart { margin: 12px 0 8px; padding-top: 10px; border-top: 1px solid var(--rule); }
 .star-chart figcaption { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
-.star-chart a { display: block; max-width: 640px; }
+.star-chart a { display: block; max-width: 640px; margin: 0 auto; }  /* 枠の中で中央に */
 .star-chart img { width: 100%; height: auto; border-radius: 4px; }
 .button {
   display: inline-block;
