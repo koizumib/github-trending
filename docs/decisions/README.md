@@ -34,4 +34,4 @@
 | [0028](0028-name-github-trending.md) | 名前を github-trending に決める（サイトの名前は「github新聞」） | 2026-10-03 | 有効 |
 | [0029](0029-cards-column-rule-like-detail.md) | 一覧の2段組みの罫線を、詳しいページと同じ組み方にする | 2026-10-03 | 有効 |
 | [0030](0030-headline-serif-for-repo-names.md) | リポジトリ名と順位の数字を、Miller Text に近い新聞の書体（Gelasio）にする | 2026-10-03 | 有効 |
-| [0031](0031-star-history-chart.md) | 詳しいページの「基本データ」に、star-history.com のスターの推移の画像を入れる | 2026-10-03 | 有効 |
+| [0031](0031-star-history-chart.md) | 詳しいページに、star-history.com のスターの推移の画像を入れる（本文の節のひとつとして） | 2026-10-03 | 有効 |

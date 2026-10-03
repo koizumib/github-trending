@@ -50,6 +50,19 @@
     {% if s.caveats %}
     <section><h2>注意点</h2><p>{{ s.caveats | code }}</p></section>
     {% endif %}
+
+    {# スターの推移：本文の節のひとつとして、新聞の図版のように（0031）。star-history.com の画像を読む人のブラウザが取りに行く。
+       明暗はサイトのテーマに合わせて出し分け、読み込めなければ節ごと隠す #}
+    {% set chart = "https://api.star-history.com/chart?repos=" ~ (s.repo | lower) ~ "&type=date" %}
+    <section class="star-chart"><h2>スターの推移</h2>
+      <figure>
+        <a href="https://www.star-history.com/?repos={{ s.repo }}&amp;type=date">
+          <img class="chart-light" src="{{ chart }}" alt="{{ s.repo }} のスターの推移" width="800" height="533" loading="lazy" onerror="this.closest('section').hidden = true">
+          <img class="chart-dark" src="{{ chart }}&amp;theme=dark" alt="" width="800" height="533" loading="lazy" onerror="this.closest('section').hidden = true">
+        </a>
+        <figcaption>出典：star-history.com</figcaption>
+      </figure>
+    </section>
   </div>
 
   <aside class="info-box" aria-label="基本データ">
@@ -64,15 +77,6 @@
       {% if seen %}<dt>Trending に上がった日</dt><dd>{% for d in seen %}<a href="{{ root }}d/{{ d }}/">{{ d }}</a>{% if not loop.last %}、{% endif %}{% endfor %}</dd>{% endif %}
       {% if item and item.description %}<dt>作者による説明</dt><dd class="orig" lang="en">{{ item.description }}</dd>{% endif %}
     </dl>
-    {# スターの推移（star-history.com の画像。読む人のブラウザが取りに行く）。明暗はサイトのテーマに合わせて出し分ける（0031） #}
-    {% set chart = "https://api.star-history.com/chart?repos=" ~ (s.repo | lower) ~ "&type=date" %}
-    <figure class="star-chart">
-      <figcaption>スターの推移</figcaption>
-      <a href="https://www.star-history.com/?repos={{ s.repo }}&amp;type=date">
-        <img class="chart-light" src="{{ chart }}" alt="{{ s.repo }} のスターの推移（star-history.com）" width="800" height="533" loading="lazy" onerror="this.closest('figure').hidden = true">
-        <img class="chart-dark" src="{{ chart }}&amp;theme=dark" alt="" width="800" height="533" loading="lazy" onerror="this.closest('figure').hidden = true">
-      </a>
-    </figure>
   </aside>
 </article>
 {% endblock %}

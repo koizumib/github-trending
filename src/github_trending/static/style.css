@@ -387,11 +387,11 @@ header.site { padding: 14px 12px 0; }
 .info-box .actions { margin: 0 0 10px; }
 .info-box .note { color: var(--muted); }
 .info-box .about { grid-template-columns: max-content 1fr; }
-/* スターの推移の画像（0031）。基本データの枠の幅に収め、PC では大きくなりすぎないように */
-.star-chart { margin: 12px 0 8px; padding-top: 10px; border-top: 1px solid var(--rule); }
-.star-chart figcaption { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
-.star-chart a { display: block; max-width: 640px; margin: 0 auto; }  /* 枠の中で中央に */
+/* スターの推移（0031）：本文の節のひとつ。画像は段の幅に合わせ、下に小さく出典 */
+.star-chart figure { margin: 10px 0 14px; }
+.star-chart a { display: block; max-width: 640px; margin: 0 auto; }
 .star-chart img { width: 100%; height: auto; border-radius: 4px; }
+.star-chart figcaption { margin: 4px 0 0; font-size: 11.5px; color: var(--muted); text-align: right; }
 .button {
   display: inline-block;
   border: 1px solid var(--rule-strong);
