@@ -53,7 +53,7 @@
 
     {# スターの推移：本文の節のひとつとして、新聞の図版のように（0031）。star-history.com の画像を読む人のブラウザが取りに行く。
        明暗はサイトのテーマに合わせて出し分け、読み込めなければ節ごと隠す #}
-    {% set chart = "https://api.star-history.com/chart?repos=" ~ (s.repo | lower) ~ "&type=date" %}
+    {% set chart = s.repo | star_chart %}
     <section class="star-chart"><h2>スターの推移</h2>
       <figure>
         <a href="https://www.star-history.com/?repos={{ s.repo }}&amp;type=date">

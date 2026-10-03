@@ -272,9 +272,10 @@ header.site { padding: 14px 12px 0; }
 .tier-xl h2 { font-size: 27px; }
 .tier-xl .owner { font-size: 14px; }
 .tier-xl .dek { font-size: 16px; }
-.tier-l .rank { font-size: 46px; }
-.tier-l h2 { font-size: 22px; }
-.tier-l .dek { font-size: 15px; }
+.tier-l .rank { font-size: 52px; }
+.tier-l h2 { font-size: 25px; }
+.tier-l .dek { font-size: 15.5px; }
+.tier-l .short { font-size: 17px; line-height: 1.85; }  /* 2・3位は準トップとして本文も一段大きく（0034） */
 .tier-m .rank { font-size: 34px; }
 .tier-m h2 { font-size: 20px; }
 
@@ -513,5 +514,54 @@ footer.site .feed-link { display: inline-block; margin-top: 6px; color: var(--mu
   .cards ~ .field-box { display: none; }
   /* 詳しいページの本文は3段組み */
   .article-body { columns: 3; }
+}
+
+/* ---- トップ記事の図（0034）：PC だけ、記事の右にスターの推移を写真のように ---- */
+.top-figure { display: none; margin: 0; }
+.top-figure img { width: 100%; height: auto; }
+.top-figure .chart-light { mix-blend-mode: multiply; }  /* 背景を紙に溶かす（0031） */
+.top-figure .chart-dark { mix-blend-mode: lighten; }
+.top-figure figcaption { margin-top: 2px; font-size: 11.5px; color: var(--muted); text-align: right; }
+@media (min-width: 900px) {
+  .cards > .card:first-child:has(.top-figure:not([hidden])) {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 38%); column-gap: 32px; align-content: start;
+  }
+  .cards > .card:first-child > * { grid-column: 1; }
+  .cards > .card:first-child > .top-figure {
+    display: block; grid-column: 2; grid-row: 1 / span 3; align-self: center;
+    padding-left: 24px; border-left: 1px solid var(--rule);
+  }
+}
+
+/* ---- 短信（0034）：下位の記事を、題名・一文・言語とスターだけで詰めて並べる ---- */
+.briefs { margin-top: 30px; }
+.briefs > h2 {
+  margin: 0; padding: 6px 0 5px; font-size: 15px; letter-spacing: 0.3em;
+  border-top: 3px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
+}
+.briefs > h2 small { margin-left: 10px; font-size: 11.5px; font-weight: 400; letter-spacing: 0.04em; color: var(--muted); }
+.briefs ol { list-style: none; margin: 0; padding: 0; }
+.brief {
+  display: grid; grid-template-columns: 2em minmax(0, 1fr); column-gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--rule); break-inside: avoid;
+}
+.brief .rank { font-size: 24px; line-height: 1; text-align: right; }
+.brief h3 { margin: 0; font-family: var(--font-headline); font-size: 17px; line-height: 1.25; overflow-wrap: anywhere; }
+.brief h3 a { color: var(--ink); }
+.brief h3 .owner { display: inline; font-size: 12px; }
+.brief h3 .name { display: inline; }
+.brief-dek {
+  margin: 2px 0 3px; font-size: 13.5px; line-height: 1.55;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+.brief .meta { gap: 2px 10px; font-size: 12px; }
+.brief .marks { padding-top: 0; gap: 4px; }
+.brief .mark { font-size: 10.5px; }
+.brief .move { font-size: 11px; }
+@media (min-width: 900px) {
+  .briefs ol { columns: 2; column-gap: 44px; column-rule: 1px solid var(--rule); }
+}
+@media (min-width: 1360px) {
+  .briefs ol { columns: 3; }
 }
 

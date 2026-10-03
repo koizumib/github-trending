@@ -101,6 +101,15 @@ def lang_color(language: str | None) -> str:
     return LANG_COLORS.get(language or "", "#9A9A9A")
 
 
+# この順位より下は、本文を省いた「短信」として詰めて並べる（0034）
+BRIEF_FROM_RANK = 10
+
+
+def star_chart(repo: str) -> str:
+    """star-history.com のスターの推移の画像の URL（0031）。名前は小文字で（大文字だと転送が1回挟まる）。"""
+    return f"https://api.star-history.com/chart?repos={repo.lower()}&type=date"
+
+
 def rank_tier(rank: int) -> str:
     """順位の数字の大きさ：1位は特大、2〜3位は大、4〜5位は中、ほかは小。"""
     if rank == 1:
@@ -132,6 +141,8 @@ def _env() -> Environment:
     env.filters["headline"] = headline
     env.filters["lang_color"] = lang_color
     env.filters["rank_tier"] = rank_tier
+    env.filters["star_chart"] = star_chart
+    env.globals["brief_from_rank"] = BRIEF_FROM_RANK
     return env
 
 

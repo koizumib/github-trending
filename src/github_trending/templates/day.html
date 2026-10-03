@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_card.html" import card %}
+{% from "_card.html" import card, brief %}
 {% set stars_label = {"daily": "今日", "weekly": "今週", "monthly": "今月"}[page.period] %}
 {% set period_name = dict(period_name, daily="本日") if is_top else period_name %}
 {# タブの題：トップは「github新聞」だけ（base.html の既定）、日付を指定したページは「github新聞（26/10/02）」（0026） #}
@@ -22,7 +22,7 @@
 </header>
 
 <div class="cards">
-{% for c in page.cards %}
+{% for c in page.cards if c.rank < brief_from_rank %}
 {{ card(c, root, stars_label) }}
 {% else %}
 <p>{% if page.period == "daily" %}この日の新着はありません。{% else %}この日のデータはありません。{% endif %}</p>
@@ -53,6 +53,14 @@
 </aside>
 {% endif %}
 </div>
+
+{% set briefs = page.cards | selectattr("rank", ">=", brief_from_rank) | list %}
+{% if briefs %}
+<section class="briefs" aria-label="短信">
+  <h2>短信<small>{{ brief_from_rank }}位から</small></h2>
+  <ol>{% for c in briefs %}{{ brief(c, root, stars_label) }}{% endfor %}</ol>
+</section>
+{% endif %}
 
 {% if page.errors %}
 <section class="errors panel">

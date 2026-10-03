@@ -254,3 +254,26 @@ def test_sidebar_lists_other_periods_top5(tmp_path):
     weekly = (out / "weekly/index.html").read_text()
     side = re.search(r'<aside class="sidebar".*?</aside>', weekly, re.S).group(0)
     assert '<a href="../">本日の上位</a>' in side and 'href="../r/o/r/"' in side
+
+
+def test_briefs_from_rank_10_and_top_figure(tmp_path):
+    import re
+
+    store = make_store(tmp_path)
+    store.save_daily(dt.date(2026, 10, 1), [
+        {"rank": i, "repo": "o/r" if i == 1 else f"b/r{i}", "status": "new", "language": "Go", "stars": 1,
+         "stars_today": i, "description": f"desc {i}"}
+        for i in range(1, 13)
+    ])
+    out = build(Config(), store, tmp_path / "site")
+    index = (out / "index.html").read_text()
+
+    # 9位までは記事、10位からは短信（本文なし、題名と一文と言語・スター）
+    cards = index.split('<section class="briefs"')[0]
+    assert 'aria-label="9位"' in cards and 'aria-label="10位"' not in cards
+    briefs = re.search(r'<section class="briefs".*?</section>', index, re.S).group(0)
+    assert [int(n) for n in re.findall(r'aria-label="(\d+)位"', briefs)] == [10, 11, 12]
+    assert "desc 10" in briefs and "+10" in briefs
+    # トップ記事だけに、スターの推移の図
+    assert index.count('class="top-figure"') == 1
+    assert 'src="https://api.star-history.com/chart?repos=o/r&amp;type=date"' in index
