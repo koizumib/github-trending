@@ -1,0 +1,36 @@
+{
+  "repo": "meituan-longcat/LongCat-Video",
+  "summarized_at": "2026-10-04",
+  "short": "Meituan が公開した 13.6B パラメータの動画生成モデルの推論コード。text-to-video、image-to-video、動画の続きの生成を1つのモデルで行い、分単位の長い動画も作れるとされる。",
+  "what": "動画生成モデル LongCat-Video の推論コード",
+  "can_do": [
+    "text-to-video、image-to-video、video continuation を1モデルで実行",
+    "長尺動画の生成（`run_demo_long_video.py`）",
+    "音声から人物が話す動画を作る Avatar モデル（単一・複数話者）",
+    "マルチ GPU（context parallel）での推論",
+    "Block Sparse Attention で高解像度の推論を高速化と説明される"
+  ],
+  "how_to_use": "conda で Python 3.10 環境を作り、CUDA に合わせた torch 2.6 と flash-attn を入れ、`pip install -r requirements.txt`。重みは `huggingface-cli download meituan-longcat/LongCat-Video --local-dir ./weights/LongCat-Video`。そのあと `torchrun run_demo_text_to_video.py --checkpoint_dir=./weights/LongCat-Video --enable_compile`。",
+  "use_cases": [
+    "自前の GPU 環境で動画生成モデルを動かして試す用途に使えそう",
+    "動画生成の推論基盤（マルチ GPU）の参考になりそう"
+  ],
+  "for_whom": "GPU 環境があり、動画生成モデルを自分で動かしたい ML エンジニア",
+  "similar": [
+    "Wan2.1 など他の OSS 動画生成モデル：同じ用途。性能比較は README の評価を未検証"
+  ],
+  "tech": "Python 3.10、PyTorch 2.6（CUDA 12.4）、diffusers 0.35.1、flash-attn 2.7.4。NVIDIA GPU 必須と思われる。MIT",
+  "caveats": "GPU（大容量 VRAM）が要ると思われる。具体的な最低要件は確認していない。flash-attn のビルドなど環境構築が重い。重みは別途 Hugging Face からダウンロード。性能は作者の報告で、独自に検証していない。",
+  "tags": [
+    "音声・画像・動画",
+    "機械学習"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:requirements.txt"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

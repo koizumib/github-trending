@@ -1,0 +1,38 @@
+{
+  "repo": "OpenCut-app/OpenCut",
+  "summarized_at": "2026-10-04",
+  "short": "CapCut の代わりを目指す OSS の動画エディタ。現在は Rust コアで一から書き直し中で、リポジトリにあるのは新アーキテクチャの開発版。今使うなら旧版（opencut-classic）を指す。",
+  "what": "Web・デスクトップ・モバイル向けの OSS 動画エディタ（書き直し中）",
+  "can_do": [
+    "（書き直し後の予定）Editor API、プラグイン、MCP server、headless モード（自動化・バッチ書き出し）",
+    "（予定）Rust コアで Web・デスクトップ・モバイルを1つのコードベースに",
+    "（旧版）マスク、キーフレームのグラフエディタ、音量・速度制御、プレビューのズームなど（v0.3.0）",
+    "エディタ内スクリプトタブ（予定）"
+  ],
+  "how_to_use": "今使うなら旧版の opencut-classic（opencut.app も旧版）。開発版は `proto use` でツールを入れ、`moon run web:dev`（localhost:5173）、`moon run api:dev`、`moon run desktop:dev` で起動する。",
+  "use_cases": [
+    "動画編集を agent から自動化する将来の用途（MCP、headless）に使えそう。ただし未実装",
+    "Rust + gpui でのデスクトップアプリ構成の参考になりそう"
+  ],
+  "for_whom": "OSS の動画エディタを使いたい人。ただし現状は開発を追いたい人向け",
+  "similar": [
+    "CapCut：README が代替と位置づける商用ツール",
+    "Kdenlive、Shotcut：既存の OSS 動画エディタ。こちらは Web 優先"
+  ],
+  "tech": "TypeScript と Rust。Cargo workspace（gpui 0.2.2、edition 2024）、moon と proto で管理。web、api、desktop の3 app 構成",
+  "caveats": "書き直し中で、リポジトリの内容は完成品ではない。外部からのコントリビュートを受け付けていない。最新リリースは 2026-04 の v0.3.0 で、開発版とは別物と思われる。",
+  "tags": [
+    "音声・画像・動画",
+    "デスクトップアプリ",
+    "Web"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:Cargo.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "書き直し後のコードは読んでおらず、README の予定表をもとにしている。旧版との機能の差は未確認"
+}

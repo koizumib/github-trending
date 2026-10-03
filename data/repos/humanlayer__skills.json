@@ -1,0 +1,35 @@
+{
+  "repo": "humanlayer/skills",
+  "summarized_at": "2026-10-04",
+  "short": "HumanLayer が出している Claude Code の skill 集。PR に視覚的な概要を付ける、CLAUDE.md を書き直す、agent を定期実行するループを作る、など6種を `npx skills add` で個別に導入できる。",
+  "what": "HumanLayer 製の Claude Code skill 6種",
+  "can_do": [
+    "show-me：現在の話題を図やコード構造のスケッチ、HTML artifact で説明",
+    "visual-pr：レビュアー向けの視覚的な概要付きで PR を作成・更新",
+    "improve-claude-md：CLAUDE.md を `<important if>` ブロックで書き直し、指示の守られやすさを上げる",
+    "narrow-react-prop-types：React の props 型を、実際に使われる経路に合わせて絞る",
+    "build-iterated-agentic-loop、design-control-loop：agent を GitHub Actions で定期実行するループを作る"
+  ],
+  "how_to_use": "`npx skills add humanlayer/skills --skill SKILLNAME` で導入し、`/show-me` のようにスラッシュコマンドで呼ぶ。",
+  "use_cases": [
+    "PR レビューの手間を減らす visual-pr を試す用途に使えそう",
+    "CLAUDE.md の指示が守られないときに improve-claude-md を試せそう"
+  ],
+  "for_whom": "Claude Code を使っていて、skill を追加したい人",
+  "similar": [
+    "addyosmani/agent-skills：同じ形式の skill 集。こちらは数が少なく用途が個別的"
+  ],
+  "tech": "skill 本体はプラグイン形式のファイル群（plugins/ 以下）。言語は TypeScript と表示される。導入は Node の npx",
+  "caveats": "ソフトウェアというより skill 定義の集まり。README と構成だけを読んでおり、各 skill の中身や効果は確認していない。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と tree のみ。各 skill の SKILL.md は材料になく読んでいない（plugins/ の中身は未確認）"
+}

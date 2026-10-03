@@ -1,0 +1,41 @@
+{
+  "repo": "thedotmack/claude-mem",
+  "summarized_at": "2026-10-04",
+  "short": "Claude Code などの agent の作業内容を自動で記録・要約し、次のセッションに文脈として注入する記憶プラグイン。セッションをまたいで前の経緯を引き継げる。",
+  "what": "coding agent に長期記憶を持たせるプラグイン",
+  "can_do": [
+    "セッション中の tool 使用を observation として自動記録",
+    "AI で要約・圧縮して、次のセッション開始時に関連する文脈を注入",
+    "`mem-search` skill で過去のプロジェクト履歴を検索",
+    "段階的に記憶を取り出す仕組み（token コストが見える）",
+    "記憶の流れを見る Web viewer UI",
+    "Claude Code のほか OpenCode、Antigravity CLI、OpenClaw、Codex などにも対応"
+  ],
+  "how_to_use": "`npx claude-mem install` で導入（`--ide opencode` など対象を指定可）。Claude Code 内では `/plugin marketplace add thedotmack/claude-mem` → `/plugin install claude-mem`。そのあと Claude Code を再起動すると、前回までの文脈が新しいセッションに出る。`npm install -g claude-mem` は SDK のみでプラグインにならない点に注意。",
+  "use_cases": [
+    "長期間続くリポジトリ作業で、毎回経緯を説明し直す手間を減らす用途に使えそう",
+    "障害対応や調査のように複数セッションにまたがる作業の記録に使えそう"
+  ],
+  "for_whom": "Claude Code などを長期プロジェクトで使い、セッション間の文脈の途切れが気になる人",
+  "similar": [
+    "mem0：agent 向け記憶層。README の topics に名前が出る程度で、違いは未確認",
+    "CLAUDE.md を手で育てる運用：手作業か自動記録かが違う"
+  ],
+  "tech": "TypeScript（Node 20 以上）。SQLite、ChromaDB（embeddings）を使うと思われる。worker サービスが常駐し、Web UI を持つ。docker-compose.yml あり",
+  "caveats": "インストーラはブラウザでのサインインを案内し、既定は hosted 版の記憶サービスや 14 日の無料トライアルに誘導する。ローカル運用は `--provider` 指定などが必要と読める。要約のために別の LLM provider（OpenRouter、Gemini、Anthropic の契約枠など）を使う。コストと、作業内容が外部に送られる点に注意。更新が非常に速く機能も増え続けている（v13.29.0）。README が長く、全機能は把握しきれていない。",
+  "tags": [
+    "AI エージェント",
+    "LLM",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:docker-compose.yml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の導入部と Quick Start は読んだが、仕組みの詳細（How It Works）やコードは未確認。保存先や hosted 版との境界は推測を含む"
+}

@@ -1,0 +1,36 @@
+{
+  "repo": "addyosmani/agent-skills",
+  "summarized_at": "2026-10-04",
+  "short": "coding agent 向けの開発工程別の skill 集。仕様→計画→実装→テスト→レビュー→リリースの流れをスラッシュコマンドと25個の skill で agent に守らせる。",
+  "what": "coding agent 向けの開発工程 skill 集（25個）",
+  "can_do": [
+    "`/spec`、`/plan`、`/build`、`/test`、`/review`、`/ship` など9個のスラッシュコマンド",
+    "作業内容に応じて自動で起動する skill（API 設計、フロントエンド、TDD など）",
+    "`/build auto` で計画を1回承認すれば全タスクを自走",
+    "code-reviewer、security-auditor、test-engineer などの agent 定義",
+    "Claude Code、Cursor、Codex、Gemini、OpenCode など多数の agent に導入可能"
+  ],
+  "how_to_use": "`npx skills add addyosmani/agent-skills` で全 skill を導入。個別なら `--skill code-review-and-quality` のように指定。Claude Code では `/plugin marketplace add addyosmani/agent-skills` → `/plugin install agent-skills@addy-agent-skills`。",
+  "use_cases": [
+    "agent に仕様先行・テスト先行の作法を守らせるチームの標準セットに使えそう",
+    "自分用の skill を書くときの書き方の見本に使えそう"
+  ],
+  "for_whom": "Claude Code などで開発しつつ、agent の作業の進め方をそろえたい人",
+  "similar": [
+    "humanlayer/skills：同じ skills CLI で入る別の skill 集。こちらは開発工程全体を網羅する構成"
+  ],
+  "tech": "skill 本体は Markdown。リポジトリの言語は JavaScript と表示されるが、中心は文章。導入は Node（npx）経由",
+  "caveats": "ソフトウェア本体ではなく、agent への指示文書の集まり。単体で `npx` 導入すると共有の references/ が付かず、一部の参照先が使えない（Issue #361 で追跡中）。skill の効き方は使う agent とモデルに依存すると思われる。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

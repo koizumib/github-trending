@@ -1,0 +1,40 @@
+{
+  "repo": "pingdotgg/t3code",
+  "summarized_at": "2026-10-04",
+  "short": "手元の coding agent（Claude Code、Codex、Cursor など）を1つの画面から操作する制御用アプリ。デスクトップ、Web、iOS/Android から使え、スマホから手元のマシンの agent を動かせる。",
+  "what": "複数の coding agent を操作する UI（デスクトップ・Web・モバイル）",
+  "can_do": [
+    "Claude Code、Codex、Cursor、Grok Build、OpenCode、Antigravity を1つの UI から操作",
+    "自分のマシン上の agent を iOS/Android アプリや Web アプリから遠隔で操作",
+    "権限モード、キーボードショートカット、プロジェクト設定などの設定",
+    "バックグラウンドサービスとして常駐（`t3 service install`）",
+    "GitHub などの source control との連携（docs に記載）"
+  ],
+  "how_to_use": "先に使いたい agent の CLI を入れてログインする（例：`claude auth login`、`codex login`）。そのうえで `curl -fsSL https://t3.codes/install.sh | sh` を実行し、`t3` でサーバーとローカルの Web アプリを起動。試すだけなら `npx t3@latest`。デスクトップ版は winget、Homebrew、.deb、AUR からも入る。",
+  "use_cases": [
+    "複数の agent を同じ画面で切り替えて、タスクごとに使い分ける場面に使えそう",
+    "外出中にスマホから、自宅や開発機で動いている agent の進み具合を見る・指示を出す用途に使えそう",
+    "開発機を常駐サービスにして、複数端末から同じ agent 環境へ入る用途に使えそう"
+  ],
+  "for_whom": "Claude Code や Codex など複数の coding agent を日常的に使い、GUI とモバイルからの操作を求める人",
+  "similar": [
+    "Codex デスクトップアプリ、Conductor、Claude Desktop、Cursor：README が着想元として挙げているもの。こちらは複数 provider を横断して操作でき、OSS（MIT）"
+  ],
+  "tech": "TypeScript の monorepo（Electron のデスクトップアプリ、Web、モバイル、サーバー）。ビルドは Vite+（`vp`）。Windows / macOS / Linux 対応。各 agent の CLI または契約が別途必要",
+  "caveats": "作者自身が「とても初期。バグを覚悟してほしい」と書いている（v0.0.x）。外部からのコントリビュートはほぼ受け付けていない。動かすには各 agent の契約・ログインが前提。`curl | sh` 形式のインストーラ。内容は未確認。",
+  "tags": [
+    "AI エージェント",
+    "開発ツール",
+    "デスクトップアプリ",
+    "モバイル"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

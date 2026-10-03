@@ -1,0 +1,38 @@
+{
+  "repo": "cloudflare/cloudflare-os",
+  "summarized_at": "2026-10-04",
+  "short": "Cloudflare Workers 上で動く、社内向けの AI 作業環境。agent に「gadget」と呼ぶ小さなアプリを作らせ、Gatekeeper で外部サービスへのアクセスを制限・承認制にする。",
+  "what": "Cloudflare Workers で動く社内向け agent 作業環境",
+  "can_do": [
+    "agent とのチャット UI（会社の情報を事前に与えて使う）",
+    "agent にスライドやホワイトボードなどの小アプリ（gadget）を作らせ、サンドボックスで個人ごとに実行",
+    "Blueprint（アプリ全体を定義したテンプレート）から gadget を作成・共有",
+    "Gatekeeper：外部サービスへのアクセスを最小範囲に絞り、操作をログに残し、副作用のある操作は後からまとめて承認・却下",
+    "wrangler と workerd でローカル実行（`pnpm run-local`）"
+  ],
+  "how_to_use": "pnpm を入れて `pnpm run-local` を実行し、http://localhost:8787 を開く。本番は https://os.cloudflare.app/deploy から自分の Cloudflare アカウントにデプロイ。",
+  "use_cases": [
+    "社内の非技術者にも agent を安全に使わせる基盤の参考になりそう",
+    "Gatekeeper の「承認を後回しにする」設計は、agent の権限管理を考えるときの参考になりそう"
+  ],
+  "for_whom": "社内で agent を展開したい人や、agent の権限・サンドボックス設計に興味がある人",
+  "similar": [
+    "MCP server：Gatekeeper は README で「強化版の MCP server」と説明される。認可・ログ・承認まで含む点が違う"
+  ],
+  "tech": "TypeScript の pnpm monorepo。Cloudflare Workers（workerd、wrangler）、Cap'n Web。実行には Cloudflare アカウントが必要（デプロイ時）",
+  "caveats": "README に early access とあり、粗い部分が多いと作者が認めている。v1 の完全な書き直し（v2）。本番利用は想定されていないローカル実行モードがある。Cloudflare 社内向けに作られたもので、自社用に改造する前提。",
+  "tags": [
+    "AI エージェント",
+    "セキュリティ",
+    "セルフホスト",
+    "Web"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

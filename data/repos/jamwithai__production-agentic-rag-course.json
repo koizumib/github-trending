@@ -1,0 +1,38 @@
+{
+  "repo": "jamwithai/production-agentic-rag-course",
+  "summarized_at": "2026-10-04",
+  "short": "arXiv の論文を取り込んで質問に答える RAG システムを、7週かけて作る学習コース。keyword 検索から始め、hybrid 検索、LangGraph の agentic RAG、Telegram bot まで進む。",
+  "what": "論文検索 RAG を作る学習コース（コードと notebook）",
+  "can_do": [
+    "Docker、FastAPI、PostgreSQL、OpenSearch、Airflow の基盤構築（第1週）",
+    "arXiv 論文の取得・解析パイプライン（第2週）",
+    "BM25 の keyword 検索（第3週）、chunking と hybrid 検索（第4週）",
+    "ローカル LLM（Ollama）による RAG、streaming 応答、Gradio UI（第5週）",
+    "Langfuse による tracing と Redis cache（第6週）",
+    "LangGraph の agentic RAG（guardrail、document grading、query rewrite）と Telegram bot（第7週）"
+  ],
+  "how_to_use": "Docker Desktop と Python 3.12 以上、uv が前提。README の Quick Start に沿って `compose.yml` で基盤を起動し、週ごとの notebook（`notebooks/week1` 〜 `week7`）を順に進める。",
+  "use_cases": [
+    "RAG を keyword 検索と組み合わせて実用的に作る流れの学習に使えそう",
+    "FastAPI + OpenSearch + Airflow の構成例として参考になりそう"
+  ],
+  "for_whom": "RAG を基礎から手を動かして学びたい人。Python と Docker が分かる人向け",
+  "similar": [],
+  "tech": "Python 3.12、FastAPI、SQLAlchemy、PostgreSQL、OpenSearch、Airflow、docling、sentence-transformers、Gradio、Langfuse、Redis、LangGraph、LangChain、Ollama、python-telegram-bot。Docker Compose で動かす",
+  "caveats": "学習用の教材で、本番運用のための製品ではない。構成要素が多く、ローカルで動かすにはメモリとディスクが相当要ると思われる。最後の push は 2026-06 で、以降は更新がない。LLM はローカル（Ollama）前提で、モデルの性能は環境次第。",
+  "tags": [
+    "学習資料",
+    "LLM",
+    "AI エージェント"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:Dockerfile",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

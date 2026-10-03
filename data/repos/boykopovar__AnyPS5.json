@@ -1,0 +1,37 @@
+{
+  "repo": "boykopovar/AnyPS5",
+  "summarized_at": "2026-10-04",
+  "short": "PS5 向けの実行ファイルを Linux と Windows のネイティブ形式に変換して動かす移植ツール。エミュレーションや別プロセスを使わない方式。まだ開発途中。",
+  "what": "PS5 の実行ファイルを Linux/Windows 向けに変換する移植ツール",
+  "can_do": [
+    "実行ファイルを対象 OS のネイティブ形式に変換する relinker",
+    "動的リンクできるシステム prx ライブラリの実装",
+    "シェーダを SPIR-V に変換する recompiler",
+    "SDL 対応のコントローラー、キーボード・マウス割り当て（`anyps5-input.ini`）",
+    "検証済みゲームの一覧（COMPATIBILITY.md）"
+  ],
+  "how_to_use": "README には Usage（docs/user/USAGE.md）と Build instructions（docs/dev/BUILD.md）への案内がある。材料にその中身はなく、手順は未確認。",
+  "use_cases": [
+    "ゲームの保存・互換性の研究や、ゲームコンソールの実行形式の解析の参考になりそう",
+    "relinker と shader recompiler の構成は、バイナリ変換の学習素材になりそう"
+  ],
+  "for_whom": "コンソールゲームの互換性やバイナリ変換に興味がある開発者",
+  "similar": [
+    "shadPS4：PS4 のエミュレータ。こちらはエミュレーションをせず変換する方式。コードは一部 shadPS4 から移植している（リリースノートに記載）"
+  ],
+  "tech": "C++20、CMake。サードパーティに SDL2、Vulkan、SPIRV-Tools、glslang、FreeType、ffmpeg など。Vulkan が使える GPU が要ると思われる",
+  "caveats": "開発途中。対応外の状態では `std::runtime_error` で停止する。README は、著作権のあるソフトやファームウェアは含まれず、利用者が合法に入手する責任を負うと明記している。ライセンスは GPL v2 のみ。動作確認は一部のゲーム（例：2D の Dreaming Sarah）で、互換性は限定的と思われる。",
+  "tags": [
+    "ゲーム",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:CMakeLists.txt",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の概要と release を読んだ。USAGE などの docs は材料になく、clone もしていないため、使い方と対応範囲は未確認"
+}
