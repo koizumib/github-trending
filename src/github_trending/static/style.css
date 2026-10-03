@@ -24,6 +24,8 @@
   --warn-fg: #6b4400;
   --font: "BIZ UDPGothic", Meiryo, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
     "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  /* リポジトリ名と順位の数字：英字の新聞の見出しのようなセリフ体（0030）。日本語は来ないので代わりは英字のセリフ体 */
+  --font-headline: "Playfair Display", Georgia, "Times New Roman", serif;
   /* 新聞紙のざらつき：色なしのごく薄いノイズ */
   --texture-opacity: 0.6;  /* 紙の質感（paper_texture.webp）の濃さ。0 で消える */
 }
@@ -221,9 +223,15 @@ header.site { padding: 14px 12px 0; }
 .card-head .dek { grid-area: dek; margin-top: 6px; }
 .card-head .meta { grid-area: meta; }
 .rank {
-  color: var(--accent); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums; font-size: 24px;
+  font-family: var(--font-headline); font-variant-numeric: lining-nums tabular-nums;
+  color: var(--accent); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em;
+  font-size: 24px;
 }
+.rank small { font-family: var(--font); font-weight: 700; }
+/* 題名は英字の新聞の見出しのように（0030）。「アカウント名/」は細い斜体で */
+.card h2, .detail h1.repo { font-family: var(--font-headline); }
+.card h2 .name, .detail h1.repo .name { font-weight: 800; letter-spacing: 0; }
+.card h2 .owner, .detail h1.repo .owner { font-style: italic; letter-spacing: 0.01em; }
 /* 題名：「アカウント名/」を小さく薄く上に、リポジトリ名を大きく（0022） */
 .owner { display: block; font-size: 12.5px; font-weight: 400; line-height: 1.35; color: var(--muted); letter-spacing: 0.02em; }
 .name { display: block; }
@@ -309,6 +317,9 @@ header.site { padding: 14px 12px 0; }
 }
 .cards > .card:first-child .short .drop-word,
 .article-body .lead .drop-word { font-size: 2.6em; margin-top: 0.1em; margin-right: 0.18em; }
+/* 英字の書き出しは、題名と同じ見出しのセリフ体で（0030） */
+.cards > .card:first-child .short .drop-word,
+.article-body .lead .drop-word { font-family: var(--font-headline); font-weight: 800; }
 
 /* ---- 本日の分野（天気欄のような囲み） ---- */
 .field-box {

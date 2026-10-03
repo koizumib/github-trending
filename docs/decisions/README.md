@@ -33,3 +33,4 @@
 | [0027](0027-seo-feed-refresh-drop-github-pages.md) | OGP・sitemap・Atom フィードを出す、古い要約を書き直す、GitHub Pages をやめる | 2026-10-03 | 有効 |
 | [0028](0028-name-github-trending.md) | 名前を github-trending に決める（サイトの名前は「github新聞」） | 2026-10-03 | 有効 |
 | [0029](0029-cards-column-rule-like-detail.md) | 一覧の2段組みの罫線を、詳しいページと同じ組み方にする | 2026-10-03 | 有効 |
+| [0030](0030-headline-serif-for-repo-names.md) | リポジトリ名と順位の数字を、英字の新聞の見出しのようなセリフ体にする | 2026-10-03 | 有効 |
