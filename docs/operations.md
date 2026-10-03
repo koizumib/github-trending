@@ -31,7 +31,7 @@ Actions が失敗すると、GitHub からメールも届く。
 ## 手で動かし直す
 
 ### Actions を手で動かす
-1. https://github.com/koizumib/github-trending/actions を開く
+1. https://github.com/yumekui08/github-trending/actions を開く
 2. 左の一覧から workflow を選ぶ（「取得と材料集め」「サイトを作って公開する」「見張り」）
 3. 右の「Run workflow」→ ブランチは `main` のまま →「Run workflow」
 

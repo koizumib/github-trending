@@ -228,7 +228,7 @@ routine が従う手順は `docs/routine.md` に書く。routine のプロンプ
 | `site_base_url` | https://trending-digest.pages.dev/ | 通知のリンク、canonical・OGP・sitemap・フィードの絶対 URL の元 |
 | `timezone` | Asia/Tokyo | 「今日」を決めるタイムゾーン |
 
-### GitHub（リポジトリ koizumib/github-trending、公開）
+### GitHub（リポジトリ yumekui08/github-trending、公開）
 - Secrets：`DISCORD_WEBHOOK_URL`、`CLOUDFLARE_API_TOKEN`（Cloudflare Pages の編集権限だけ）、`CLOUDFLARE_ACCOUNT_ID`。GitHub API の鍵は Actions が自動で用意する `GITHUB_TOKEN` を使う
 - Pages：使わない（0027 でやめた。Settings → Pages は無効にする）
 
