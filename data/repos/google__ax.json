@@ -1,0 +1,38 @@
+{
+  "repo": "google/ax",
+  "summarized_at": "2026-10-03",
+  "short": "Kubernetes 上でエージェントのタスクを YAML で宣言して、sandbox 内で大量に動かすオーケストレーター。`kubectl` に似た `ax` CLI で操作する。開発の初期段階で、破壊的変更が予告されている。",
+  "what": "エージェントのタスクを sandbox で動かす宣言的オーケストレーター",
+  "can_do": [
+    "`Task`、`Workspace`、`Model` の 3 種類の manifest（`ax.io/v1alpha1`）で、エージェントの実行を宣言",
+    "Task を sandbox で実行し、CPU・メモリの上限をかける",
+    "Workspace に Git リポジトリ、MCP サーバー、skill パッケージをあらかじめ用意して起動を速くする",
+    "`ax suspend` / `ax resume` で実行中のエージェントを checkpoint して一時停止・再開",
+    "`ax ssh` で動作中の sandbox に入って様子を見る（Task の `spec.debug: true` が必要）"
+  ],
+  "how_to_use": "前提として、Agent Substrate（別リポジトリ）が入った Kubernetes クラスタ、Go、`kubectl`、`ko`、クラスタから pull できるレジストリが要る。`go install github.com/google/ax/cmd/ax@latest` で CLI を入れ、`make deploy AX_IMAGE_REPO=<registry>` で control plane を入れる。その後 `ax apply -f examples/task.yaml` で最初の Task を動かす。",
+  "use_cases": [
+    "社内 Kubernetes でコーディングエージェントなどを、隔離したうえで多数並列に動かす基盤の検討に使えそう",
+    "「エージェントは stateless でも batch でもない」という整理や、manifest の設計を読んで、自前の基盤の参考にできそう"
+  ],
+  "for_whom": "Kubernetes 上でエージェントのワークロードを運用・隔離したいプラットフォーム担当やインフラ寄りのエンジニア",
+  "similar": [
+    "Kubernetes Job / Argo Workflows：バッチ実行の基盤。AX は checkpoint による一時停止や、sandbox 実行など、エージェント向けの機能を前面に出している"
+  ],
+  "tech": "Go（go.mod は Go 1.27.1）。control plane は Redis を使い、ko でイメージを作って Kubernetes にデプロイ（`ax-system` namespace）。実行基盤は Agent Substrate。Apache-2.0。",
+  "caveats": "README の冒頭で、開発が活発で、安定版の前に大きな破壊的変更があると明記されている（v0.3.1、API は v1alpha1）。動かすには別リポジトリの Agent Substrate が先に必要。「billions of tasks」という規模は README の主張で、こちらでは確認できない。作成は 2026-03 と新しい。",
+  "tags": [
+    "AI エージェント",
+    "コンテナ・Kubernetes",
+    "インフラ・運用"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:go.mod",
+    "release"
+  ],
+  "confidence": "high",
+  "confidence_note": ""
+}

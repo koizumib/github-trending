@@ -1,0 +1,35 @@
+{
+  "repo": "google/skills",
+  "summarized_at": "2026-10-03",
+  "short": "Google Cloud などの Google 製品向け Agent Skills 集。GKE、BigQuery、Agent Platform（Gemini）、認証、Well-Architected などの手順をエージェントに渡せる。Claude Code・Codex 向けの plugin も同梱。",
+  "what": "Google Cloud などの Google 製品向け skill 集",
+  "can_do": [
+    "GKE の作成、ネットワーク、ストレージ、オートスケール、アップグレード、障害切り分け（Node NotReady など）の skill",
+    "Agent Platform（Gemini、Model Garden、RAG Engine、チューニング、評価）の skill",
+    "BigQuery、AlloyDB など Databases and analytics 分野の skill",
+    "Google Cloud の認証、onboarding、Well-Architected Framework、セキュリティ・ID の skill",
+    "Google Ads API や Mobile Ads SDK の導入 skill。Firebase や Flutter など別リポジトリの skill への入口も載せる"
+  ],
+  "how_to_use": "`npx skills add google/skills` を実行し、入れたい skill を選ぶ。Claude Code の plugin なら `claude plugin marketplace add google/skills` のあと `claude plugin install <plugin>@google-plugins`。",
+  "use_cases": [
+    "GKE の運用や障害調査で、Claude Code に Google 公式の手順を参照させるのに使えそう",
+    "Google Cloud 上の構成を設計・構築するとき、`google-cloud-solution-*` や Well-Architected の skill を下敷きにできそう",
+    "SKILL.md の書き方の実例として読めそう"
+  ],
+  "for_whom": "Google Cloud（特に GKE）を使い、エージェントに運用や構築を手伝わせたいインフラ寄りの人",
+  "similar": [],
+  "tech": "中身は Markdown（SKILL.md）が中心で、`plugins/` に Claude Code・Codex 向けの plugin 定義がある。一部は別リポジトリ（Firebase、Flutter、Google Maps Platform）の skill へのリンク。Apache-2.0。",
+  "caveats": "ソフトウェアではなく skill の集合で、各 skill の中身は読んでいない。skill に従って実行するとクラウド資源の作成や課金が発生しうるので、実行前に内容の確認が要ると思われる。作成は 2026-03 で、Agent Platform など製品名も変わりやすそう。release の記録はない。",
+  "tags": [
+    "AI エージェント",
+    "インフラ・運用",
+    "コンテナ・Kubernetes"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の目次・導入方法とファイル構成は読んだが、個々の skill の中身は読んでいない。"
+}

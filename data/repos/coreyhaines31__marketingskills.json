@@ -1,0 +1,37 @@
+{
+  "repo": "coreyhaines31/marketingskills",
+  "summarized_at": "2026-10-03",
+  "short": "マーケティング作業向けの Agent Skills（SKILL.md）集。CRO、コピーライティング、SEO、広告、メール、計測などを扱う。個人（Corey Haines）の作で、README にはパートナー企業の枠と自社サービスへの誘導がある。",
+  "what": "マーケティング作業向けのエージェント skill 集",
+  "can_do": [
+    "CRO、signup / onboarding の改善、コピーの作成と校正、cold email、メールシーケンスなどの作業手順を skill として提供",
+    "seo-audit、ai-seo、programmatic-seo、schema など SEO 系の skill",
+    "ads、ad-creative、ab-testing、analytics、attribution など広告・計測系の skill",
+    "`product-marketing` skill を土台にして、ほかの skill がまず製品・顧客・ポジショニングの情報を参照する構成",
+    "`npx skills add coreyhaines31/marketingskills` のほか、Claude Code の plugin としても導入できる"
+  ],
+  "how_to_use": "`npx skills add coreyhaines31/marketingskills` で全部入れる。一部だけなら `--skill cro copywriting` のように指定する。Claude Code なら `/plugin marketplace add coreyhaines31/marketingskills` から入れる方法もある。",
+  "use_cases": [
+    "自分のプロダクトの LP や料金ページの改善案を、エージェントに出させるときの下敷きに使えそう",
+    "SKILL.md の書き方と、skill 同士の依存（共通コンテキストを先に読ませる）の実例として読めそう",
+    "インフラ寄りの仕事とは距離があるが、個人開発の公開準備（SEO、ディレクトリ登録）には使えそう"
+  ],
+  "for_whom": "技術に強いマーケターや創業者で、エージェントにマーケ作業を手伝わせたい人",
+  "similar": [
+    "ComposioHQ/awesome-claude-skills：skill の一覧が中心。こちらはマーケティング分野に絞った自前の skill 集"
+  ],
+  "tech": "中身は Markdown（SKILL.md）が中心で、補助に Node.js のスクリプト（`scripts/`）。Agent Skills 仕様に沿い、Claude Code、Codex、Cursor、Windsurf などで使える。MIT。",
+  "caveats": "README はスポンサー（Verified Partners）の枠と、作者の代理店・講座・AI エージェント製品への誘導を多く含み、skill の内容にも提携ツールが載ると思われる（README は推奨に影響しないと述べているが、確認はしていない）。ソフトウェアではなくプロンプト集で、出力の質はエージェントと入力次第。skill の中身は読んでいない。リリースが頻繁（v2.11.12）で、v1 から v2 への移行手順がある。作成は 2026-01。",
+  "tags": [
+    "AI エージェント",
+    "その他"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README・release・ファイル構成は読んだが、個々の SKILL.md の中身は読んでいない。"
+}

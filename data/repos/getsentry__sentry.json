@@ -1,0 +1,40 @@
+{
+  "repo": "getsentry/sentry",
+  "summarized_at": "2026-10-03",
+  "short": "アプリのエラー追跡とパフォーマンス監視を行う Sentry 本体。SDK から送られた例外、trace、ログ、セッション replay などを集めて見られる。Python（Django）製で、self-hosted 構成も含む。",
+  "what": "エラー追跡とパフォーマンス監視のプラットフォーム",
+  "can_do": [
+    "各言語の SDK から送られた例外・クラッシュを issue として集約して表示",
+    "trace、ログ、session replay、uptime 監視などを同じ画面で見る（README のスクリーンショットに画面がある）",
+    "JavaScript、Python、Go、Rust、Java/Kotlin、Swift、.NET、Unity など 20 前後の公式 SDK と連携",
+    "`seer` という AI による原因調査の画面がある（README のスクリーンショット名から。詳細は未確認）",
+    "`self-hosted/` と `devservices/` に、自前運用や開発環境の構成を持つ"
+  ],
+  "how_to_use": "README に導入手順はなく、ドキュメント（docs.sentry.io）への誘導のみ。一般には sentry.io のホスト版を使うか、別リポジトリ（getsentry/self-hosted）の手順で自前運用する形と思われる。開発に参加する場合は CONTRIBUTING とドキュメントを参照する。",
+  "use_cases": [
+    "アプリの例外とレイテンシを一か所に集め、障害調査の起点にするために使えそう",
+    "社内のアプリの監視を SaaS ではなく自前でホストしたい場合の候補になりそう（運用の重さは別途見積もりが要る）"
+  ],
+  "for_whom": "自分たちのアプリのエラーや遅延を追跡したい開発者・SRE。SaaS か自前運用かを検討する人",
+  "similar": [
+    "Datadog APM / Error Tracking：商用 SaaS。Sentry はアプリのエラー起点で、ホスト版と自前運用の両方がある",
+    "GlitchTip：Sentry の SDK と互換の軽量な代替。機能は絞られる"
+  ],
+  "tech": "Python 3.13 以上（Django 系）のバックエンドと、TypeScript / React のフロントエンド（pnpm）。devservices による開発用の依存サービス構成。self-hosted 用の Dockerfile と設定あり。2010 年からの長寿プロジェクトで、リポジトリは非常に大きい（約 24,000 ファイル、約 950MB）。",
+  "caveats": "ライセンスは GitHub が判定できず（NOASSERTION）、topics に fair-source とある。一般的な OSS ライセンスとは条件が違うと思われるので、利用前に `LICENSE.md` を確認する必要がある（今回は読んでいない）。README は製品紹介で、手元で動かす手順は書かれていない。自前運用は多数のサービスを要する重い構成と思われる。2010 年創業のホスト版が主で、このリポジトリが毎日 Trending に上がる理由は材料からは分からない。",
+  "tags": [
+    "監視・可観測性",
+    "開発ツール",
+    "セルフホスト"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README は製品紹介と SDK 一覧のみで、導入手順や機能の詳細は書かれていない。LICENSE.md と self-hosted の中身は読んでおらず、何ができるかはスクリーンショット名と構成から推測した部分がある。"
+}

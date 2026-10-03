@@ -1,0 +1,36 @@
+{
+  "repo": "anthropics/knowledge-work-plugins",
+  "summarized_at": "2026-10-03",
+  "short": "営業、法務、財務、データ分析、カスタマーサポートなど職種別の Claude 用 plugin 集。skill、slash command、外部ツールへの接続（MCP）をまとめて提供する。Claude Cowork 向けで、Claude Code でも使える。",
+  "what": "職種別の Claude plugin 集（Cowork / Claude Code 向け）",
+  "can_do": [
+    "productivity、sales、customer-support、product-management、marketing、legal、finance、data、enterprise-search、bio-research など 11 の plugin を提供",
+    "各 plugin が skill（自動で参照される知識）と slash command（`/sales:call-prep`、`/data:write-query` など）を持つ",
+    "`.mcp.json` で Slack、Notion、Jira、HubSpot、Snowflake、BigQuery など外部ツールに接続する（plugin ごとに対象が違う）",
+    "`cowork-plugin-management` で、自社向けに plugin を作る・直す",
+    "plugin は `.claude-plugin/plugin.json`、`.mcp.json`、`commands/`、`skills/` の共通構成"
+  ],
+  "how_to_use": "Claude Code なら `claude plugin marketplace add anthropics/knowledge-work-plugins` のあと、`claude plugin install sales@knowledge-work-plugins` のように入れる。Cowork は claude.com/plugins から入れる。",
+  "use_cases": [
+    "plugin の構成（skill、command、MCP の組み合わせ）を、自作 plugin の雛形として読めそう",
+    "`data` や `enterprise-search` の plugin を、社内の BigQuery や Slack、Jira とつないだ調査に使えそう",
+    "インフラ運用そのものの plugin はないので、日常業務への直接の適用は限られると思われる"
+  ],
+  "for_whom": "Claude Cowork や Claude Code を職種別の業務に使いたい人。plugin の作り方を知りたい人",
+  "similar": [
+    "coreyhaines31/marketingskills：マーケティング分野に絞った skill 集。こちらは複数の職種を、command と外部接続つきでまとめる"
+  ],
+  "tech": "中身は Markdown（skill、command）と JSON（plugin 定義、`.mcp.json`）が中心。Apache-2.0。GitHub 上の言語表示は Python だが、補助的なスクリプトと思われる。",
+  "caveats": "ソフトウェアというより設定と指示文の集まりで、各 plugin の中身は読んでいない。外部ツールへの接続は、それぞれのアカウントと権限が要り、MCP を通じて社内データに触れるため、導入前に何に接続するかを確認する必要がある。Anthropic 公式のリポジトリ。release の記録はない。",
+  "tags": [
+    "AI エージェント",
+    "自動化・ワークフロー"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README と構成は読んだが、各 plugin の skill や command、`.mcp.json` の中身は読んでいない。"
+}

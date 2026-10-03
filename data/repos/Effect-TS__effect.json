@@ -1,0 +1,39 @@
+{
+  "repo": "Effect-TS/effect",
+  "summarized_at": "2026-10-03",
+  "short": "型付きエラー、dependency injection、structured concurrency、tracing、schema 検証などを一つにまとめた TypeScript ライブラリ。4.x が最初の安定版で、LTS として提供される。",
+  "what": "型安全な本番向けアプリを書く TypeScript ライブラリ",
+  "can_do": [
+    "失敗の型を型に出す（typed errors）形でエラー処理を書く",
+    "dependency injection、structured concurrency、scheduling を扱う",
+    "tracing と OpenTelemetry 連携（`packages/opentelemetry`）",
+    "schema による検証と変換、JSON Schema の出力",
+    "RPC、cluster、workflow、SQL、platform（HTTP や CLI など）、AI 向けの周辺パッケージ（`packages/` 配下）"
+  ],
+  "how_to_use": "`npm install effect`。TypeScript 5.9 以上（7 を推奨）と `strict` が必須。Node.js は 18 以上が目安だが、パッケージによってはもっと新しい版が要る（`@effect/sql-sqlite-node` は 22.16 以上）。3.x からは MIGRATION.md の手順で移行する。",
+  "use_cases": [
+    "バックエンドや CLI を TypeScript で書くとき、リトライ、タイムアウト、並行処理、リソース解放を型で管理する用途に使えそう",
+    "OpenTelemetry で trace を出すサービスの土台として使えそう",
+    "既存の Promise 中心のコードとは書き方が大きく違うため、小さいツールから試すのが無難と思われる"
+  ],
+  "for_whom": "TypeScript で長く動かすサービスを書き、エラー処理や並行処理を型で厳密に扱いたい人",
+  "similar": [
+    "fp-ts：関数型の型クラス中心のライブラリ。Effect は並行処理、DI、tracing まで含めた実行基盤という違いがある",
+    "Zod：schema 検証が主。Effect の Schema はその一部の機能にあたる"
+  ],
+  "tech": "TypeScript の monorepo（pnpm、vitest）。`packages/` に effect、platform、sql、ai、atom、opentelemetry、vitest などがある。MIT。Deno の設定もある。",
+  "caveats": "学習コストが高い（書き方が独特）と思われるが、これは材料からの推測。4.x は今回が初の安定版で、3.x からは破壊的変更があり、移行ガイドが要る。一部の API は unstable／experimental と README にある。コンサルや商用サポートの案内が README に載っている。",
+  "tags": [
+    "ライブラリ・SDK",
+    "言語・ランタイム"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README は導入と方針が中心で、各機能の使い方は書かれていない。`packages/` の中身やドキュメントは読んでおらず、機能の説明は README の一文と構成から書いた。"
+}

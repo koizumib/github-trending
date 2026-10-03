@@ -1,0 +1,38 @@
+{
+  "repo": "JuliusBrussee/caveman",
+  "summarized_at": "2026-10-03",
+  "short": "コーディングエージェントの出力を「原始人口調」に縮めてトークンを減らす skill と、エージェントが読むログや diff を縮める proxy のセット。コードやコマンドは縮めない。",
+  "what": "エージェントのトークン消費を減らす skill と proxy",
+  "can_do": [
+    "skill：エージェントの返答の散文を短くする。コード、コマンド、パス、エラーメッセージは縮めず、セキュリティ警告や確認は通常の文で出す",
+    "proxy（`caveman` CLI）：エージェントと AI プロバイダの間に入り、ログ・テスト出力・JSON・diff などを縮めて渡す。縮めた元データは保存され、エージェントが取り戻せる",
+    "middleware：LangChain、Vercel AI SDK、OpenAI、Anthropic の呼び出しを包み、tool 結果を縮める（npm / PyPI で提供）",
+    "Claude Code、Codex、Gemini CLI、Cursor など 30 以上のエージェントに対応する installer",
+    "`caveman claude`、`caveman codex` などで対応エージェントを proxy 経由で起動"
+  ],
+  "how_to_use": "skill だけなら `npx skills add JuliusBrussee/caveman -g` を実行し、反応しなければ `/caveman` と打つ。proxy は `npm install -g @caveman-ai/cli && caveman setup --install` のあと `caveman claude` のように起動する。",
+  "use_cases": [
+    "従量課金（トークン課金）の API で長いセッションを回すとき、読み取り側のログやテスト出力を縮める用途に使えそう",
+    "Claude Code に大量のログを読ませる障害調査で、コンテキストの節約に使えそう",
+    "返答が短くなるので、まずは skill だけ入れて請求額を比較してみるのが手軽と思われる"
+  ],
+  "for_whom": "トークン課金のコーディングエージェントを長時間使い、コストやコンテキストを減らしたい人",
+  "similar": [],
+  "tech": "proxy と CLI の本体は Go（go.mod は Go 1.26、chromedp などに依存）。installer は Node.js（`caveman-installer`、Node 18 以上）で、フル installer は Node.js 22.13 以上。middleware は TypeScript と Python（3.11 以上）。Dockerfile あり。Apache-2.0。",
+  "caveats": "削減率（README の 65% など）は作者や引用した第三者の測定で、こちらでは検証していない。README 自身が、リクエスト単位課金のサービス（Copilot の premium requests など）や、散文がほとんどないコード生成中心の使い方では効果が薄いと書いている。口調は冗談として始まったプロジェクトで、README も口調を保っている。3.0.0 で全体が Apache-2.0 に統一されたが、それ以前のリリースはライセンスが異なる。作成は 2026-04 で若く、構成がかなり大きい（ファイル 1800 件超）。",
+  "tags": [
+    "AI エージェント",
+    "LLM",
+    "開発ツール"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:package.json",
+    "manifest:go.mod",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README の冒頭・Quick Start・使いどころの節、release、manifests は読んだが、proxy や skill の実装は読んでおらず、動作と効果は README の記述に基づく。"
+}

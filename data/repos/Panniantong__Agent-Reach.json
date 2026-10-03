@@ -1,0 +1,38 @@
+{
+  "repo": "Panniantong/Agent-Reach",
+  "summarized_at": "2026-10-03",
+  "short": "AI エージェントに Web・YouTube・Twitter・Reddit・GitHub などの読み取りと検索をさせる Python 製 CLI。プラットフォームごとに複数のバックエンドを選び、`doctor` で状態を診断する。",
+  "what": "エージェントにネット閲覧・検索をさせる Python CLI",
+  "can_do": [
+    "Web ページ、RSS/Atom、YouTube（字幕取得と検索）の読み取り",
+    "GitHub の公開リポジトリの読み取りと検索（認証すると private や Issue/PR も）",
+    "Twitter/X、Reddit、Bilibili、小红书、LinkedIn、V2EX など中国系を含む各サービスの検索・閲覧（多くは Cookie やログイン済みブラウザが必要）",
+    "プラットフォームごとに「首選＋備選」のバックエンドを持ち、`agent-reach doctor` でどれが使えているか診断",
+    "`agent-reach install --dry-run` で、実行内容を事前に確認"
+  ],
+  "how_to_use": "README はエージェントに `docs/install.md` の URL を渡して「インストールして」と頼む方式を勧めている。手動なら `agent-reach install --env=auto`（既定は環境チェックのみ。システムパッケージの導入は `--system` を付けたときだけ）、そのあと `agent-reach doctor` で状態を見る。",
+  "use_cases": [
+    "Claude Code などに YouTube 動画の字幕要約や、RSS・GitHub の調査をさせるときの入口に使えそう",
+    "ブラウザの Cookie を使う経路が多いので、検証用の個人環境で試すのが無難と思われる"
+  ],
+  "for_whom": "Claude Code・Cursor など CLI を叩けるエージェントに、Web や SNS を調べさせたい人",
+  "similar": [
+    "Jina Reader：Web ページを読み取り用に変換するサービス。Agent Reach はこれを LinkedIn などの経路の一つに使っており、複数サービスをまとめる層という位置づけ"
+  ],
+  "tech": "Python 3.10 以上。依存は requests、feedparser、yt-dlp、loguru、rich など。MIT。外部ツール（OpenCLI、bili-cli、rdt-cli など）を経路として使う。",
+  "caveats": "SNS の取得は各サイトの規約や仕様変更の影響を受けると思われる（README 自身も、Bilibili で yt-dlp が使えなくなり切り替えた例を挙げている）。Reddit・Facebook・Instagram・小红书などは登録・Cookie・ブラウザのログイン状態が必要で、「zero API fees」は設定不要という意味ではない。README 冒頭は広告枠（スポンサー）が占めている。作成は 2026-02 で比較的新しい。README は中国語が中心。",
+  "tags": [
+    "AI エージェント",
+    "CLI",
+    "データ処理"
+  ],
+  "sources": [
+    "meta",
+    "readme",
+    "tree",
+    "manifest:pyproject.toml",
+    "release"
+  ],
+  "confidence": "medium",
+  "confidence_note": "README・release・pyproject は読んだが、実装（agent_reach/channels など）は読んでおらず、各バックエンドの動作は README の記述どおりとしている。"
+}
