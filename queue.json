@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-04",
+  "items": [
+    {
+      "repo": "pingdotgg/t3code",
+      "rank": 7,
+      "status": "new",
+      "work_dir": ".work/pingdotgg__t3code",
+      "output": "data/repos/pingdotgg__t3code.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:package.json",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "thedotmack/claude-mem",
+      "rank": 8,
+      "status": "new",
+      "work_dir": ".work/thedotmack__claude-mem",
+      "output": "data/repos/thedotmack__claude-mem.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:package.json",
+        "manifest:docker-compose.yml",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "cloudflare/cloudflare-os",
+      "rank": 9,
+      "status": "new",
+      "work_dir": ".work/cloudflare__cloudflare-os",
+      "output": "data/repos/cloudflare__cloudflare-os.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:package.json"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "rank": 10,
+      "status": "new",
+      "work_dir": ".work/addyosmani__agent-skills",
+      "output": "data/repos/addyosmani__agent-skills.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "jamwithai/production-agentic-rag-course",
+      "rank": 17,
+      "status": "new",
+      "work_dir": ".work/jamwithai__production-agentic-rag-course",
+      "output": "data/repos/jamwithai__production-agentic-rag-course.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:pyproject.toml",
+        "manifest:Dockerfile",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "meituan-longcat/LongCat-Video",
+      "rank": 18,
+      "status": "new",
+      "work_dir": ".work/meituan-longcat__LongCat-Video",
+      "output": "data/repos/meituan-longcat__LongCat-Video.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:requirements.txt"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "OpenCut-app/OpenCut",
+      "rank": 19,
+      "status": "new",
+      "work_dir": ".work/OpenCut-app__OpenCut",
+      "output": "data/repos/OpenCut-app__OpenCut.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:Cargo.toml",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "boykopovar/AnyPS5",
+      "rank": 18,
+      "status": "weekly",
+      "work_dir": ".work/boykopovar__AnyPS5",
+      "output": "data/repos/boykopovar__AnyPS5.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme",
+        "manifest:CMakeLists.txt",
+        "release"
+      ],
+      "errors": []
+    },
+    {
+      "repo": "humanlayer/skills",
+      "rank": 16,
+      "status": "monthly",
+      "work_dir": ".work/humanlayer__skills",
+      "output": "data/repos/humanlayer__skills.json",
+      "refresh": false,
+      "materials": [
+        "meta",
+        "tree",
+        "readme"
+      ],
+      "errors": []
+    }
+  ],
+  "deferred": []
+}

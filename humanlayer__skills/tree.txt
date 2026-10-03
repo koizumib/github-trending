@@ -1,0 +1,13 @@
+# ファイルとディレクトリの総数：72
+.claude-plugin/
+.claude-plugin/marketplace.json
+.gitignore
+LICENSE
+README.md
+plugins/
+plugins/build-iterated-agentic-loop/
+plugins/design-control-loop/
+plugins/improve-claude-md/
+plugins/narrow-react-prop-types/
+plugins/show-me/
+plugins/visual-pr/

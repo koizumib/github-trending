@@ -1,0 +1,20 @@
+{
+  "full_name": "OpenCut-app/OpenCut",
+  "description": "The open-source CapCut alternative",
+  "homepage": "https://opencut.app",
+  "topics": [
+    "editor",
+    "oss",
+    "videoeditor"
+  ],
+  "language": "TypeScript",
+  "stargazers_count": 91593,
+  "forks_count": 9055,
+  "size": 28243,
+  "created_at": "2025-06-22T08:02:17Z",
+  "pushed_at": "2026-09-24T09:24:44Z",
+  "default_branch": "main",
+  "archived": false,
+  "fork": false,
+  "license": "MIT"
+}
