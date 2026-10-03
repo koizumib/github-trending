@@ -36,3 +36,4 @@
 | [0030](0030-headline-serif-for-repo-names.md) | リポジトリ名と順位の数字を、Miller Text に近い新聞の書体（Gelasio）にする | 2026-10-03 | 有効 |
 | [0031](0031-star-history-chart.md) | 詳しいページに、star-history.com のスターの推移の画像を入れる（本文の節のひとつとして） | 2026-10-03 | 有効 |
 | [0032](0032-square-frame.md) | 紙面の全体を、四角い二重の枠で囲む | 2026-10-03 | 有効 |
+| [0033](0033-wide-screen-three-columns.md) | 広い画面では紙面を広げて3段に組み、トップ記事の右に脇の欄を置く | 2026-10-03 | 有効 |

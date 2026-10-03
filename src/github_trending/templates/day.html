@@ -5,6 +5,7 @@
 {# タブの題：トップは「github新聞」だけ（base.html の既定）、日付を指定したページは「github新聞（26/10/02）」（0026） #}
 {% block title %}{% if is_top %}{{ super() }}{% else %}github新聞（{{ page.date[2:].replace("-", "/") }}）{% if page.period != "daily" %} {{ period_name[page.period] }}{% endif %}{% endif %}{% endblock %}
 {% block description %}{{ page.date | ja_date }}の GitHub Trending（{{ period_name[page.period] }}）{{ page.cards | length }}件を日本語で要約。{% for c in page.cards[:3] if c.summary %}{{ c.repo }}：{{ c.summary.what | headline }}。{% endfor %}{% endblock %}
+{% set field_title = {"daily": ("本日の分野" if is_top else "この日の分野"), "weekly": "今週の分野", "monthly": "今月の分野"}[page.period] %}
 {% block main %}
 <header class="section-bar">
   <h1 class="visually-hidden">{{ page.date | ja_date }}の GitHub Trending（{{ period_name[page.period] }}）</h1>
@@ -26,6 +27,31 @@
 {% else %}
 <p>{% if page.period == "daily" %}この日の新着はありません。{% else %}この日のデータはありません。{% endif %}</p>
 {% endfor %}
+{% if page.cards %}
+{# 脇の欄：広い画面（3段組み）だけで、トップ記事の右に出す。分野と、ほかの期間の上位5件（0033） #}
+<aside class="sidebar" aria-label="脇の欄">
+  {% if page.fields %}
+  <section>
+    <h2>{{ field_title }}</h2>
+    <ul class="side-fields">{% for tag, n in page.fields %}<li><span>{{ tag }}</span><b>{{ n }}</b></li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+  {% for o in page.others %}
+  <section>
+    <h2><a href="{{ root }}{{ o.href }}">{{ period_name[o.period] }}の上位</a></h2>
+    <ol class="side-ranks">
+      {% for c in o.cards %}
+      <li>
+        <span class="rank">{{ c.rank }}</span>
+        <a class="side-title" href="{% if c.summary %}{{ root }}r/{{ c.repo }}/{% else %}https://github.com/{{ c.repo }}{% endif %}">{{ c.repo | repo_title }}</a>
+        {% if c.summary %}<span class="side-dek">{{ c.summary.what | headline }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endfor %}
+</aside>
+{% endif %}
 </div>
 
 {% if page.errors %}
@@ -41,7 +67,7 @@
 
 {% if page.fields %}
 <aside class="field-box" aria-label="分野の内訳">
-  <h2>{{ {"daily": ("本日の分野" if is_top else "この日の分野"), "weekly": "今週の分野", "monthly": "今月の分野"}[page.period] }}</h2>
+  <h2>{{ field_title }}</h2>
   <ul>
     {% for tag, n in page.fields %}<li><span>{{ tag }}</span><b>{{ n }}</b></li>{% endfor %}
   </ul>

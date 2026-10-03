@@ -455,3 +455,63 @@ footer.site .feed-link { display: inline-block; margin-top: 6px; color: var(--mu
   .tier-xl h2 { font-size: 34px; }
   .tier-xl .dek { font-size: 17px; max-width: 46rem; }
 }
+
+/* ---- 脇の欄（0033）：広い画面だけで、トップ記事の右に出す ---- */
+.sidebar { display: none; }
+.sidebar section + section { margin-top: 18px; }
+.sidebar h2 {
+  margin: 0 0 6px; padding-bottom: 4px; font-size: 13px; letter-spacing: 0.14em;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.sidebar h2 a { color: var(--ink); }
+.side-fields { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 0; padding: 0; font-size: 13px; }
+.side-fields li { white-space: nowrap; }
+.side-fields b { margin-left: 4px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.side-ranks { list-style: none; margin: 0; padding: 0; }
+.side-ranks li {
+  display: grid; grid-template-columns: 1.6em 1fr; column-gap: 8px;
+  padding: 4px 0; border-bottom: 1px solid var(--rule);
+}
+.side-ranks .rank { grid-row: span 2; font-size: 22px; line-height: 1.05; letter-spacing: 0; text-align: right; }
+.side-title { font-family: var(--font-headline); font-weight: 700; font-size: 16px; line-height: 1.25; color: var(--ink); overflow-wrap: anywhere; }
+.side-title .owner { display: inline; font-size: 12px; }
+.side-title .name { display: inline; }
+.side-dek {
+  font-size: 12.5px; line-height: 1.5; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+.sidebar h2 a::after { content: " →"; color: var(--accent); }  /* 見出しから、その期間のページへ */
+.side-ranks li:last-child { border-bottom: 0; }
+
+/* ---- 広い画面（0033）：紙面を 90rem まで広げ、記事を3段に組む。
+   トップ記事は2段分。右の段の上（トップ記事と次の行の2行分）に脇の欄を置き、2位・3位はトップ記事の下に入る ---- */
+@media (min-width: 1360px) {
+  .paper { max-width: 90rem; width: calc(100% - 28px); margin: 14px auto; }
+  main, footer.site { max-width: 90rem; }
+  .nameplate { max-width: calc(90rem - 56px); }
+  .cards { grid-template-columns: 1fr 1fr 1fr; }
+  .cards > .card:first-child { grid-column: 1 / 3; }
+  .sidebar {
+    display: block; position: relative; grid-column: 3; grid-row: 1 / 3;
+    padding: 18px 0 16px; border-bottom: 1px solid var(--rule-strong);
+  }
+  .sidebar::before {  /* 左の記事とのあいだの縦の罫線。下の行の罫線とつながるように */
+    content: ""; position: absolute; top: 18px; bottom: -1px; left: -22px;
+    border-left: 1px solid var(--rule); pointer-events: none;
+  }
+  /* 縦の罫線（2段組みの引き方を置き換える）：トップ記事の下の行は3位の左。
+     その下の行からは3件ずつ並ぶので、2段目・3段目の記事の左 */
+  .cards > .card:nth-child(odd):not(:first-child)::before { content: none; }
+  .cards > .card:nth-child(3):not(:first-child)::before,
+  .cards > .card:nth-child(3n+5):not(:first-child)::before,
+  .cards > .card:nth-child(3n+6):not(:first-child)::before {
+    content: ""; position: absolute; top: 0; bottom: -1px; left: -22px;
+    border-left: 1px solid var(--rule); pointer-events: none;
+  }
+  .cards > .card:nth-child(3):not(:first-child)::before { top: 18px; }  /* トップ記事の下の線と交わらないように */
+  /* 分野は脇の欄に出すので、末尾の囲みは出さない */
+  .cards ~ .field-box { display: none; }
+  /* 詳しいページの本文は3段組み */
+  .article-body { columns: 3; }
+}
+

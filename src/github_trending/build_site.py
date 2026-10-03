@@ -267,8 +267,14 @@ def build(config: Config, store: Store | None = None, out: Path | None = None) -
                     p: ((top_href(p) if is_top else dated_href(day, p)) if pages[(day, p)] else None)
                     for p in PERIODS
                 }
+                # 広い画面の脇の欄に出す、同じ日のほかの期間の上位5件（0033）
+                others = [
+                    {"period": p, "href": tabs[p], "cards": pages[(day, p)]["cards"][:5]}
+                    for p in PERIODS if p != period and pages[(day, p)]
+                ]
                 html = day_tpl.render(
-                    root=depth_root(href), path=href, page=dict(page, tabs=tabs), nav=nav, is_top=is_top,
+                    root=depth_root(href), path=href, page=dict(page, tabs=tabs, others=others), nav=nav,
+                    is_top=is_top,
                 )
                 _write(out / href / "index.html", html)
                 urls.append((href, day))

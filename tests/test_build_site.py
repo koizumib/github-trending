@@ -231,3 +231,26 @@ def test_repo_page_has_star_history_chart(tmp_path):
     assert 'src="https://api.star-history.com/chart?repos=o/r&amp;type=date"' in repo
     assert 'src="https://api.star-history.com/chart?repos=o/r&amp;type=date&amp;theme=dark"' in repo
     assert 'href="https://www.star-history.com/?repos=o/r&amp;type=date"' in repo
+
+
+def test_sidebar_lists_other_periods_top5(tmp_path):
+    import re
+
+    store = make_store(tmp_path)
+    store.save_period("weekly", dt.date(2026, 9, 30), [
+        {"rank": i, "repo": f"w/r{i}", "description": "", "language": None, "stars": 1, "stars_period": 1}
+        for i in range(1, 8)
+    ])
+    out = build(Config(), store, tmp_path / "site")
+
+    # 日次のページの脇の欄：分野と、週次の上位5件（6位以下は出さない）。月次はデータがないので出さない
+    index = (out / "index.html").read_text()
+    side = re.search(r'<aside class="sidebar".*?</aside>', index, re.S).group(0)
+    assert "本日の分野" in side
+    assert '<a href="weekly/">週次の上位</a>' in side
+    assert "r5</span>" in side and "r6</span>" not in side
+    assert "月次の上位" not in side
+    # 週次のページの脇の欄には、日次（トップでは「本日」）の上位。要約のあるものは詳しいページへ
+    weekly = (out / "weekly/index.html").read_text()
+    side = re.search(r'<aside class="sidebar".*?</aside>', weekly, re.S).group(0)
+    assert '<a href="../">本日の上位</a>' in side and 'href="../r/o/r/"' in side
