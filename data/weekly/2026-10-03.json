@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-03",
+  "period": "weekly",
+  "items": [
+    {
+      "rank": 1,
+      "repo": "paperclipai/paperclip",
+      "description": "The open-source app everyone uses to manage agents at work",
+      "language": "TypeScript",
+      "stars": 96286,
+      "stars_period": 14335
+    },
+    {
+      "rank": 2,
+      "repo": "vectorize-io/hindsight",
+      "description": "Hindsight: Agent Memory That Learns",
+      "language": "Python",
+      "stars": 44691,
+      "stars_period": 17403
+    },
+    {
+      "rank": 3,
+      "repo": "debpalash/VoiceStudio",
+      "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+      "language": "Python",
+      "stars": 51884,
+      "stars_period": 16114
+    },
+    {
+      "rank": 4,
+      "repo": "rohitg00/ai-engineering-from-scratch",
+      "description": "Learn it. Build it. Ship it for others.",
+      "language": "Python",
+      "stars": 62697,
+      "stars_period": 6469
+    },
+    {
+      "rank": 5,
+      "repo": "flutter/flutter",
+      "description": "Flutter makes it easy and fast to build beautiful apps for mobile and beyond",
+      "language": "Dart",
+      "stars": 179255,
+      "stars_period": 147
+    },
+    {
+      "rank": 6,
+      "repo": "pbakaus/impeccable",
+      "description": "The design language that makes your AI harness better at design.",
+      "language": "JavaScript",
+      "stars": 74305,
+      "stars_period": 2704
+    },
+    {
+      "rank": 7,
+      "repo": "vercel/next.js",
+      "description": "The React Framework",
+      "language": "JavaScript",
+      "stars": 143002,
+      "stars_period": 624
+    },
+    {
+      "rank": 8,
+      "repo": "alirezarezvani/claude-skills",
+      "description": "380 Claude Code skills & agent skills & plugins (30+ Agents, 70+ custom commands, 380+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations, commercial & finance, and your daily productivity skills.",
+      "language": "Python",
+      "stars": 27309,
+      "stars_period": 743
+    },
+    {
+      "rank": 9,
+      "repo": "heygen-com/hyperframes",
+      "description": "Write HTML. Render video. Built for agents.",
+      "language": "TypeScript",
+      "stars": 55885,
+      "stars_period": 2667
+    },
+    {
+      "rank": 10,
+      "repo": "TencentCloud/Octop",
+      "description": "A smarter, self-hosted AI assistant — multi-user, multi-agent.",
+      "language": "Python",
+      "stars": 6390,
+      "stars_period": 1360
+    },
+    {
+      "rank": 11,
+      "repo": "google/ax",
+      "description": "Google's open agentic orchestration runtime",
+      "language": "Go",
+      "stars": 12904,
+      "stars_period": 2919
+    },
+    {
+      "rank": 12,
+      "repo": "anthropics/financial-services",
+      "description": "",
+      "language": "Python",
+      "stars": 38541,
+      "stars_period": 1270
+    },
+    {
+      "rank": 13,
+      "repo": "tile-ai/tilelang",
+      "description": "Domain-specific language designed to streamline the development of high-performance GPU/CPU/Accelerators kernels",
+      "language": "Python",
+      "stars": 8241,
+      "stars_period": 481
+    },
+    {
+      "rank": 14,
+      "repo": "anthropics/claude-code-action",
+      "description": "",
+      "language": "TypeScript",
+      "stars": 9374,
+      "stars_period": 376
+    },
+    {
+      "rank": 15,
+      "repo": "pytorch/pytorch",
+      "description": "Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+      "language": "Python",
+      "stars": 103625,
+      "stars_period": 376
+    },
+    {
+      "rank": 16,
+      "repo": "harry0703/MoneyPrinterTurbo",
+      "description": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
+      "language": "Python",
+      "stars": 128085,
+      "stars_period": 2548
+    },
+    {
+      "rank": 17,
+      "repo": "pablostanley/yoinks",
+      "description": "yoink any video from your terminal. no shady ads.",
+      "language": "TypeScript",
+      "stars": 3491,
+      "stars_period": 1069
+    }
+  ]
+}

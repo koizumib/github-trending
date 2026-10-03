@@ -9,7 +9,14 @@
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
+    ]
+  },
+  "Effect-TS/effect": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
     ]
   },
   "Friedrich-M/UniMate": {
@@ -24,18 +31,31 @@
       "2026-10-02"
     ]
   },
+  "JuliusBrussee/caveman": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
+    ]
+  },
   "NVIDIA/OpenShell": {
     "first_seen": "2026-09-30",
     "seen": [
       "2026-09-30",
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "NawfalMotii79/PLFM_RADAR": {
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01"
+    ]
+  },
+  "Panniantong/Agent-Reach": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
     ]
   },
   "VectifyAI/PageIndex": {
@@ -60,7 +80,14 @@
   "colbymchenry/codegraph": {
     "first_seen": "2026-10-01",
     "seen": [
-      "2026-10-01"
+      "2026-10-01",
+      "2026-10-03"
+    ]
+  },
+  "coreyhaines31/marketingskills": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
     ]
   },
   "cs341-illinois/coursebook": {
@@ -72,7 +99,8 @@
   "cursor/plugins": {
     "first_seen": "2026-10-02",
     "seen": [
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "debpalash/VoiceStudio": {
@@ -101,6 +129,18 @@
       "2026-10-02"
     ]
   },
+  "getsentry/sentry": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
+    ]
+  },
+  "google/skills": {
+    "first_seen": "2026-10-03",
+    "seen": [
+      "2026-10-03"
+    ]
+  },
   "harry0703/MoneyPrinterTurbo": {
     "first_seen": "2026-10-01",
     "seen": [
@@ -111,21 +151,24 @@
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "mattpocock/skills": {
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "mksglu/context-mode": {
     "first_seen": "2026-10-01",
     "seen": [
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "modelcontextprotocol/servers": {
@@ -139,7 +182,8 @@
     "seen": [
       "2026-09-30",
       "2026-10-01",
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "oblien/openship": {
@@ -151,7 +195,8 @@
   "obra/superpowers": {
     "first_seen": "2026-10-02",
     "seen": [
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "openclaw/openclaw": {
@@ -163,7 +208,8 @@
   "pablostanley/yoinks": {
     "first_seen": "2026-10-02",
     "seen": [
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "paperclipai/paperclip": {
@@ -175,7 +221,8 @@
   "pbakaus/impeccable": {
     "first_seen": "2026-10-02",
     "seen": [
-      "2026-10-02"
+      "2026-10-02",
+      "2026-10-03"
     ]
   },
   "rakyll/hey": {
